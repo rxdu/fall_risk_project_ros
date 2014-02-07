@@ -1,0 +1,8 @@
+prefix=/home/turtlebot/catkin_ws/devel
+
+Name: fall_risk_assessment
+Description: Description of fall_risk_assessment
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/turtlebot/catkin_ws/devel/lib 
+Requires: 

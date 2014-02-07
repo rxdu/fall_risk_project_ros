@@ -1,0 +1,8 @@
+prefix=/home/turtlebot/catkin_ws/devel
+
+Name: kinect_distance
+Description: Description of kinect_distance
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/turtlebot/catkin_ws/devel/lib 
+Requires: 

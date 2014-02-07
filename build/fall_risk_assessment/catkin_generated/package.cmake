@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "fall_risk_assessment")
+set(fall_risk_assessment_MAINTAINER "turtlebot <turtlebot@todo.todo>")
+set(fall_risk_assessment_DEPRECATED "")
+set(fall_risk_assessment_VERSION "0.0.0")
+set(fall_risk_assessment_BUILD_DEPENDS "pcl" "pcl_ros" "roscpp" "sensor_msgs")
+set(fall_risk_assessment_RUN_DEPENDS "pcl" "pcl_ros" "roscpp" "sensor_msgs")
+set(fall_risk_assessment_BUILDTOOL_DEPENDS "catkin")

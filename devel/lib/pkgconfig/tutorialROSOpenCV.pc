@@ -1,0 +1,8 @@
+prefix=/home/turtlebot/catkin_ws/devel
+
+Name: tutorialROSOpenCV
+Description: Description of tutorialROSOpenCV
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/turtlebot/catkin_ws/devel/lib 
+Requires: 
