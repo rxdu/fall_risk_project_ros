@@ -15,10 +15,10 @@ For example, the tutorial gives:
 
 ```
 $ sudo apt-get install ros-fuerte-camera-umd
-
+```
 
 Then you need to change it to:
 
 ```
 $ sudo apt-get install ros-groovy-camera-umd
-
+```
