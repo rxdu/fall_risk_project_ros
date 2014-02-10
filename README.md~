@@ -51,6 +51,5 @@ $ sudo apt-get install ros-groovy-camera-umd
 
 Follow this tutorial to lean how to use cv_bridge
 
-```
 http://wiki.ros.org/cv_bridge/Tutorials/UsingCvBridgeToConvertBetweenROSImagesAndOpenCVImages
-```
+
