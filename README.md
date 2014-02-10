@@ -27,13 +27,15 @@ roslaunch fall_risk_assessment kinect_ref_line.launch
 ```
 
 
-2.How to get image topics from a webcam
+2.How to get use OpenCV in a ROS node
 
-Follow the following article:
+This article can give you a idea about how it works:
 
 http://siddhantahuja.wordpress.com/2011/07/20/working-with-ros-and-opencv-draft/
 
-When you install required package, make sure you are installing the right version.
+But it is out of dated and using the old rosbuild rather than catkin. 
+
+If you still want to follow this article, make sure to make adjustments.
 
 For example, the tutorial gives:
 
@@ -47,4 +49,8 @@ Then you need to change it to:
 $ sudo apt-get install ros-groovy-camera-umd
 ```
 
+Follow this tutorial to lean how to use cv_bridge
 
+```
+http://wiki.ros.org/cv_bridge/Tutorials/UsingCvBridgeToConvertBetweenROSImagesAndOpenCVImages
+```

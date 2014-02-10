@@ -1,0 +1,8 @@
+prefix=/home/turtlebot/catkin_ws/install
+
+Name: kinect_depth
+Description: Description of kinect_depth
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/turtlebot/catkin_ws/install/lib 
+Requires: 

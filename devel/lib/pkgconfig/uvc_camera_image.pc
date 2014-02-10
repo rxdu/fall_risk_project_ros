@@ -1,0 +1,8 @@
+prefix=/home/turtlebot/catkin_ws/devel
+
+Name: uvc_camera_image
+Description: Description of uvc_camera_image
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/turtlebot/catkin_ws/devel/lib 
+Requires: 

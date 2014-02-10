@@ -147,20 +147,6 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-kinect_distance/CMakeFiles/dist_pub.dir/rule:
-	cd /home/turtlebot/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 kinect_distance/CMakeFiles/dist_pub.dir/rule
-.PHONY : kinect_distance/CMakeFiles/dist_pub.dir/rule
-
-# Convenience name for target.
-dist_pub: kinect_distance/CMakeFiles/dist_pub.dir/rule
-.PHONY : dist_pub
-
-# fast build rule for target.
-dist_pub/fast:
-	cd /home/turtlebot/catkin_ws/build && $(MAKE) -f kinect_distance/CMakeFiles/dist_pub.dir/build.make kinect_distance/CMakeFiles/dist_pub.dir/build
-.PHONY : dist_pub/fast
-
-# Convenience name for target.
 kinect_distance/CMakeFiles/image_center_dist.dir/rule:
 	cd /home/turtlebot/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 kinect_distance/CMakeFiles/image_center_dist.dir/rule
 .PHONY : kinect_distance/CMakeFiles/image_center_dist.dir/rule
@@ -187,30 +173,6 @@ image_ref_line: kinect_distance/CMakeFiles/image_ref_line.dir/rule
 image_ref_line/fast:
 	cd /home/turtlebot/catkin_ws/build && $(MAKE) -f kinect_distance/CMakeFiles/image_ref_line.dir/build.make kinect_distance/CMakeFiles/image_ref_line.dir/build
 .PHONY : image_ref_line/fast
-
-src/dist_pub.o: src/dist_pub.cpp.o
-.PHONY : src/dist_pub.o
-
-# target to build an object file
-src/dist_pub.cpp.o:
-	cd /home/turtlebot/catkin_ws/build && $(MAKE) -f kinect_distance/CMakeFiles/dist_pub.dir/build.make kinect_distance/CMakeFiles/dist_pub.dir/src/dist_pub.cpp.o
-.PHONY : src/dist_pub.cpp.o
-
-src/dist_pub.i: src/dist_pub.cpp.i
-.PHONY : src/dist_pub.i
-
-# target to preprocess a source file
-src/dist_pub.cpp.i:
-	cd /home/turtlebot/catkin_ws/build && $(MAKE) -f kinect_distance/CMakeFiles/dist_pub.dir/build.make kinect_distance/CMakeFiles/dist_pub.dir/src/dist_pub.cpp.i
-.PHONY : src/dist_pub.cpp.i
-
-src/dist_pub.s: src/dist_pub.cpp.s
-.PHONY : src/dist_pub.s
-
-# target to generate assembly for a file
-src/dist_pub.cpp.s:
-	cd /home/turtlebot/catkin_ws/build && $(MAKE) -f kinect_distance/CMakeFiles/dist_pub.dir/build.make kinect_distance/CMakeFiles/dist_pub.dir/src/dist_pub.cpp.s
-.PHONY : src/dist_pub.cpp.s
 
 src/image_center_dist.o: src/image_center_dist.cpp.o
 .PHONY : src/image_center_dist.o
@@ -266,7 +228,6 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... dist_pub"
 	@echo "... edit_cache"
 	@echo "... image_center_dist"
 	@echo "... image_ref_line"
@@ -276,9 +237,6 @@ help:
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... test"
-	@echo "... src/dist_pub.o"
-	@echo "... src/dist_pub.i"
-	@echo "... src/dist_pub.s"
 	@echo "... src/image_center_dist.o"
 	@echo "... src/image_center_dist.i"
 	@echo "... src/image_center_dist.s"

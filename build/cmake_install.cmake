@@ -85,9 +85,11 @@ ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unsp
 IF(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   INCLUDE("/home/turtlebot/catkin_ws/build/gtest/cmake_install.cmake")
-  INCLUDE("/home/turtlebot/catkin_ws/build/beginner_tutorials/cmake_install.cmake")
   INCLUDE("/home/turtlebot/catkin_ws/build/fall_risk_assessment/cmake_install.cmake")
+  INCLUDE("/home/turtlebot/catkin_ws/build/kinect_depth/cmake_install.cmake")
   INCLUDE("/home/turtlebot/catkin_ws/build/kinect_distance/cmake_install.cmake")
+  INCLUDE("/home/turtlebot/catkin_ws/build/kinect_image/cmake_install.cmake")
+  INCLUDE("/home/turtlebot/catkin_ws/build/uvc_camera_image/cmake_install.cmake")
 
 ENDIF(NOT CMAKE_INSTALL_LOCAL_ONLY)
 

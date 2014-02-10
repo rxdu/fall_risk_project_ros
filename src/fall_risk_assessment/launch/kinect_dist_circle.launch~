@@ -1,0 +1,7 @@
+<launch>
+  <include file="$(find openni_launch)/launch/openni.launch"> 
+  </include>
+  <node name="distance_publisher" pkg="kinect_depth" type="distance_publisher"/>
+  <node name="image_center_distance" pkg="kinect_image" type="image_center_distance"/>
+  <node name="mjpeg_server" pkg="mjpeg_server" type="mjpeg_server" />
+</launch>

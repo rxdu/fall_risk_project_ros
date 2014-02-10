@@ -202,6 +202,9 @@ LSB_RELEASE_EXECUTABLE:FILEPATH=/usr/bin/lsb_release
 //Path to a program.
 NOSETESTS:FILEPATH=/usr/bin/nosetests
 
+//The directory containing a CMake configuration file for OpenCV.
+OpenCV_DIR:PATH=OpenCV_DIR-NOTFOUND
+
 //Path to a program.
 PYTHON_EXECUTABLE:FILEPATH=/usr/bin/python
 
@@ -302,11 +305,26 @@ gtest_main_LIB_DEPENDS:STATIC=general;-lpthread;general;gtest;
 //The directory containing a CMake configuration file for image_transport.
 image_transport_DIR:PATH=/opt/ros/groovy/share/image_transport/cmake
 
+//The directory containing a CMake configuration file for image_transports.
+image_transports_DIR:PATH=image_transports_DIR-NOTFOUND
+
+//Value Computed by CMake
+kinect_depth_BINARY_DIR:STATIC=/home/turtlebot/catkin_ws/build/kinect_depth
+
+//Value Computed by CMake
+kinect_depth_SOURCE_DIR:STATIC=/home/turtlebot/catkin_ws/src/kinect_depth
+
 //Value Computed by CMake
 kinect_distance_BINARY_DIR:STATIC=/home/turtlebot/catkin_ws/build/kinect_distance
 
 //Value Computed by CMake
 kinect_distance_SOURCE_DIR:STATIC=/home/turtlebot/catkin_ws/src/kinect_distance
+
+//Value Computed by CMake
+kinect_image_BINARY_DIR:STATIC=/home/turtlebot/catkin_ws/build/kinect_image
+
+//Value Computed by CMake
+kinect_image_SOURCE_DIR:STATIC=/home/turtlebot/catkin_ws/src/kinect_image
 
 //Path to a library.
 lib:FILEPATH=/opt/ros/groovy/lib/libroslib.so
@@ -323,8 +341,14 @@ my_pcl_tutorial_BINARY_DIR:STATIC=/home/turtlebot/catkin_ws/build/my_pcl_tutoria
 //Value Computed by CMake
 my_pcl_tutorial_SOURCE_DIR:STATIC=/home/turtlebot/catkin_ws/src/my_pcl_tutorial
 
+//The directory containing a CMake configuration file for openCV.
+openCV_DIR:PATH=openCV_DIR-NOTFOUND
+
 //The directory containing a CMake configuration file for opencv2.
 opencv2_DIR:PATH=opencv2_DIR-NOTFOUND
+
+//The directory containing a CMake configuration file for opencv.
+opencv_DIR:PATH=opencv_DIR-NOTFOUND
 
 //The directory containing a CMake configuration file for pcl.
 pcl_DIR:PATH=/opt/ros/groovy/share/pcl/cmake
@@ -362,6 +386,9 @@ rostime_DIR:PATH=/opt/ros/groovy/share/rostime/cmake
 //The directory containing a CMake configuration file for sensor_msgs.
 sensor_msgs_DIR:PATH=/opt/ros/groovy/share/sensor_msgs/cmake
 
+//The directory containing a CMake configuration file for std_msg.
+std_msg_DIR:PATH=std_msg_DIR-NOTFOUND
+
 //The directory containing a CMake configuration file for std_msgs.
 std_msgs_DIR:PATH=/opt/ros/groovy/share/std_msgs/cmake
 
@@ -376,6 +403,12 @@ tutorialROSOpenCV_SOURCE_DIR:STATIC=/home/turtlebot/catkin_ws/src/tutorialROSOpe
 
 //The directory containing a CMake configuration file for uvc_camera.
 uvc_camera_DIR:PATH=uvc_camera_DIR-NOTFOUND
+
+//Value Computed by CMake
+uvc_camera_image_BINARY_DIR:STATIC=/home/turtlebot/catkin_ws/build/uvc_camera_image
+
+//Value Computed by CMake
+uvc_camera_image_SOURCE_DIR:STATIC=/home/turtlebot/catkin_ws/src/uvc_camera_image
 
 //The directory containing a CMake configuration file for xmlrpcpp.
 xmlrpcpp_DIR:PATH=/opt/ros/groovy/share/xmlrpcpp/cmake
@@ -484,7 +517,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_LOCAL_GENERATORS:INTERNAL=5
+CMAKE_NUMBER_OF_LOCAL_GENERATORS:INTERNAL=7
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
