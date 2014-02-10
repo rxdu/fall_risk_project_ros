@@ -4,7 +4,7 @@ FallRiskProjectROS
 RIVeR Lab, WPI
 
 
-1. Launch Files
+1.Launch Files
 
 You can find most launch files in fall_risk_assessment package.
 
@@ -27,7 +27,7 @@ roslaunch fall_risk_assessment kinect_ref_line.launch
 ```
 
 
-2. How to get image topics from a webcam
+2.How to get image topics from a webcam
 
 Follow the following article:
 

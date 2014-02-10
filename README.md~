@@ -26,6 +26,7 @@ Draw reference lines on a image from kinect:
 roslaunch fall_risk_assessment kinect_ref_line.launch 
 ```
 
+
 2. How to get image topics from a webcam
 
 Follow the following article:
