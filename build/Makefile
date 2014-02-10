@@ -640,19 +640,6 @@ image_center_dist/fast:
 	$(MAKE) -f kinect_distance/CMakeFiles/image_center_dist.dir/build.make kinect_distance/CMakeFiles/image_center_dist.dir/build
 .PHONY : image_center_dist/fast
 
-#=============================================================================
-# Target rules for targets named openni_viewer_simple
-
-# Build rule for target.
-openni_viewer_simple: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 openni_viewer_simple
-.PHONY : openni_viewer_simple
-
-# fast build rule for target.
-openni_viewer_simple/fast:
-	$(MAKE) -f my_pcl_tutorial/CMakeFiles/openni_viewer_simple.dir/build.make my_pcl_tutorial/CMakeFiles/openni_viewer_simple.dir/build
-.PHONY : openni_viewer_simple/fast
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -704,7 +691,6 @@ help:
 	@echo "... tf_generate_messages_py"
 	@echo "... dist_pub"
 	@echo "... image_center_dist"
-	@echo "... openni_viewer_simple"
 .PHONY : help
 
 

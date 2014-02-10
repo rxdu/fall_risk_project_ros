@@ -63,6 +63,9 @@ public:
     	//std::string txtLabel = str( boost::format("%d") % cv_ptr->image.at<float>(320,240));
     	std::string txtLabel = str( boost::format("%d") % center_dist);
 
+        cv::line(cv_ptr->image,cv::Point(cv_ptr->image.cols/5,cv_ptr->image.rows), cv::Point(cv_ptr->image.cols/3,cv_ptr->image.rows/2),cv::Scalar(255,0,0),1,8,0);
+                cv::line(cv_ptr->image,cv::Point(cv_ptr->image.cols/5*4,cv_ptr->image.rows), cv::Point(cv_ptr->image.cols/3*2,cv_ptr->image.rows/2),cv::Scalar(255,0,0),1,8,0);
+
     	cv::circle(cv_ptr->image, cv::Point(cv_ptr->image.cols/2, cv_ptr->image.rows/2+30), 10, CV_RGB(255,0,0));
 	//cv::circle(cv_ptr->image, cv::Point(320,240), 15, CV_RGB(255,0,0)); 
 

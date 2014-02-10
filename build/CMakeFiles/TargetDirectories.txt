@@ -17,7 +17,6 @@
 /home/turtlebot/catkin_ws/build/gtest/CMakeFiles/gtest_main.dir
 /home/turtlebot/catkin_ws/build/kinect_distance/CMakeFiles/image_center_dist.dir
 /home/turtlebot/catkin_ws/build/beginner_tutorials/CMakeFiles/listener.dir
-/home/turtlebot/catkin_ws/build/my_pcl_tutorial/CMakeFiles/openni_viewer_simple.dir
 /home/turtlebot/catkin_ws/build/fall_risk_assessment/CMakeFiles/pcl_ros_gencfg.dir
 /home/turtlebot/catkin_ws/build/beginner_tutorials/CMakeFiles/roscpp_generate_messages_cpp.dir
 /home/turtlebot/catkin_ws/build/beginner_tutorials/CMakeFiles/roscpp_generate_messages_lisp.dir

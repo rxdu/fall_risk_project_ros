@@ -88,7 +88,6 @@ IF(NOT CMAKE_INSTALL_LOCAL_ONLY)
   INCLUDE("/home/turtlebot/catkin_ws/build/beginner_tutorials/cmake_install.cmake")
   INCLUDE("/home/turtlebot/catkin_ws/build/fall_risk_assessment/cmake_install.cmake")
   INCLUDE("/home/turtlebot/catkin_ws/build/kinect_distance/cmake_install.cmake")
-  INCLUDE("/home/turtlebot/catkin_ws/build/my_pcl_tutorial/cmake_install.cmake")
 
 ENDIF(NOT CMAKE_INSTALL_LOCAL_ONLY)
 

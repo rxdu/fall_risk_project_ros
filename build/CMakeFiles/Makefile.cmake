@@ -21,8 +21,6 @@ SET(CMAKE_MAKEFILE_DEPENDS
   "fall_risk_assessment/catkin_generated/package.cmake"
   "kinect_distance/catkin_generated/ordered_paths.cmake"
   "kinect_distance/catkin_generated/package.cmake"
-  "my_pcl_tutorial/catkin_generated/ordered_paths.cmake"
-  "my_pcl_tutorial/catkin_generated/package.cmake"
   "/home/turtlebot/catkin_ws/devel/share/beginner_tutorials/cmake/beginner_tutorials-msg-paths.cmake"
   "/home/turtlebot/catkin_ws/src/CMakeLists.txt"
   "/home/turtlebot/catkin_ws/src/beginner_tutorials/CMakeLists.txt"
@@ -31,8 +29,6 @@ SET(CMAKE_MAKEFILE_DEPENDS
   "/home/turtlebot/catkin_ws/src/fall_risk_assessment/package.xml"
   "/home/turtlebot/catkin_ws/src/kinect_distance/CMakeLists.txt"
   "/home/turtlebot/catkin_ws/src/kinect_distance/package.xml"
-  "/home/turtlebot/catkin_ws/src/my_pcl_tutorial/CMakeLists.txt"
-  "/home/turtlebot/catkin_ws/src/my_pcl_tutorial/package.xml"
   "/opt/ros/groovy/share/catkin/cmake/../package.xml"
   "/opt/ros/groovy/share/catkin/cmake/all.cmake"
   "/opt/ros/groovy/share/catkin/cmake/assert.cmake"
@@ -194,7 +190,6 @@ SET(CMAKE_MAKEFILE_PRODUCTS
   "beginner_tutorials/CMakeFiles/CMakeDirectoryInformation.cmake"
   "fall_risk_assessment/CMakeFiles/CMakeDirectoryInformation.cmake"
   "kinect_distance/CMakeFiles/CMakeDirectoryInformation.cmake"
-  "my_pcl_tutorial/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
@@ -237,5 +232,4 @@ SET(CMAKE_DEPEND_INFO_FILES
   "fall_risk_assessment/CMakeFiles/tf_generate_messages_py.dir/DependInfo.cmake"
   "kinect_distance/CMakeFiles/dist_pub.dir/DependInfo.cmake"
   "kinect_distance/CMakeFiles/image_center_dist.dir/DependInfo.cmake"
-  "my_pcl_tutorial/CMakeFiles/openni_viewer_simple.dir/DependInfo.cmake"
   )
