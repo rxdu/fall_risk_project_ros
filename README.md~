@@ -33,7 +33,7 @@ This article can give you a idea about how it works:
 
 http://siddhantahuja.wordpress.com/2011/07/20/working-with-ros-and-opencv-draft/
 
-But it is out of dated. 
+But it is out of dated and using the old rosbuild rather than catkin. 
 
 If you still want to follow this article, make sure to make adjustments.
 
