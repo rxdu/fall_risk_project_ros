@@ -137,3 +137,7 @@ target_link_libraries(dist_pub ${catkin_LIBRARIES})
 
 add_executable(image_center_dist src/image_center_dist.cpp)
 target_link_libraries(image_center_dist ${catkin_LIBRARIES})
+
+add_executable(image_ref_line src/image_ref_line.cpp)
+target_link_libraries(image_ref_line ${catkin_LIBRARIES})
+

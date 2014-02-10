@@ -130,3 +130,10 @@ include_directories(
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+include_directories(include ${catkin_INCLUDE_DIRS})
+
+add_executable(dist_pub src/dist_pub.cpp)
+target_link_libraries(dist_pub ${catkin_LIBRARIES})
+
+add_executable(image_center_dist src/image_center_dist.cpp)
+target_link_libraries(image_center_dist ${catkin_LIBRARIES})

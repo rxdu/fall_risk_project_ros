@@ -174,6 +174,20 @@ image_center_dist/fast:
 	cd /home/turtlebot/catkin_ws/build && $(MAKE) -f kinect_distance/CMakeFiles/image_center_dist.dir/build.make kinect_distance/CMakeFiles/image_center_dist.dir/build
 .PHONY : image_center_dist/fast
 
+# Convenience name for target.
+kinect_distance/CMakeFiles/image_ref_line.dir/rule:
+	cd /home/turtlebot/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 kinect_distance/CMakeFiles/image_ref_line.dir/rule
+.PHONY : kinect_distance/CMakeFiles/image_ref_line.dir/rule
+
+# Convenience name for target.
+image_ref_line: kinect_distance/CMakeFiles/image_ref_line.dir/rule
+.PHONY : image_ref_line
+
+# fast build rule for target.
+image_ref_line/fast:
+	cd /home/turtlebot/catkin_ws/build && $(MAKE) -f kinect_distance/CMakeFiles/image_ref_line.dir/build.make kinect_distance/CMakeFiles/image_ref_line.dir/build
+.PHONY : image_ref_line/fast
+
 src/dist_pub.o: src/dist_pub.cpp.o
 .PHONY : src/dist_pub.o
 
@@ -222,6 +236,30 @@ src/image_center_dist.cpp.s:
 	cd /home/turtlebot/catkin_ws/build && $(MAKE) -f kinect_distance/CMakeFiles/image_center_dist.dir/build.make kinect_distance/CMakeFiles/image_center_dist.dir/src/image_center_dist.cpp.s
 .PHONY : src/image_center_dist.cpp.s
 
+src/image_ref_line.o: src/image_ref_line.cpp.o
+.PHONY : src/image_ref_line.o
+
+# target to build an object file
+src/image_ref_line.cpp.o:
+	cd /home/turtlebot/catkin_ws/build && $(MAKE) -f kinect_distance/CMakeFiles/image_ref_line.dir/build.make kinect_distance/CMakeFiles/image_ref_line.dir/src/image_ref_line.cpp.o
+.PHONY : src/image_ref_line.cpp.o
+
+src/image_ref_line.i: src/image_ref_line.cpp.i
+.PHONY : src/image_ref_line.i
+
+# target to preprocess a source file
+src/image_ref_line.cpp.i:
+	cd /home/turtlebot/catkin_ws/build && $(MAKE) -f kinect_distance/CMakeFiles/image_ref_line.dir/build.make kinect_distance/CMakeFiles/image_ref_line.dir/src/image_ref_line.cpp.i
+.PHONY : src/image_ref_line.cpp.i
+
+src/image_ref_line.s: src/image_ref_line.cpp.s
+.PHONY : src/image_ref_line.s
+
+# target to generate assembly for a file
+src/image_ref_line.cpp.s:
+	cd /home/turtlebot/catkin_ws/build && $(MAKE) -f kinect_distance/CMakeFiles/image_ref_line.dir/build.make kinect_distance/CMakeFiles/image_ref_line.dir/src/image_ref_line.cpp.s
+.PHONY : src/image_ref_line.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -231,6 +269,7 @@ help:
 	@echo "... dist_pub"
 	@echo "... edit_cache"
 	@echo "... image_center_dist"
+	@echo "... image_ref_line"
 	@echo "... install"
 	@echo "... install/local"
 	@echo "... install/strip"
@@ -243,6 +282,9 @@ help:
 	@echo "... src/image_center_dist.o"
 	@echo "... src/image_center_dist.i"
 	@echo "... src/image_center_dist.s"
+	@echo "... src/image_ref_line.o"
+	@echo "... src/image_ref_line.i"
+	@echo "... src/image_ref_line.s"
 .PHONY : help
 
 

@@ -232,4 +232,5 @@ SET(CMAKE_DEPEND_INFO_FILES
   "fall_risk_assessment/CMakeFiles/tf_generate_messages_py.dir/DependInfo.cmake"
   "kinect_distance/CMakeFiles/dist_pub.dir/DependInfo.cmake"
   "kinect_distance/CMakeFiles/image_center_dist.dir/DependInfo.cmake"
+  "kinect_distance/CMakeFiles/image_ref_line.dir/DependInfo.cmake"
   )

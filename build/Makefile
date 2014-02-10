@@ -640,6 +640,19 @@ image_center_dist/fast:
 	$(MAKE) -f kinect_distance/CMakeFiles/image_center_dist.dir/build.make kinect_distance/CMakeFiles/image_center_dist.dir/build
 .PHONY : image_center_dist/fast
 
+#=============================================================================
+# Target rules for targets named image_ref_line
+
+# Build rule for target.
+image_ref_line: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 image_ref_line
+.PHONY : image_ref_line
+
+# fast build rule for target.
+image_ref_line/fast:
+	$(MAKE) -f kinect_distance/CMakeFiles/image_ref_line.dir/build.make kinect_distance/CMakeFiles/image_ref_line.dir/build
+.PHONY : image_ref_line/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -691,6 +704,7 @@ help:
 	@echo "... tf_generate_messages_py"
 	@echo "... dist_pub"
 	@echo "... image_center_dist"
+	@echo "... image_ref_line"
 .PHONY : help
 
 
