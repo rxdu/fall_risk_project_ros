@@ -55,13 +55,8 @@ public:
 
     if (cv_ptr->image.rows > 60 && cv_ptr->image.cols > 60)
     {
-        std::string txtLabel = str( boost::format("%d") % center_dist);
-
         cv::line(cv_ptr->image,cv::Point(cv_ptr->image.cols/5,cv_ptr->image.rows), cv::Point(cv_ptr->image.cols/3,cv_ptr->image.rows/2),cv::Scalar(255,0,0),1,8,0);
         cv::line(cv_ptr->image,cv::Point(cv_ptr->image.cols/5*4,cv_ptr->image.rows), cv::Point(cv_ptr->image.cols/3*2,cv_ptr->image.rows/2),cv::Scalar(255,0,0),1,8,0);
-
-        cv::circle(cv_ptr->image, cv::Point(cv_ptr->image.cols/2, cv_ptr->image.rows/2+30), 10, CV_RGB(255,0,0));
-        cv::putText(cv_ptr->image, txtLabel, cv::Point(cv_ptr->image.cols/2+10, cv_ptr->image.rows/2-5), cv::FONT_HERSHEY_SIMPLEX, 0.8, CV_RGB(255, 0, 0) );
     }
 
     image_pub_.publish(cv_ptr->toImageMsg());
