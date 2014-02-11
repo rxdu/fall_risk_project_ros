@@ -160,6 +160,20 @@ distance_publisher/fast:
 	cd /home/turtlebot/catkin_ws/build && $(MAKE) -f kinect_depth/CMakeFiles/distance_publisher.dir/build.make kinect_depth/CMakeFiles/distance_publisher.dir/build
 .PHONY : distance_publisher/fast
 
+# Convenience name for target.
+kinect_depth/CMakeFiles/kinect_pcl_filter.dir/rule:
+	cd /home/turtlebot/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 kinect_depth/CMakeFiles/kinect_pcl_filter.dir/rule
+.PHONY : kinect_depth/CMakeFiles/kinect_pcl_filter.dir/rule
+
+# Convenience name for target.
+kinect_pcl_filter: kinect_depth/CMakeFiles/kinect_pcl_filter.dir/rule
+.PHONY : kinect_pcl_filter
+
+# fast build rule for target.
+kinect_pcl_filter/fast:
+	cd /home/turtlebot/catkin_ws/build && $(MAKE) -f kinect_depth/CMakeFiles/kinect_pcl_filter.dir/build.make kinect_depth/CMakeFiles/kinect_pcl_filter.dir/build
+.PHONY : kinect_pcl_filter/fast
+
 src/distance_publisher.o: src/distance_publisher.cpp.o
 .PHONY : src/distance_publisher.o
 
@@ -184,6 +198,30 @@ src/distance_publisher.cpp.s:
 	cd /home/turtlebot/catkin_ws/build && $(MAKE) -f kinect_depth/CMakeFiles/distance_publisher.dir/build.make kinect_depth/CMakeFiles/distance_publisher.dir/src/distance_publisher.cpp.s
 .PHONY : src/distance_publisher.cpp.s
 
+src/kinect_pcl_filter.o: src/kinect_pcl_filter.cpp.o
+.PHONY : src/kinect_pcl_filter.o
+
+# target to build an object file
+src/kinect_pcl_filter.cpp.o:
+	cd /home/turtlebot/catkin_ws/build && $(MAKE) -f kinect_depth/CMakeFiles/kinect_pcl_filter.dir/build.make kinect_depth/CMakeFiles/kinect_pcl_filter.dir/src/kinect_pcl_filter.cpp.o
+.PHONY : src/kinect_pcl_filter.cpp.o
+
+src/kinect_pcl_filter.i: src/kinect_pcl_filter.cpp.i
+.PHONY : src/kinect_pcl_filter.i
+
+# target to preprocess a source file
+src/kinect_pcl_filter.cpp.i:
+	cd /home/turtlebot/catkin_ws/build && $(MAKE) -f kinect_depth/CMakeFiles/kinect_pcl_filter.dir/build.make kinect_depth/CMakeFiles/kinect_pcl_filter.dir/src/kinect_pcl_filter.cpp.i
+.PHONY : src/kinect_pcl_filter.cpp.i
+
+src/kinect_pcl_filter.s: src/kinect_pcl_filter.cpp.s
+.PHONY : src/kinect_pcl_filter.s
+
+# target to generate assembly for a file
+src/kinect_pcl_filter.cpp.s:
+	cd /home/turtlebot/catkin_ws/build && $(MAKE) -f kinect_depth/CMakeFiles/kinect_pcl_filter.dir/build.make kinect_depth/CMakeFiles/kinect_pcl_filter.dir/src/kinect_pcl_filter.cpp.s
+.PHONY : src/kinect_pcl_filter.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -195,12 +233,16 @@ help:
 	@echo "... install"
 	@echo "... install/local"
 	@echo "... install/strip"
+	@echo "... kinect_pcl_filter"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... test"
 	@echo "... src/distance_publisher.o"
 	@echo "... src/distance_publisher.i"
 	@echo "... src/distance_publisher.s"
+	@echo "... src/kinect_pcl_filter.o"
+	@echo "... src/kinect_pcl_filter.i"
+	@echo "... src/kinect_pcl_filter.s"
 .PHONY : help
 
 

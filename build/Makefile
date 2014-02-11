@@ -485,30 +485,17 @@ distance_publisher/fast:
 .PHONY : distance_publisher/fast
 
 #=============================================================================
-# Target rules for targets named image_center_dist
+# Target rules for targets named kinect_pcl_filter
 
 # Build rule for target.
-image_center_dist: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 image_center_dist
-.PHONY : image_center_dist
+kinect_pcl_filter: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 kinect_pcl_filter
+.PHONY : kinect_pcl_filter
 
 # fast build rule for target.
-image_center_dist/fast:
-	$(MAKE) -f kinect_distance/CMakeFiles/image_center_dist.dir/build.make kinect_distance/CMakeFiles/image_center_dist.dir/build
-.PHONY : image_center_dist/fast
-
-#=============================================================================
-# Target rules for targets named image_ref_line
-
-# Build rule for target.
-image_ref_line: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 image_ref_line
-.PHONY : image_ref_line
-
-# fast build rule for target.
-image_ref_line/fast:
-	$(MAKE) -f kinect_distance/CMakeFiles/image_ref_line.dir/build.make kinect_distance/CMakeFiles/image_ref_line.dir/build
-.PHONY : image_ref_line/fast
+kinect_pcl_filter/fast:
+	$(MAKE) -f kinect_depth/CMakeFiles/kinect_pcl_filter.dir/build.make kinect_depth/CMakeFiles/kinect_pcl_filter.dir/build
+.PHONY : kinect_pcl_filter/fast
 
 #=============================================================================
 # Target rules for targets named image_center_distance
@@ -588,8 +575,7 @@ help:
 	@echo "... tf_generate_messages_lisp"
 	@echo "... tf_generate_messages_py"
 	@echo "... distance_publisher"
-	@echo "... image_center_dist"
-	@echo "... image_ref_line"
+	@echo "... kinect_pcl_filter"
 	@echo "... image_center_distance"
 	@echo "... image_reference_line"
 	@echo "... ros_opencv_example"

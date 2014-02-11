@@ -55,8 +55,28 @@ public:
 
     if (cv_ptr->image.rows > 60 && cv_ptr->image.cols > 60)
     {
-        cv::line(cv_ptr->image,cv::Point(cv_ptr->image.cols/5,cv_ptr->image.rows), cv::Point(cv_ptr->image.cols/3,cv_ptr->image.rows/2),cv::Scalar(255,0,0),1,8,0);
-        cv::line(cv_ptr->image,cv::Point(cv_ptr->image.cols/5*4,cv_ptr->image.rows), cv::Point(cv_ptr->image.cols/3*2,cv_ptr->image.rows/2),cv::Scalar(255,0,0),1,8,0);
+        int imageCols = cv_ptr->image.cols;
+        int imageRows = cv_ptr->image.rows;
+        int clearance = 10;
+
+        cv::Point pt_lb = cv::Point(imageCols/4-clearance, imageRows);
+        cv::Point pt_lu = cv::Point(imageCols*41/100-clearance, imageRows*7/10);
+        cv::Point pt_rb = cv::Point(imageCols*76/100+clearance, imageRows);
+        cv::Point pt_ru = cv::Point(imageCols*61.5/100+clearance, imageRows*7/10);
+        cv::Point pt_mb = cv::Point(pt_lb.x+(pt_rb.x-pt_lb.x)/2, imageRows);
+        cv::Point pt_mu = cv::Point(pt_lu.x+(pt_ru.x-pt_lu.x)/2, imageRows*7/10);
+
+
+        cv::Point pt_l_1m = cv::Point(pt_lu.x, pt_lu.y+24);
+        cv::Point pt_r_1m = cv::Point(pt_ru.x, pt_ru.y+24);
+        cv::Point pt_l_0_5_m = cv::Point(pt_l_1m.x, pt_l_1m.y+24);
+        cv::Point pt_r_0_5_m = cv::Point(pt_r_1m.x, pt_r_1m.y+24);
+
+        cv::line(cv_ptr->image,pt_lb, pt_lu,cv::Scalar(255,0,0),1,8,0);
+        cv::line(cv_ptr->image,pt_rb, pt_ru,cv::Scalar(255,0,0),1,8,0);
+        cv::line(cv_ptr->image,pt_l_1m, pt_r_1m,cv::Scalar(255,0,0),1,8,0);
+        //cv::line(cv_ptr->image,pt_l_0_5_m, pt_r_0_5_m,cv::Scalar(255,0,0),1,8,0);
+        cv::line(cv_ptr->image,pt_mb, pt_mu,cv::Scalar(255,0,0),1,8,0);
     }
 
     image_pub_.publish(cv_ptr->toImageMsg());

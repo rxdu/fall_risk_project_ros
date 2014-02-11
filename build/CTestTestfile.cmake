@@ -7,6 +7,5 @@
 SUBDIRS(gtest)
 SUBDIRS(fall_risk_assessment)
 SUBDIRS(kinect_depth)
-SUBDIRS(kinect_distance)
 SUBDIRS(kinect_image)
 SUBDIRS(uvc_camera_image)

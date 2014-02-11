@@ -87,7 +87,6 @@ IF(NOT CMAKE_INSTALL_LOCAL_ONLY)
   INCLUDE("/home/turtlebot/catkin_ws/build/gtest/cmake_install.cmake")
   INCLUDE("/home/turtlebot/catkin_ws/build/fall_risk_assessment/cmake_install.cmake")
   INCLUDE("/home/turtlebot/catkin_ws/build/kinect_depth/cmake_install.cmake")
-  INCLUDE("/home/turtlebot/catkin_ws/build/kinect_distance/cmake_install.cmake")
   INCLUDE("/home/turtlebot/catkin_ws/build/kinect_image/cmake_install.cmake")
   INCLUDE("/home/turtlebot/catkin_ws/build/uvc_camera_image/cmake_install.cmake")
 

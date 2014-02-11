@@ -878,10 +878,12 @@ clean: fall_risk_assessment/CMakeFiles/tf_generate_messages_py.dir/clean
 
 # Convenience name for "all" pass in the directory.
 kinect_depth/all: kinect_depth/CMakeFiles/distance_publisher.dir/all
+kinect_depth/all: kinect_depth/CMakeFiles/kinect_pcl_filter.dir/all
 .PHONY : kinect_depth/all
 
 # Convenience name for "clean" pass in the directory.
 kinect_depth/clean: kinect_depth/CMakeFiles/distance_publisher.dir/clean
+kinect_depth/clean: kinect_depth/CMakeFiles/kinect_pcl_filter.dir/clean
 .PHONY : kinect_depth/clean
 
 # Convenience name for "preinstall" pass in the directory.
@@ -924,90 +926,38 @@ clean: kinect_depth/CMakeFiles/distance_publisher.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Directory level rules for directory kinect_distance
-
-# Convenience name for "all" pass in the directory.
-kinect_distance/all: kinect_distance/CMakeFiles/image_center_dist.dir/all
-kinect_distance/all: kinect_distance/CMakeFiles/image_ref_line.dir/all
-.PHONY : kinect_distance/all
-
-# Convenience name for "clean" pass in the directory.
-kinect_distance/clean: kinect_distance/CMakeFiles/image_center_dist.dir/clean
-kinect_distance/clean: kinect_distance/CMakeFiles/image_ref_line.dir/clean
-.PHONY : kinect_distance/clean
-
-# Convenience name for "preinstall" pass in the directory.
-kinect_distance/preinstall:
-.PHONY : kinect_distance/preinstall
-
-#=============================================================================
-# Target rules for target kinect_distance/CMakeFiles/image_center_dist.dir
+# Target rules for target kinect_depth/CMakeFiles/kinect_pcl_filter.dir
 
 # All Build rule for target.
-kinect_distance/CMakeFiles/image_center_dist.dir/all:
-	$(MAKE) -f kinect_distance/CMakeFiles/image_center_dist.dir/build.make kinect_distance/CMakeFiles/image_center_dist.dir/depend
-	$(MAKE) -f kinect_distance/CMakeFiles/image_center_dist.dir/build.make kinect_distance/CMakeFiles/image_center_dist.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/turtlebot/catkin_ws/build/CMakeFiles  5
-	@echo "Built target image_center_dist"
-.PHONY : kinect_distance/CMakeFiles/image_center_dist.dir/all
-
-# Include target in all.
-all: kinect_distance/CMakeFiles/image_center_dist.dir/all
-.PHONY : all
-
-# Build rule for subdir invocation for target.
-kinect_distance/CMakeFiles/image_center_dist.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/turtlebot/catkin_ws/build/CMakeFiles 1
-	$(MAKE) -f CMakeFiles/Makefile2 kinect_distance/CMakeFiles/image_center_dist.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/turtlebot/catkin_ws/build/CMakeFiles 0
-.PHONY : kinect_distance/CMakeFiles/image_center_dist.dir/rule
-
-# Convenience name for target.
-image_center_dist: kinect_distance/CMakeFiles/image_center_dist.dir/rule
-.PHONY : image_center_dist
-
-# clean rule for target.
-kinect_distance/CMakeFiles/image_center_dist.dir/clean:
-	$(MAKE) -f kinect_distance/CMakeFiles/image_center_dist.dir/build.make kinect_distance/CMakeFiles/image_center_dist.dir/clean
-.PHONY : kinect_distance/CMakeFiles/image_center_dist.dir/clean
-
-# clean rule for target.
-clean: kinect_distance/CMakeFiles/image_center_dist.dir/clean
-.PHONY : clean
-
-#=============================================================================
-# Target rules for target kinect_distance/CMakeFiles/image_ref_line.dir
-
-# All Build rule for target.
-kinect_distance/CMakeFiles/image_ref_line.dir/all:
-	$(MAKE) -f kinect_distance/CMakeFiles/image_ref_line.dir/build.make kinect_distance/CMakeFiles/image_ref_line.dir/depend
-	$(MAKE) -f kinect_distance/CMakeFiles/image_ref_line.dir/build.make kinect_distance/CMakeFiles/image_ref_line.dir/build
+kinect_depth/CMakeFiles/kinect_pcl_filter.dir/all:
+	$(MAKE) -f kinect_depth/CMakeFiles/kinect_pcl_filter.dir/build.make kinect_depth/CMakeFiles/kinect_pcl_filter.dir/depend
+	$(MAKE) -f kinect_depth/CMakeFiles/kinect_pcl_filter.dir/build.make kinect_depth/CMakeFiles/kinect_pcl_filter.dir/build
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/turtlebot/catkin_ws/build/CMakeFiles  7
-	@echo "Built target image_ref_line"
-.PHONY : kinect_distance/CMakeFiles/image_ref_line.dir/all
+	@echo "Built target kinect_pcl_filter"
+.PHONY : kinect_depth/CMakeFiles/kinect_pcl_filter.dir/all
 
 # Include target in all.
-all: kinect_distance/CMakeFiles/image_ref_line.dir/all
+all: kinect_depth/CMakeFiles/kinect_pcl_filter.dir/all
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-kinect_distance/CMakeFiles/image_ref_line.dir/rule: cmake_check_build_system
+kinect_depth/CMakeFiles/kinect_pcl_filter.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/turtlebot/catkin_ws/build/CMakeFiles 1
-	$(MAKE) -f CMakeFiles/Makefile2 kinect_distance/CMakeFiles/image_ref_line.dir/all
+	$(MAKE) -f CMakeFiles/Makefile2 kinect_depth/CMakeFiles/kinect_pcl_filter.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/turtlebot/catkin_ws/build/CMakeFiles 0
-.PHONY : kinect_distance/CMakeFiles/image_ref_line.dir/rule
+.PHONY : kinect_depth/CMakeFiles/kinect_pcl_filter.dir/rule
 
 # Convenience name for target.
-image_ref_line: kinect_distance/CMakeFiles/image_ref_line.dir/rule
-.PHONY : image_ref_line
+kinect_pcl_filter: kinect_depth/CMakeFiles/kinect_pcl_filter.dir/rule
+.PHONY : kinect_pcl_filter
 
 # clean rule for target.
-kinect_distance/CMakeFiles/image_ref_line.dir/clean:
-	$(MAKE) -f kinect_distance/CMakeFiles/image_ref_line.dir/build.make kinect_distance/CMakeFiles/image_ref_line.dir/clean
-.PHONY : kinect_distance/CMakeFiles/image_ref_line.dir/clean
+kinect_depth/CMakeFiles/kinect_pcl_filter.dir/clean:
+	$(MAKE) -f kinect_depth/CMakeFiles/kinect_pcl_filter.dir/build.make kinect_depth/CMakeFiles/kinect_pcl_filter.dir/clean
+.PHONY : kinect_depth/CMakeFiles/kinect_pcl_filter.dir/clean
 
 # clean rule for target.
-clean: kinect_distance/CMakeFiles/image_ref_line.dir/clean
+clean: kinect_depth/CMakeFiles/kinect_pcl_filter.dir/clean
 .PHONY : clean
 
 #=============================================================================
@@ -1034,7 +984,7 @@ kinect_image/preinstall:
 kinect_image/CMakeFiles/image_center_distance.dir/all:
 	$(MAKE) -f kinect_image/CMakeFiles/image_center_distance.dir/build.make kinect_image/CMakeFiles/image_center_distance.dir/depend
 	$(MAKE) -f kinect_image/CMakeFiles/image_center_distance.dir/build.make kinect_image/CMakeFiles/image_center_distance.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/turtlebot/catkin_ws/build/CMakeFiles  6
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/turtlebot/catkin_ws/build/CMakeFiles  5
 	@echo "Built target image_center_distance"
 .PHONY : kinect_image/CMakeFiles/image_center_distance.dir/all
 
@@ -1069,7 +1019,7 @@ clean: kinect_image/CMakeFiles/image_center_distance.dir/clean
 kinect_image/CMakeFiles/image_reference_line.dir/all:
 	$(MAKE) -f kinect_image/CMakeFiles/image_reference_line.dir/build.make kinect_image/CMakeFiles/image_reference_line.dir/depend
 	$(MAKE) -f kinect_image/CMakeFiles/image_reference_line.dir/build.make kinect_image/CMakeFiles/image_reference_line.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/turtlebot/catkin_ws/build/CMakeFiles  8
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/turtlebot/catkin_ws/build/CMakeFiles  6
 	@echo "Built target image_reference_line"
 .PHONY : kinect_image/CMakeFiles/image_reference_line.dir/all
 
@@ -1119,7 +1069,7 @@ uvc_camera_image/preinstall:
 uvc_camera_image/CMakeFiles/ros_opencv_example.dir/all:
 	$(MAKE) -f uvc_camera_image/CMakeFiles/ros_opencv_example.dir/build.make uvc_camera_image/CMakeFiles/ros_opencv_example.dir/depend
 	$(MAKE) -f uvc_camera_image/CMakeFiles/ros_opencv_example.dir/build.make uvc_camera_image/CMakeFiles/ros_opencv_example.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/turtlebot/catkin_ws/build/CMakeFiles  9
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/turtlebot/catkin_ws/build/CMakeFiles  8
 	@echo "Built target ros_opencv_example"
 .PHONY : uvc_camera_image/CMakeFiles/ros_opencv_example.dir/all
 

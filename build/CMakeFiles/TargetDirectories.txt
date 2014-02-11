@@ -6,10 +6,9 @@
 /home/turtlebot/catkin_ws/build/fall_risk_assessment/CMakeFiles/geometry_msgs_generate_messages_py.dir
 /home/turtlebot/catkin_ws/build/gtest/CMakeFiles/gtest.dir
 /home/turtlebot/catkin_ws/build/gtest/CMakeFiles/gtest_main.dir
-/home/turtlebot/catkin_ws/build/kinect_distance/CMakeFiles/image_center_dist.dir
 /home/turtlebot/catkin_ws/build/kinect_image/CMakeFiles/image_center_distance.dir
-/home/turtlebot/catkin_ws/build/kinect_distance/CMakeFiles/image_ref_line.dir
 /home/turtlebot/catkin_ws/build/kinect_image/CMakeFiles/image_reference_line.dir
+/home/turtlebot/catkin_ws/build/kinect_depth/CMakeFiles/kinect_pcl_filter.dir
 /home/turtlebot/catkin_ws/build/fall_risk_assessment/CMakeFiles/pcl_ros_gencfg.dir
 /home/turtlebot/catkin_ws/build/uvc_camera_image/CMakeFiles/ros_opencv_example.dir
 /home/turtlebot/catkin_ws/build/fall_risk_assessment/CMakeFiles/roscpp_generate_messages_cpp.dir
