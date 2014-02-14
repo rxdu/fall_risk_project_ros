@@ -5,25 +5,82 @@ kinect_depth/CMakeFiles/kinect_pcl_filter.dir/src/kinect_pcl_filter.cpp.o
  /home/turtlebot/catkin_ws/src/kinect_depth/src/kinect_pcl_filter.cpp
  /opt/ros/groovy/include/XmlRpcDecl.h
  /opt/ros/groovy/include/XmlRpcValue.h
+ /opt/ros/groovy/include/flann/algorithms/all_indices.h
+ /opt/ros/groovy/include/flann/algorithms/autotuned_index.h
+ /opt/ros/groovy/include/flann/algorithms/composite_index.h
+ /opt/ros/groovy/include/flann/algorithms/dist.h
+ /opt/ros/groovy/include/flann/algorithms/hierarchical_clustering_index.h
+ /opt/ros/groovy/include/flann/algorithms/kdtree_cuda_3d_index.h
+ /opt/ros/groovy/include/flann/algorithms/kdtree_index.h
+ /opt/ros/groovy/include/flann/algorithms/kdtree_single_index.h
+ /opt/ros/groovy/include/flann/algorithms/kmeans_index.h
+ /opt/ros/groovy/include/flann/algorithms/linear_index.h
+ /opt/ros/groovy/include/flann/algorithms/lsh_index.h
+ /opt/ros/groovy/include/flann/algorithms/nn_index.h
+ /opt/ros/groovy/include/flann/config.h
+ /opt/ros/groovy/include/flann/defines.h
+ /opt/ros/groovy/include/flann/flann.hpp
+ /opt/ros/groovy/include/flann/general.h
+ /opt/ros/groovy/include/flann/nn/ground_truth.h
+ /opt/ros/groovy/include/flann/nn/index_testing.h
+ /opt/ros/groovy/include/flann/tbb/bodies.hpp
+ /opt/ros/groovy/include/flann/util/allocator.h
+ /opt/ros/groovy/include/flann/util/any.h
+ /opt/ros/groovy/include/flann/util/dynamic_bitset.h
+ /opt/ros/groovy/include/flann/util/heap.h
+ /opt/ros/groovy/include/flann/util/logger.h
+ /opt/ros/groovy/include/flann/util/lsh_table.h
+ /opt/ros/groovy/include/flann/util/matrix.h
+ /opt/ros/groovy/include/flann/util/params.h
+ /opt/ros/groovy/include/flann/util/random.h
+ /opt/ros/groovy/include/flann/util/result_set.h
+ /opt/ros/groovy/include/flann/util/sampling.h
+ /opt/ros/groovy/include/flann/util/saving.h
+ /opt/ros/groovy/include/flann/util/timer.h
  /opt/ros/groovy/include/pcl-1.6/pcl/channel_properties.h
  /opt/ros/groovy/include/pcl-1.6/pcl/cloud_properties.h
  /opt/ros/groovy/include/pcl-1.6/pcl/common/common.h
+ /opt/ros/groovy/include/pcl-1.6/pcl/common/concatenate.h
  /opt/ros/groovy/include/pcl-1.6/pcl/common/distances.h
  /opt/ros/groovy/include/pcl-1.6/pcl/common/eigen.h
  /opt/ros/groovy/include/pcl-1.6/pcl/common/impl/common.hpp
  /opt/ros/groovy/include/pcl-1.6/pcl/common/impl/eigen.hpp
+ /opt/ros/groovy/include/pcl-1.6/pcl/common/impl/io.hpp
+ /opt/ros/groovy/include/pcl-1.6/pcl/common/io.h
  /opt/ros/groovy/include/pcl-1.6/pcl/console/print.h
  /opt/ros/groovy/include/pcl-1.6/pcl/exceptions.h
+ /opt/ros/groovy/include/pcl-1.6/pcl/filters/filter.h
+ /opt/ros/groovy/include/pcl-1.6/pcl/filters/filter_indices.h
+ /opt/ros/groovy/include/pcl-1.6/pcl/filters/statistical_outlier_removal.h
+ /opt/ros/groovy/include/pcl-1.6/pcl/filters/voxel_grid.h
  /opt/ros/groovy/include/pcl-1.6/pcl/for_each_type.h
  /opt/ros/groovy/include/pcl-1.6/pcl/impl/point_types.hpp
+ /opt/ros/groovy/include/pcl-1.6/pcl/kdtree/flann.h
+ /opt/ros/groovy/include/pcl-1.6/pcl/kdtree/kdtree.h
+ /opt/ros/groovy/include/pcl-1.6/pcl/kdtree/kdtree_flann.h
+ /opt/ros/groovy/include/pcl-1.6/pcl/octree/octree2buf_base.h
+ /opt/ros/groovy/include/pcl-1.6/pcl/octree/octree_base.h
+ /opt/ros/groovy/include/pcl-1.6/pcl/octree/octree_container.h
+ /opt/ros/groovy/include/pcl-1.6/pcl/octree/octree_iterator.h
+ /opt/ros/groovy/include/pcl-1.6/pcl/octree/octree_key.h
+ /opt/ros/groovy/include/pcl-1.6/pcl/octree/octree_node_pool.h
+ /opt/ros/groovy/include/pcl-1.6/pcl/octree/octree_nodes.h
+ /opt/ros/groovy/include/pcl-1.6/pcl/octree/octree_pointcloud.h
+ /opt/ros/groovy/include/pcl-1.6/pcl/octree/octree_search.h
  /opt/ros/groovy/include/pcl-1.6/pcl/pcl_base.h
  /opt/ros/groovy/include/pcl-1.6/pcl/pcl_config.h
  /opt/ros/groovy/include/pcl-1.6/pcl/pcl_macros.h
  /opt/ros/groovy/include/pcl-1.6/pcl/point_cloud.h
+ /opt/ros/groovy/include/pcl-1.6/pcl/point_representation.h
  /opt/ros/groovy/include/pcl-1.6/pcl/point_traits.h
  /opt/ros/groovy/include/pcl-1.6/pcl/point_types.h
  /opt/ros/groovy/include/pcl-1.6/pcl/ros/conversions.h
  /opt/ros/groovy/include/pcl-1.6/pcl/ros/register_point_struct.h
+ /opt/ros/groovy/include/pcl-1.6/pcl/search/kdtree.h
+ /opt/ros/groovy/include/pcl-1.6/pcl/search/octree.h
+ /opt/ros/groovy/include/pcl-1.6/pcl/search/organized.h
+ /opt/ros/groovy/include/pcl-1.6/pcl/search/pcl_search.h
+ /opt/ros/groovy/include/pcl-1.6/pcl/search/search.h
  /opt/ros/groovy/include/pcl/PointIndices.h
  /opt/ros/groovy/include/ros/advertise_options.h
  /opt/ros/groovy/include/ros/advertise_service_options.h

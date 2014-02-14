@@ -1,8 +1,0 @@
-prefix=/usr/local
-
-Name: kinect_image
-Description: Description of kinect_image
-Version: 0.0.0
-Cflags: 
-Libs: -L/usr/local/lib 
-Requires: 

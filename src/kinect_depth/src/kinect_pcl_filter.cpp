@@ -5,22 +5,31 @@
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
 #include <pcl/filters/voxel_grid.h>
+#include <pcl/filters/statistical_outlier_removal.h>
 
 ros::Publisher pub;
 
 void
 cloud_cb (const sensor_msgs::PointCloud2ConstPtr& input)
 {
-    sensor_msgs::PointCloud2 cloud_filtered;
+//    sensor_msgs::PointCloud2 cloud_filtered;
+
+//    pcl::fromROSMsg(input,*cloud_original);
 
     // Perform the actual filtering
-    pcl::VoxelGrid<sensor_msgs::PointCloud2> sor;
-    sor.setInputCloud (input);
-    sor.setLeafSize (0.01, 0.01, 0.01);
-    sor.filter (cloud_filtered);
+//    pcl::VoxelGrid<sensor_msgs::PointCloud2> sor;
+//    sor.setInputCloud (input);
+//    sor.setLeafSize (0.01, 0.01, 0.01);
+//    sor.filter (cloud_filtered);
 
-    // Publish the data
-    pub.publish (cloud_filtered);
+//    pcl::StatisticalOutlierRemoval<sensor_msgs::PointCloud2> sor;
+//    sor.setInputCloud (input);
+//    sor.setMeanK (50);
+//    sor.setStddevMulThresh (1.0);
+//    sor.filter (*cloud_filtered);
+
+//    // Publish the data
+//    pub.publish (cloud_filtered);
 }
 
 int
