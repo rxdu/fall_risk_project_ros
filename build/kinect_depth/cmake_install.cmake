@@ -1,8 +1,8 @@
-# Install script for directory: /home/turtlebot/catkin_ws/src/kinect_depth
+# Install script for directory: /home/rdu/catkin_ws/src/kinect_depth
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  SET(CMAKE_INSTALL_PREFIX "/home/turtlebot/catkin_ws/install")
+  SET(CMAKE_INSTALL_PREFIX "/home/rdu/catkin_ws/install")
 ENDIF(NOT DEFINED CMAKE_INSTALL_PREFIX)
 STRING(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -33,17 +33,17 @@ IF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 ENDIF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/turtlebot/catkin_ws/build/kinect_depth/catkin_generated/installspace/kinect_depth.pc")
+  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/rdu/catkin_ws/build/kinect_depth/catkin_generated/installspace/kinect_depth.pc")
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinect_depth/cmake" TYPE FILE FILES
-    "/home/turtlebot/catkin_ws/build/kinect_depth/catkin_generated/installspace/kinect_depthConfig.cmake"
-    "/home/turtlebot/catkin_ws/build/kinect_depth/catkin_generated/installspace/kinect_depthConfig-version.cmake"
+    "/home/rdu/catkin_ws/build/kinect_depth/catkin_generated/installspace/kinect_depthConfig.cmake"
+    "/home/rdu/catkin_ws/build/kinect_depth/catkin_generated/installspace/kinect_depthConfig-version.cmake"
     )
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinect_depth" TYPE FILE FILES "/home/turtlebot/catkin_ws/src/kinect_depth/package.xml")
+  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinect_depth" TYPE FILE FILES "/home/rdu/catkin_ws/src/kinect_depth/package.xml")
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 

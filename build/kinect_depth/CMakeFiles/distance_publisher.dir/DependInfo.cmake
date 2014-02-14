@@ -4,7 +4,7 @@ SET(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 SET(CMAKE_DEPENDS_CHECK_CXX
-  "/home/turtlebot/catkin_ws/src/kinect_depth/src/distance_publisher.cpp" "/home/turtlebot/catkin_ws/build/kinect_depth/CMakeFiles/distance_publisher.dir/src/distance_publisher.cpp.o"
+  "/home/rdu/catkin_ws/src/kinect_depth/src/distance_publisher.cpp" "/home/rdu/catkin_ws/build/kinect_depth/CMakeFiles/distance_publisher.dir/src/distance_publisher.cpp.o"
   )
 SET(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -12,6 +12,7 @@ SET(CMAKE_CXX_COMPILER_ID "GNU")
 SET(CMAKE_TARGET_DEFINITIONS
   "ROS_BUILD_SHARED_LIBS=1"
   "ROS_PACKAGE_NAME=\"kinect_depth\""
+  "ROSCONSOLE_BACKEND_LOG4CXX"
   )
 
 # Targets to which this target links.

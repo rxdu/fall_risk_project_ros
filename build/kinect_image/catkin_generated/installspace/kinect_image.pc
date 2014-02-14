@@ -1,8 +1,8 @@
-prefix=/home/turtlebot/catkin_ws/install
+prefix=/home/rdu/catkin_ws/install
 
 Name: kinect_image
 Description: Description of kinect_image
 Version: 0.0.0
 Cflags: 
-Libs: -L/home/turtlebot/catkin_ws/install/lib 
+Libs: -L/home/rdu/catkin_ws/install/lib 
 Requires: 

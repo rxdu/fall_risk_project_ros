@@ -1,7 +1,0 @@
-set(_CATKIN_CURRENT_PACKAGE "kinect_distance")
-set(kinect_distance_MAINTAINER "rdu <rdu@todo.todo>")
-set(kinect_distance_DEPRECATED "")
-set(kinect_distance_VERSION "0.0.0")
-set(kinect_distance_BUILD_DEPENDS "cv_bridge" "image_transport" "roscpp" "sensor_msgs" "std_msgs")
-set(kinect_distance_RUN_DEPENDS "cv_bridge" "image_transport" "roscpp" "sensor_msgs" "std_msgs")
-set(kinect_distance_BUILDTOOL_DEPENDS "catkin")

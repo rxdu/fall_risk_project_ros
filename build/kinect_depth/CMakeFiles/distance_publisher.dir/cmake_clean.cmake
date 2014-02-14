@@ -1,7 +1,7 @@
 FILE(REMOVE_RECURSE
   "CMakeFiles/distance_publisher.dir/src/distance_publisher.cpp.o"
-  "/home/turtlebot/catkin_ws/devel/lib/kinect_depth/distance_publisher.pdb"
-  "/home/turtlebot/catkin_ws/devel/lib/kinect_depth/distance_publisher"
+  "/home/rdu/catkin_ws/devel/lib/kinect_depth/distance_publisher.pdb"
+  "/home/rdu/catkin_ws/devel/lib/kinect_depth/distance_publisher"
 )
 
 # Per-language clean rules from dependency scanning.

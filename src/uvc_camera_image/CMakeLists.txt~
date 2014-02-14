@@ -163,6 +163,3 @@ include_directories(
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
-
-add_executable(ros_opencv_example src/ros_opencv_example.cpp)
-target_link_libraries(ros_opencv_example ${catkin_LIBRARIES})

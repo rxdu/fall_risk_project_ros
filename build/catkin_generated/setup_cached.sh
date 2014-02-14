@@ -7,5 +7,4 @@
 # new environment variables
 
 # modified environment variables
-export PWD="/home/turtlebot/catkin_ws/build"
-export ROS_PACKAGE_PATH="/home/turtlebot/catkin_ws/src:/home/rdu/catkin_ws/src:/opt/ros/groovy/share:/opt/ros/groovy/stacks"
+export PWD="/home/rdu/catkin_ws/build"

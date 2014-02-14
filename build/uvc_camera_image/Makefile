@@ -36,10 +36,10 @@ CMAKE_COMMAND = /usr/bin/cmake
 RM = /usr/bin/cmake -E remove -f
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/turtlebot/catkin_ws/src
+CMAKE_SOURCE_DIR = /home/rdu/catkin_ws/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/turtlebot/catkin_ws/build
+CMAKE_BINARY_DIR = /home/rdu/catkin_ws/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -117,14 +117,14 @@ test/fast: test
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/turtlebot/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/turtlebot/catkin_ws/build/CMakeFiles /home/turtlebot/catkin_ws/build/uvc_camera_image/CMakeFiles/progress.marks
-	cd /home/turtlebot/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 uvc_camera_image/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/turtlebot/catkin_ws/build/CMakeFiles 0
+	cd /home/rdu/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/rdu/catkin_ws/build/CMakeFiles /home/rdu/catkin_ws/build/uvc_camera_image/CMakeFiles/progress.marks
+	cd /home/rdu/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 uvc_camera_image/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/rdu/catkin_ws/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/turtlebot/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 uvc_camera_image/clean
+	cd /home/rdu/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 uvc_camera_image/clean
 .PHONY : clean
 
 # The main clean target
@@ -133,22 +133,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/turtlebot/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 uvc_camera_image/preinstall
+	cd /home/rdu/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 uvc_camera_image/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/turtlebot/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 uvc_camera_image/preinstall
+	cd /home/rdu/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 uvc_camera_image/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/turtlebot/catkin_ws/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/rdu/catkin_ws/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 uvc_camera_image/CMakeFiles/ros_opencv_example.dir/rule:
-	cd /home/turtlebot/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 uvc_camera_image/CMakeFiles/ros_opencv_example.dir/rule
+	cd /home/rdu/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 uvc_camera_image/CMakeFiles/ros_opencv_example.dir/rule
 .PHONY : uvc_camera_image/CMakeFiles/ros_opencv_example.dir/rule
 
 # Convenience name for target.
@@ -157,7 +157,7 @@ ros_opencv_example: uvc_camera_image/CMakeFiles/ros_opencv_example.dir/rule
 
 # fast build rule for target.
 ros_opencv_example/fast:
-	cd /home/turtlebot/catkin_ws/build && $(MAKE) -f uvc_camera_image/CMakeFiles/ros_opencv_example.dir/build.make uvc_camera_image/CMakeFiles/ros_opencv_example.dir/build
+	cd /home/rdu/catkin_ws/build && $(MAKE) -f uvc_camera_image/CMakeFiles/ros_opencv_example.dir/build.make uvc_camera_image/CMakeFiles/ros_opencv_example.dir/build
 .PHONY : ros_opencv_example/fast
 
 src/ros_opencv_example.o: src/ros_opencv_example.cpp.o
@@ -165,7 +165,7 @@ src/ros_opencv_example.o: src/ros_opencv_example.cpp.o
 
 # target to build an object file
 src/ros_opencv_example.cpp.o:
-	cd /home/turtlebot/catkin_ws/build && $(MAKE) -f uvc_camera_image/CMakeFiles/ros_opencv_example.dir/build.make uvc_camera_image/CMakeFiles/ros_opencv_example.dir/src/ros_opencv_example.cpp.o
+	cd /home/rdu/catkin_ws/build && $(MAKE) -f uvc_camera_image/CMakeFiles/ros_opencv_example.dir/build.make uvc_camera_image/CMakeFiles/ros_opencv_example.dir/src/ros_opencv_example.cpp.o
 .PHONY : src/ros_opencv_example.cpp.o
 
 src/ros_opencv_example.i: src/ros_opencv_example.cpp.i
@@ -173,7 +173,7 @@ src/ros_opencv_example.i: src/ros_opencv_example.cpp.i
 
 # target to preprocess a source file
 src/ros_opencv_example.cpp.i:
-	cd /home/turtlebot/catkin_ws/build && $(MAKE) -f uvc_camera_image/CMakeFiles/ros_opencv_example.dir/build.make uvc_camera_image/CMakeFiles/ros_opencv_example.dir/src/ros_opencv_example.cpp.i
+	cd /home/rdu/catkin_ws/build && $(MAKE) -f uvc_camera_image/CMakeFiles/ros_opencv_example.dir/build.make uvc_camera_image/CMakeFiles/ros_opencv_example.dir/src/ros_opencv_example.cpp.i
 .PHONY : src/ros_opencv_example.cpp.i
 
 src/ros_opencv_example.s: src/ros_opencv_example.cpp.s
@@ -181,7 +181,7 @@ src/ros_opencv_example.s: src/ros_opencv_example.cpp.s
 
 # target to generate assembly for a file
 src/ros_opencv_example.cpp.s:
-	cd /home/turtlebot/catkin_ws/build && $(MAKE) -f uvc_camera_image/CMakeFiles/ros_opencv_example.dir/build.make uvc_camera_image/CMakeFiles/ros_opencv_example.dir/src/ros_opencv_example.cpp.s
+	cd /home/rdu/catkin_ws/build && $(MAKE) -f uvc_camera_image/CMakeFiles/ros_opencv_example.dir/build.make uvc_camera_image/CMakeFiles/ros_opencv_example.dir/src/ros_opencv_example.cpp.s
 .PHONY : src/ros_opencv_example.cpp.s
 
 # Help Target
@@ -212,6 +212,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/turtlebot/catkin_ws/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/rdu/catkin_ws/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

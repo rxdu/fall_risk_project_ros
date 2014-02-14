@@ -32,10 +32,10 @@ CMAKE_COMMAND = /usr/bin/cmake
 RM = /usr/bin/cmake -E remove -f
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/turtlebot/catkin_ws/src
+CMAKE_SOURCE_DIR = /home/rdu/catkin_ws/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/turtlebot/catkin_ws/build
+CMAKE_BINARY_DIR = /home/rdu/catkin_ws/build
 
 # Include any dependencies generated for this target.
 include kinect_image/CMakeFiles/image_reference_line.dir/depend.make
@@ -47,18 +47,18 @@ include kinect_image/CMakeFiles/image_reference_line.dir/progress.make
 include kinect_image/CMakeFiles/image_reference_line.dir/flags.make
 
 kinect_image/CMakeFiles/image_reference_line.dir/src/image_reference_line.cpp.o: kinect_image/CMakeFiles/image_reference_line.dir/flags.make
-kinect_image/CMakeFiles/image_reference_line.dir/src/image_reference_line.cpp.o: /home/turtlebot/catkin_ws/src/kinect_image/src/image_reference_line.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/turtlebot/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_1)
+kinect_image/CMakeFiles/image_reference_line.dir/src/image_reference_line.cpp.o: /home/rdu/catkin_ws/src/kinect_image/src/image_reference_line.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/rdu/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object kinect_image/CMakeFiles/image_reference_line.dir/src/image_reference_line.cpp.o"
-	cd /home/turtlebot/catkin_ws/build/kinect_image && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/image_reference_line.dir/src/image_reference_line.cpp.o -c /home/turtlebot/catkin_ws/src/kinect_image/src/image_reference_line.cpp
+	cd /home/rdu/catkin_ws/build/kinect_image && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/image_reference_line.dir/src/image_reference_line.cpp.o -c /home/rdu/catkin_ws/src/kinect_image/src/image_reference_line.cpp
 
 kinect_image/CMakeFiles/image_reference_line.dir/src/image_reference_line.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/image_reference_line.dir/src/image_reference_line.cpp.i"
-	cd /home/turtlebot/catkin_ws/build/kinect_image && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/turtlebot/catkin_ws/src/kinect_image/src/image_reference_line.cpp > CMakeFiles/image_reference_line.dir/src/image_reference_line.cpp.i
+	cd /home/rdu/catkin_ws/build/kinect_image && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/rdu/catkin_ws/src/kinect_image/src/image_reference_line.cpp > CMakeFiles/image_reference_line.dir/src/image_reference_line.cpp.i
 
 kinect_image/CMakeFiles/image_reference_line.dir/src/image_reference_line.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/image_reference_line.dir/src/image_reference_line.cpp.s"
-	cd /home/turtlebot/catkin_ws/build/kinect_image && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/turtlebot/catkin_ws/src/kinect_image/src/image_reference_line.cpp -o CMakeFiles/image_reference_line.dir/src/image_reference_line.cpp.s
+	cd /home/rdu/catkin_ws/build/kinect_image && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/rdu/catkin_ws/src/kinect_image/src/image_reference_line.cpp -o CMakeFiles/image_reference_line.dir/src/image_reference_line.cpp.s
 
 kinect_image/CMakeFiles/image_reference_line.dir/src/image_reference_line.cpp.o.requires:
 .PHONY : kinect_image/CMakeFiles/image_reference_line.dir/src/image_reference_line.cpp.o.requires
@@ -76,64 +76,66 @@ image_reference_line_OBJECTS = \
 # External object files for target image_reference_line
 image_reference_line_EXTERNAL_OBJECTS =
 
-/home/turtlebot/catkin_ws/devel/lib/kinect_image/image_reference_line: kinect_image/CMakeFiles/image_reference_line.dir/src/image_reference_line.cpp.o
-/home/turtlebot/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/groovy/lib/libcv_bridge.so
-/home/turtlebot/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/groovy/lib/libopencv_calib3d.so
-/home/turtlebot/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/groovy/lib/libopencv_contrib.so
-/home/turtlebot/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/groovy/lib/libopencv_core.so
-/home/turtlebot/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/groovy/lib/libopencv_features2d.so
-/home/turtlebot/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/groovy/lib/libopencv_flann.so
-/home/turtlebot/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/groovy/lib/libopencv_gpu.so
-/home/turtlebot/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/groovy/lib/libopencv_highgui.so
-/home/turtlebot/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/groovy/lib/libopencv_imgproc.so
-/home/turtlebot/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/groovy/lib/libopencv_legacy.so
-/home/turtlebot/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/groovy/lib/libopencv_ml.so
-/home/turtlebot/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/groovy/lib/libopencv_nonfree.so
-/home/turtlebot/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/groovy/lib/libopencv_objdetect.so
-/home/turtlebot/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/groovy/lib/libopencv_photo.so
-/home/turtlebot/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/groovy/lib/libopencv_stitching.so
-/home/turtlebot/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/groovy/lib/libopencv_superres.so
-/home/turtlebot/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/groovy/lib/libopencv_video.so
-/home/turtlebot/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/groovy/lib/libopencv_videostab.so
-/home/turtlebot/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/groovy/lib/librosconsole.so
-/home/turtlebot/catkin_ws/devel/lib/kinect_image/image_reference_line: /usr/lib/libboost_regex-mt.so
-/home/turtlebot/catkin_ws/devel/lib/kinect_image/image_reference_line: /usr/lib/libboost_thread-mt.so
-/home/turtlebot/catkin_ws/devel/lib/kinect_image/image_reference_line: /usr/lib/x86_64-linux-gnu/libpthread.so
-/home/turtlebot/catkin_ws/devel/lib/kinect_image/image_reference_line: /usr/lib/liblog4cxx.so
-/home/turtlebot/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/groovy/lib/libcpp_common.so
-/home/turtlebot/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/groovy/lib/librostime.so
-/home/turtlebot/catkin_ws/devel/lib/kinect_image/image_reference_line: /usr/lib/libboost_date_time-mt.so
-/home/turtlebot/catkin_ws/devel/lib/kinect_image/image_reference_line: /usr/lib/libboost_system-mt.so
-/home/turtlebot/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/groovy/lib/libroscpp_serialization.so
-/home/turtlebot/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/groovy/lib/libimage_transport.so
-/home/turtlebot/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/groovy/lib/libmessage_filters.so
-/home/turtlebot/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/groovy/lib/libroscpp.so
-/home/turtlebot/catkin_ws/devel/lib/kinect_image/image_reference_line: /usr/lib/libboost_signals-mt.so
-/home/turtlebot/catkin_ws/devel/lib/kinect_image/image_reference_line: /usr/lib/libboost_filesystem-mt.so
-/home/turtlebot/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/groovy/lib/libxmlrpcpp.so
-/home/turtlebot/catkin_ws/devel/lib/kinect_image/image_reference_line: /usr/lib/libtinyxml.so
-/home/turtlebot/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/groovy/lib/libclass_loader.so
-/home/turtlebot/catkin_ws/devel/lib/kinect_image/image_reference_line: /usr/lib/libPocoFoundation.so
-/home/turtlebot/catkin_ws/devel/lib/kinect_image/image_reference_line: /usr/lib/x86_64-linux-gnu/libdl.so
-/home/turtlebot/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/groovy/lib/libconsole_bridge.so
-/home/turtlebot/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/groovy/lib/libroslib.so
-/home/turtlebot/catkin_ws/devel/lib/kinect_image/image_reference_line: kinect_image/CMakeFiles/image_reference_line.dir/build.make
-/home/turtlebot/catkin_ws/devel/lib/kinect_image/image_reference_line: kinect_image/CMakeFiles/image_reference_line.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX executable /home/turtlebot/catkin_ws/devel/lib/kinect_image/image_reference_line"
-	cd /home/turtlebot/catkin_ws/build/kinect_image && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/image_reference_line.dir/link.txt --verbose=$(VERBOSE)
+/home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line: kinect_image/CMakeFiles/image_reference_line.dir/src/image_reference_line.cpp.o
+/home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/hydro/lib/libcv_bridge.so
+/home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/hydro/lib/libopencv_calib3d.so
+/home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/hydro/lib/libopencv_contrib.so
+/home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/hydro/lib/libopencv_core.so
+/home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/hydro/lib/libopencv_features2d.so
+/home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/hydro/lib/libopencv_flann.so
+/home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/hydro/lib/libopencv_gpu.so
+/home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/hydro/lib/libopencv_highgui.so
+/home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/hydro/lib/libopencv_imgproc.so
+/home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/hydro/lib/libopencv_legacy.so
+/home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/hydro/lib/libopencv_ml.so
+/home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/hydro/lib/libopencv_nonfree.so
+/home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/hydro/lib/libopencv_objdetect.so
+/home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/hydro/lib/libopencv_photo.so
+/home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/hydro/lib/libopencv_stitching.so
+/home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/hydro/lib/libopencv_superres.so
+/home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/hydro/lib/libopencv_video.so
+/home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/hydro/lib/libopencv_videostab.so
+/home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/hydro/lib/libimage_transport.so
+/home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/hydro/lib/libmessage_filters.so
+/home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line: /usr/lib/libtinyxml.so
+/home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/hydro/lib/libclass_loader.so
+/home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line: /usr/lib/libPocoFoundation.so
+/home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line: /usr/lib/x86_64-linux-gnu/libdl.so
+/home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/hydro/lib/libroslib.so
+/home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/hydro/lib/libroscpp.so
+/home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line: /usr/lib/libboost_signals-mt.so
+/home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line: /usr/lib/libboost_filesystem-mt.so
+/home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/hydro/lib/librosconsole.so
+/home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/hydro/lib/librosconsole_log4cxx.so
+/home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/hydro/lib/librosconsole_backend_interface.so
+/home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line: /usr/lib/liblog4cxx.so
+/home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line: /usr/lib/libboost_regex-mt.so
+/home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/hydro/lib/libxmlrpcpp.so
+/home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/hydro/lib/libroscpp_serialization.so
+/home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/hydro/lib/librostime.so
+/home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line: /usr/lib/libboost_date_time-mt.so
+/home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line: /usr/lib/libboost_system-mt.so
+/home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line: /usr/lib/libboost_thread-mt.so
+/home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line: /usr/lib/x86_64-linux-gnu/libpthread.so
+/home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/hydro/lib/libcpp_common.so
+/home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line: /opt/ros/hydro/lib/libconsole_bridge.so
+/home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line: kinect_image/CMakeFiles/image_reference_line.dir/build.make
+/home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line: kinect_image/CMakeFiles/image_reference_line.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX executable /home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line"
+	cd /home/rdu/catkin_ws/build/kinect_image && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/image_reference_line.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
-kinect_image/CMakeFiles/image_reference_line.dir/build: /home/turtlebot/catkin_ws/devel/lib/kinect_image/image_reference_line
+kinect_image/CMakeFiles/image_reference_line.dir/build: /home/rdu/catkin_ws/devel/lib/kinect_image/image_reference_line
 .PHONY : kinect_image/CMakeFiles/image_reference_line.dir/build
 
 kinect_image/CMakeFiles/image_reference_line.dir/requires: kinect_image/CMakeFiles/image_reference_line.dir/src/image_reference_line.cpp.o.requires
 .PHONY : kinect_image/CMakeFiles/image_reference_line.dir/requires
 
 kinect_image/CMakeFiles/image_reference_line.dir/clean:
-	cd /home/turtlebot/catkin_ws/build/kinect_image && $(CMAKE_COMMAND) -P CMakeFiles/image_reference_line.dir/cmake_clean.cmake
+	cd /home/rdu/catkin_ws/build/kinect_image && $(CMAKE_COMMAND) -P CMakeFiles/image_reference_line.dir/cmake_clean.cmake
 .PHONY : kinect_image/CMakeFiles/image_reference_line.dir/clean
 
 kinect_image/CMakeFiles/image_reference_line.dir/depend:
-	cd /home/turtlebot/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/turtlebot/catkin_ws/src /home/turtlebot/catkin_ws/src/kinect_image /home/turtlebot/catkin_ws/build /home/turtlebot/catkin_ws/build/kinect_image /home/turtlebot/catkin_ws/build/kinect_image/CMakeFiles/image_reference_line.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/rdu/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/rdu/catkin_ws/src /home/rdu/catkin_ws/src/kinect_image /home/rdu/catkin_ws/build /home/rdu/catkin_ws/build/kinect_image /home/rdu/catkin_ws/build/kinect_image/CMakeFiles/image_reference_line.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : kinect_image/CMakeFiles/image_reference_line.dir/depend
 

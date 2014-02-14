@@ -32,10 +32,10 @@ CMAKE_COMMAND = /usr/bin/cmake
 RM = /usr/bin/cmake -E remove -f
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/turtlebot/catkin_ws/src
+CMAKE_SOURCE_DIR = /home/rdu/catkin_ws/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/turtlebot/catkin_ws/build
+CMAKE_BINARY_DIR = /home/rdu/catkin_ws/build
 
 # Include any dependencies generated for this target.
 include uvc_camera_image/CMakeFiles/ros_opencv_example.dir/depend.make
@@ -47,18 +47,18 @@ include uvc_camera_image/CMakeFiles/ros_opencv_example.dir/progress.make
 include uvc_camera_image/CMakeFiles/ros_opencv_example.dir/flags.make
 
 uvc_camera_image/CMakeFiles/ros_opencv_example.dir/src/ros_opencv_example.cpp.o: uvc_camera_image/CMakeFiles/ros_opencv_example.dir/flags.make
-uvc_camera_image/CMakeFiles/ros_opencv_example.dir/src/ros_opencv_example.cpp.o: /home/turtlebot/catkin_ws/src/uvc_camera_image/src/ros_opencv_example.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/turtlebot/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_1)
+uvc_camera_image/CMakeFiles/ros_opencv_example.dir/src/ros_opencv_example.cpp.o: /home/rdu/catkin_ws/src/uvc_camera_image/src/ros_opencv_example.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/rdu/catkin_ws/build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object uvc_camera_image/CMakeFiles/ros_opencv_example.dir/src/ros_opencv_example.cpp.o"
-	cd /home/turtlebot/catkin_ws/build/uvc_camera_image && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/ros_opencv_example.dir/src/ros_opencv_example.cpp.o -c /home/turtlebot/catkin_ws/src/uvc_camera_image/src/ros_opencv_example.cpp
+	cd /home/rdu/catkin_ws/build/uvc_camera_image && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/ros_opencv_example.dir/src/ros_opencv_example.cpp.o -c /home/rdu/catkin_ws/src/uvc_camera_image/src/ros_opencv_example.cpp
 
 uvc_camera_image/CMakeFiles/ros_opencv_example.dir/src/ros_opencv_example.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ros_opencv_example.dir/src/ros_opencv_example.cpp.i"
-	cd /home/turtlebot/catkin_ws/build/uvc_camera_image && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/turtlebot/catkin_ws/src/uvc_camera_image/src/ros_opencv_example.cpp > CMakeFiles/ros_opencv_example.dir/src/ros_opencv_example.cpp.i
+	cd /home/rdu/catkin_ws/build/uvc_camera_image && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/rdu/catkin_ws/src/uvc_camera_image/src/ros_opencv_example.cpp > CMakeFiles/ros_opencv_example.dir/src/ros_opencv_example.cpp.i
 
 uvc_camera_image/CMakeFiles/ros_opencv_example.dir/src/ros_opencv_example.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ros_opencv_example.dir/src/ros_opencv_example.cpp.s"
-	cd /home/turtlebot/catkin_ws/build/uvc_camera_image && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/turtlebot/catkin_ws/src/uvc_camera_image/src/ros_opencv_example.cpp -o CMakeFiles/ros_opencv_example.dir/src/ros_opencv_example.cpp.s
+	cd /home/rdu/catkin_ws/build/uvc_camera_image && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/rdu/catkin_ws/src/uvc_camera_image/src/ros_opencv_example.cpp -o CMakeFiles/ros_opencv_example.dir/src/ros_opencv_example.cpp.s
 
 uvc_camera_image/CMakeFiles/ros_opencv_example.dir/src/ros_opencv_example.cpp.o.requires:
 .PHONY : uvc_camera_image/CMakeFiles/ros_opencv_example.dir/src/ros_opencv_example.cpp.o.requires
@@ -76,64 +76,66 @@ ros_opencv_example_OBJECTS = \
 # External object files for target ros_opencv_example
 ros_opencv_example_EXTERNAL_OBJECTS =
 
-/home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: uvc_camera_image/CMakeFiles/ros_opencv_example.dir/src/ros_opencv_example.cpp.o
-/home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/groovy/lib/libcv_bridge.so
-/home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/groovy/lib/libopencv_calib3d.so
-/home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/groovy/lib/libopencv_contrib.so
-/home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/groovy/lib/libopencv_core.so
-/home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/groovy/lib/libopencv_features2d.so
-/home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/groovy/lib/libopencv_flann.so
-/home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/groovy/lib/libopencv_gpu.so
-/home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/groovy/lib/libopencv_highgui.so
-/home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/groovy/lib/libopencv_imgproc.so
-/home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/groovy/lib/libopencv_legacy.so
-/home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/groovy/lib/libopencv_ml.so
-/home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/groovy/lib/libopencv_nonfree.so
-/home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/groovy/lib/libopencv_objdetect.so
-/home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/groovy/lib/libopencv_photo.so
-/home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/groovy/lib/libopencv_stitching.so
-/home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/groovy/lib/libopencv_superres.so
-/home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/groovy/lib/libopencv_video.so
-/home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/groovy/lib/libopencv_videostab.so
-/home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/groovy/lib/librosconsole.so
-/home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /usr/lib/libboost_regex-mt.so
-/home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /usr/lib/libboost_thread-mt.so
-/home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /usr/lib/x86_64-linux-gnu/libpthread.so
-/home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /usr/lib/liblog4cxx.so
-/home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/groovy/lib/libcpp_common.so
-/home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/groovy/lib/librostime.so
-/home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /usr/lib/libboost_date_time-mt.so
-/home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /usr/lib/libboost_system-mt.so
-/home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/groovy/lib/libroscpp_serialization.so
-/home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/groovy/lib/libimage_transport.so
-/home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/groovy/lib/libmessage_filters.so
-/home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/groovy/lib/libroscpp.so
-/home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /usr/lib/libboost_signals-mt.so
-/home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /usr/lib/libboost_filesystem-mt.so
-/home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/groovy/lib/libxmlrpcpp.so
-/home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /usr/lib/libtinyxml.so
-/home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/groovy/lib/libclass_loader.so
-/home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /usr/lib/libPocoFoundation.so
-/home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /usr/lib/x86_64-linux-gnu/libdl.so
-/home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/groovy/lib/libconsole_bridge.so
-/home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/groovy/lib/libroslib.so
-/home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: uvc_camera_image/CMakeFiles/ros_opencv_example.dir/build.make
-/home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: uvc_camera_image/CMakeFiles/ros_opencv_example.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX executable /home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example"
-	cd /home/turtlebot/catkin_ws/build/uvc_camera_image && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/ros_opencv_example.dir/link.txt --verbose=$(VERBOSE)
+/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: uvc_camera_image/CMakeFiles/ros_opencv_example.dir/src/ros_opencv_example.cpp.o
+/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/hydro/lib/libcv_bridge.so
+/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/hydro/lib/libopencv_calib3d.so
+/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/hydro/lib/libopencv_contrib.so
+/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/hydro/lib/libopencv_core.so
+/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/hydro/lib/libopencv_features2d.so
+/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/hydro/lib/libopencv_flann.so
+/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/hydro/lib/libopencv_gpu.so
+/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/hydro/lib/libopencv_highgui.so
+/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/hydro/lib/libopencv_imgproc.so
+/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/hydro/lib/libopencv_legacy.so
+/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/hydro/lib/libopencv_ml.so
+/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/hydro/lib/libopencv_nonfree.so
+/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/hydro/lib/libopencv_objdetect.so
+/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/hydro/lib/libopencv_photo.so
+/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/hydro/lib/libopencv_stitching.so
+/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/hydro/lib/libopencv_superres.so
+/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/hydro/lib/libopencv_video.so
+/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/hydro/lib/libopencv_videostab.so
+/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/hydro/lib/libimage_transport.so
+/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/hydro/lib/libmessage_filters.so
+/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /usr/lib/libtinyxml.so
+/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/hydro/lib/libclass_loader.so
+/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /usr/lib/libPocoFoundation.so
+/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /usr/lib/x86_64-linux-gnu/libdl.so
+/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/hydro/lib/libroslib.so
+/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/hydro/lib/libroscpp.so
+/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /usr/lib/libboost_signals-mt.so
+/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /usr/lib/libboost_filesystem-mt.so
+/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/hydro/lib/librosconsole.so
+/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/hydro/lib/librosconsole_log4cxx.so
+/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/hydro/lib/librosconsole_backend_interface.so
+/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /usr/lib/liblog4cxx.so
+/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /usr/lib/libboost_regex-mt.so
+/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/hydro/lib/libxmlrpcpp.so
+/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/hydro/lib/libroscpp_serialization.so
+/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/hydro/lib/librostime.so
+/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /usr/lib/libboost_date_time-mt.so
+/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /usr/lib/libboost_system-mt.so
+/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /usr/lib/libboost_thread-mt.so
+/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /usr/lib/x86_64-linux-gnu/libpthread.so
+/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/hydro/lib/libcpp_common.so
+/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: /opt/ros/hydro/lib/libconsole_bridge.so
+/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: uvc_camera_image/CMakeFiles/ros_opencv_example.dir/build.make
+/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example: uvc_camera_image/CMakeFiles/ros_opencv_example.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX executable /home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example"
+	cd /home/rdu/catkin_ws/build/uvc_camera_image && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/ros_opencv_example.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
-uvc_camera_image/CMakeFiles/ros_opencv_example.dir/build: /home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example
+uvc_camera_image/CMakeFiles/ros_opencv_example.dir/build: /home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example
 .PHONY : uvc_camera_image/CMakeFiles/ros_opencv_example.dir/build
 
 uvc_camera_image/CMakeFiles/ros_opencv_example.dir/requires: uvc_camera_image/CMakeFiles/ros_opencv_example.dir/src/ros_opencv_example.cpp.o.requires
 .PHONY : uvc_camera_image/CMakeFiles/ros_opencv_example.dir/requires
 
 uvc_camera_image/CMakeFiles/ros_opencv_example.dir/clean:
-	cd /home/turtlebot/catkin_ws/build/uvc_camera_image && $(CMAKE_COMMAND) -P CMakeFiles/ros_opencv_example.dir/cmake_clean.cmake
+	cd /home/rdu/catkin_ws/build/uvc_camera_image && $(CMAKE_COMMAND) -P CMakeFiles/ros_opencv_example.dir/cmake_clean.cmake
 .PHONY : uvc_camera_image/CMakeFiles/ros_opencv_example.dir/clean
 
 uvc_camera_image/CMakeFiles/ros_opencv_example.dir/depend:
-	cd /home/turtlebot/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/turtlebot/catkin_ws/src /home/turtlebot/catkin_ws/src/uvc_camera_image /home/turtlebot/catkin_ws/build /home/turtlebot/catkin_ws/build/uvc_camera_image /home/turtlebot/catkin_ws/build/uvc_camera_image/CMakeFiles/ros_opencv_example.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/rdu/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/rdu/catkin_ws/src /home/rdu/catkin_ws/src/uvc_camera_image /home/rdu/catkin_ws/build /home/rdu/catkin_ws/build/uvc_camera_image /home/rdu/catkin_ws/build/uvc_camera_image/CMakeFiles/ros_opencv_example.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : uvc_camera_image/CMakeFiles/ros_opencv_example.dir/depend
 

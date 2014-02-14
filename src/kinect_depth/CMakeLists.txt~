@@ -5,11 +5,12 @@ project(kinect_depth)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  pcl
+  cv_bridge
+  image_transport
+  pcl_conversions
   pcl_ros
   roscpp
-  cv_bridge 
-  image_transport
+  roscpp
   sensor_msgs
   std_msgs
 )
@@ -71,7 +72,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate added messages and services with any dependencies listed here
 # generate_messages(
 #   DEPENDENCIES
-#   sensor_msgs
+#   sensor_msgs#   std_msgs
 # )
 
 ###################################
@@ -86,7 +87,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES kinect_depth
-#  CATKIN_DEPENDS pcl pcl_ros roscpp sensor_msgs
+#  CATKIN_DEPENDS cv_bridge image_transport pcl_conversions pcl_ros roscpp roscpp sensor_msgs std_msgs
 #  DEPENDS system_lib
 )
 
@@ -165,6 +166,3 @@ include_directories(
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
-
-add_executable(distance_publisher src/distance_publisher.cpp)
-target_link_libraries(distance_publisher ${catkin_LIBRARIES})

@@ -1,5 +1,0 @@
-<launch>
-  <include file="$(find fall_risk_assessment)/launch/kinect_dist_circle.launch"> 
-  </include>
-  <node name="image_reference_line" pkg="kinect_image" type="image_reference_line"/>
-</launch>

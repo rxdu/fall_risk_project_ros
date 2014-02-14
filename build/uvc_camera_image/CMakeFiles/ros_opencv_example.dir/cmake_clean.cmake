@@ -1,7 +1,7 @@
 FILE(REMOVE_RECURSE
   "CMakeFiles/ros_opencv_example.dir/src/ros_opencv_example.cpp.o"
-  "/home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example.pdb"
-  "/home/turtlebot/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example"
+  "/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example.pdb"
+  "/home/rdu/catkin_ws/devel/lib/uvc_camera_image/ros_opencv_example"
 )
 
 # Per-language clean rules from dependency scanning.

@@ -1,8 +1,0 @@
-prefix=/home/turtlebot/catkin_ws/devel
-
-Name: my_pcl_tutorial
-Description: Description of my_pcl_tutorial
-Version: 0.0.0
-Cflags: 
-Libs: -L/home/turtlebot/catkin_ws/devel/lib 
-Requires: 

@@ -163,12 +163,3 @@ include_directories(
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
-
-add_executable(distance_publisher src/distance_publisher.cpp)
-target_link_libraries(distance_publisher ${catkin_LIBRARIES})
-
-add_executable(image_center_distance src/image_center_distance.cpp)
-target_link_libraries(image_center_distance ${catkin_LIBRARIES})
-
-add_executable(image_reference_line src/image_reference_line.cpp)
-target_link_libraries(image_reference_line ${catkin_LIBRARIES})

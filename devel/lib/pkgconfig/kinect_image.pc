@@ -1,8 +1,8 @@
-prefix=/home/turtlebot/catkin_ws/devel
+prefix=/home/rdu/catkin_ws/devel
 
 Name: kinect_image
 Description: Description of kinect_image
 Version: 0.0.0
 Cflags: 
-Libs: -L/home/turtlebot/catkin_ws/devel/lib 
+Libs: -L/home/rdu/catkin_ws/devel/lib 
 Requires: 

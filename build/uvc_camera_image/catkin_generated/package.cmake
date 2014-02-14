@@ -1,5 +1,5 @@
 set(_CATKIN_CURRENT_PACKAGE "uvc_camera_image")
-set(uvc_camera_image_MAINTAINER "turtlebot <turtlebot@todo.todo>")
+set(uvc_camera_image_MAINTAINER "rdu <rdu@todo.todo>")
 set(uvc_camera_image_DEPRECATED "")
 set(uvc_camera_image_VERSION "0.0.0")
 set(uvc_camera_image_BUILD_DEPENDS "cv_bridge" "image_transport" "roscpp" "sensor_msgs" "std_msgs")
