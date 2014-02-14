@@ -13,16 +13,19 @@ Set up a webcam on a computer with MJPEG Server and ROSBridge running:
 
 ```
 roslaunch fall_risk_assessment pc_rosbridge_mjpeg.launch 
+```
 
 Draw a circle with distance on a image from kinect:
 
 ```
 roslaunch fall_risk_assessment kinect_dist_circle.launch 
+```
 
 Draw reference lines on a image from kinect:
 
 ```
 roslaunch fall_risk_assessment kinect_ref_line.launch 
+```
 
 
 2.How to use OpenCV in a ROS node
@@ -40,11 +43,13 @@ For example, the tutorial gives:
 
 ```
 $ sudo apt-get install ros-fuerte-camera-umd
+```
 
 Then you need to change it to:
 
 ```
 $ sudo apt-get install ros-groovy-camera-umd
+```
 
 Follow this tutorial to lean how to use cv_bridge
 
