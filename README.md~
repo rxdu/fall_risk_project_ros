@@ -28,7 +28,7 @@ roslaunch fall_risk_assessment kinect_ref_line.launch
 ```
 
 
-2.How to get use OpenCV in a ROS node
+2.How to use OpenCV in a ROS node
 ------------------
 
 This article can give you a idea about how it works:
