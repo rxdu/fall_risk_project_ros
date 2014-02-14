@@ -1,5 +1,17 @@
 # generated from catkin/cmake/template/pkgConfig.cmake.in
 
+# append elements to a list and remove existing duplicates from the list
+# copied from catkin/cmake/list_append_deduplicate.cmake to keep pkgConfig
+# self contained
+macro(_list_append_deduplicate listname)
+  if(NOT "${ARGN}" STREQUAL "")
+    if(${listname})
+      list(REMOVE_ITEM ${listname} ${ARGN})
+    endif()
+    list(APPEND ${listname} ${ARGN})
+  endif()
+endmacro()
+
 # append elements to a list if they are not already in the list
 # copied from catkin/cmake/list_append_unique.cmake to keep pkgConfig
 # self contained
@@ -12,43 +24,39 @@ macro(_list_append_unique listname)
   endforeach()
 endmacro()
 
-# remove duplicate libraries, generalized from PCLConfig.cmake.in
-macro(_remove_duplicate_libraries _unfiltered_libraries _final_filtered_libraries)
-  set(_filtered_libraries)
-  set(_debug_libraries)
-  set(_optimized_libraries)
-  set(_other_libraries)
-  set(_waiting_for_debug 0)
-  set(_waiting_for_optimized 0)
-  set(_library_position -1)
-  foreach(library ${${_unfiltered_libraries}})
-    if("${library}" STREQUAL "debug")
-      set(_waiting_for_debug 1)
-    elseif("${library}" STREQUAL "optimized")
-      set(_waiting_for_optimized 1)
-    elseif(_waiting_for_debug)
-      list(FIND _debug_libraries "${library}" library_position)
-      if(library_position EQUAL -1)
-        list(APPEND ${_filtered_libraries} debug ${library})
-        list(APPEND _debug_libraries ${library})
+# pack a list of libraries with optional build configuration keywords
+# copied from catkin/cmake/catkin_libraries.cmake to keep pkgConfig
+# self contained
+macro(_pack_libraries_with_build_configuration VAR)
+  set(${VAR} "")
+  set(_argn ${ARGN})
+  list(LENGTH _argn _count)
+  set(_index 0)
+  while(${_index} LESS ${_count})
+    list(GET _argn ${_index} lib)
+    if("${lib}" MATCHES "^debug|optimized|general$")
+      math(EXPR _index "${_index} + 1")
+      if(${_index} EQUAL ${_count})
+        message(FATAL_ERROR "_pack_libraries_with_build_configuration() the list of libraries '${ARGN}' ends with '${lib}' which is a build configuration keyword and must be followed by a library")
       endif()
-      set(_waiting_for_debug 0)
-    elseif(_waiting_for_optimized)
-      list(FIND _optimized_libraries "${library}" library_position)
-      if(library_position EQUAL -1)
-        list(APPEND ${_filtered_libraries} optimized ${library})
-        list(APPEND _optimized_libraries ${library})
-      endif()
-      set(_waiting_for_optimized 0)
-    else("${library}" STREQUAL "debug")
-      list(FIND _other_libraries "${library}" library_position)
-      if(library_position EQUAL -1)
-        list(APPEND ${_filtered_libraries} ${library})
-        list(APPEND _other_libraries ${library})
-      endif()
-    endif("${library}" STREQUAL "debug")
-  endforeach(library)
-  set(_final_filtered_libraries _filtered_libraries)
+      list(GET _argn ${_index} library)
+      list(APPEND ${VAR} "${lib}${CATKIN_BUILD_CONFIGURATION_KEYWORD_SEPARATOR}${library}")
+    else()
+      list(APPEND ${VAR} "${lib}")
+    endif()
+    math(EXPR _index "${_index} + 1")
+  endwhile()
+endmacro()
+
+# unpack a list of libraries with optional build configuration keyword prefixes
+# copied from catkin/cmake/catkin_libraries.cmake to keep pkgConfig
+# self contained
+macro(_unpack_libraries_with_build_configuration VAR)
+  set(${VAR} "")
+  foreach(lib ${ARGN})
+    string(REGEX REPLACE "^(debug|optimized|general)${CATKIN_BUILD_CONFIGURATION_KEYWORD_SEPARATOR}(.+)$" "\\1;\\2" lib "${lib}")
+    list(APPEND ${VAR} "${lib}")
+  endforeach()
 endmacro()
 
 
@@ -59,14 +67,14 @@ set(kinect_depth_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("FALSE" STREQUAL "TRUE")
-  set(kinect_depth_SOURCE_PREFIX /home/turtlebot/catkin_ws/src/kinect_depth)
-  set(kinect_depth_DEVEL_PREFIX /home/turtlebot/catkin_ws/devel)
+  set(kinect_depth_SOURCE_PREFIX /home/rdu/catkin_ws/src/kinect_depth)
+  set(kinect_depth_DEVEL_PREFIX /home/rdu/catkin_ws/devel)
   set(kinect_depth_INSTALL_PREFIX "")
   set(kinect_depth_PREFIX ${kinect_depth_DEVEL_PREFIX})
 else()
   set(kinect_depth_SOURCE_PREFIX "")
   set(kinect_depth_DEVEL_PREFIX "")
-  set(kinect_depth_INSTALL_PREFIX /home/turtlebot/catkin_ws/install)
+  set(kinect_depth_INSTALL_PREFIX /home/rdu/catkin_ws/install)
   set(kinect_depth_PREFIX ${kinect_depth_INSTALL_PREFIX})
 endif()
 
@@ -95,7 +103,7 @@ if(NOT "" STREQUAL "")
         message(FATAL_ERROR "Project 'kinect_depth' specifies '${idir}' as an include dir, which is not found.  It does not exist in '${include}'.  Ask the maintainer 'turtlebot <turtlebot@todo.todo>' to fix it.")
       endif()
     else()
-      message(FATAL_ERROR "Project 'kinect_depth' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/turtlebot/catkin_ws/install/${idir}'.  Ask the maintainer 'turtlebot <turtlebot@todo.todo>' to fix it.")
+      message(FATAL_ERROR "Project 'kinect_depth' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/rdu/catkin_ws/install/${idir}'.  Ask the maintainer 'turtlebot <turtlebot@todo.todo>' to fix it.")
     endif()
     _list_append_unique(kinect_depth_INCLUDE_DIRS ${include})
   endforeach()
@@ -103,7 +111,10 @@ endif()
 
 set(libraries "")
 foreach(library ${libraries})
-  if(TARGET ${library})
+  # keep build configuration keywords, target names and absolute libraries as-is
+  if("${library}" MATCHES "^debug|optimized|general$")
+    list(APPEND kinect_depth_LIBRARIES ${library})
+  elseif(TARGET ${library})
     list(APPEND kinect_depth_LIBRARIES ${library})
   elseif(IS_ABSOLUTE ${library})
     list(APPEND kinect_depth_LIBRARIES ${library})
@@ -111,7 +122,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/turtlebot/catkin_ws/install/lib;/home/turtlebot/catkin_ws/devel/lib;/home/rdu/catkin_ws/devel/lib;/opt/ros/groovy/lib)
+    foreach(path /home/rdu/catkin_ws/install/lib;/home/rdu/catkin_ws/devel/lib;/opt/ros/hydro/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)
@@ -159,14 +170,17 @@ foreach(depend ${depends})
     find_package(${kinect_depth_dep} REQUIRED ${depend_list})
   endif()
   _list_append_unique(kinect_depth_INCLUDE_DIRS ${${kinect_depth_dep}_INCLUDE_DIRS})
-  list(APPEND kinect_depth_LIBRARIES ${${kinect_depth_dep}_LIBRARIES})
+
+  # merge build configuration keywords with library names to correctly deduplicate
+  _pack_libraries_with_build_configuration(kinect_depth_LIBRARIES ${kinect_depth_LIBRARIES})
+  _pack_libraries_with_build_configuration(_libraries ${${kinect_depth_dep}_LIBRARIES})
+  _list_append_deduplicate(kinect_depth_LIBRARIES ${_libraries})
+  # undo build configuration keyword merging after deduplication
+  _unpack_libraries_with_build_configuration(kinect_depth_LIBRARIES ${kinect_depth_LIBRARIES})
+
   _list_append_unique(kinect_depth_LIBRARY_DIRS ${${kinect_depth_dep}_LIBRARY_DIRS})
   list(APPEND kinect_depth_EXPORTED_TARGETS ${${kinect_depth_dep}_EXPORTED_TARGETS})
 endforeach()
-
-if(kinect_depth_LIBRARIES)
-  _remove_duplicate_libraries(kinect_depth_LIBRARIES kinect_depth_LIBRARIES)
-endif()
 
 set(pkg_cfg_extras "")
 foreach(extra ${pkg_cfg_extras})

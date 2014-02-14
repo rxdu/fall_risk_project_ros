@@ -1,7 +1,0 @@
-set(_CATKIN_CURRENT_PACKAGE "tutorialROSOpenCV")
-set(tutorialROSOpenCV_MAINTAINER "turtlebot <turtlebot@todo.todo>")
-set(tutorialROSOpenCV_DEPRECATED "")
-set(tutorialROSOpenCV_VERSION "0.0.0")
-set(tutorialROSOpenCV_BUILD_DEPENDS "cv_bridge" "image_transport" "roscpp" "std_msgs" "uvc_camera")
-set(tutorialROSOpenCV_RUN_DEPENDS "cv_bridge" "image_transport" "roscpp" "std_msgs" "uvc_camera")
-set(tutorialROSOpenCV_BUILDTOOL_DEPENDS "catkin")
