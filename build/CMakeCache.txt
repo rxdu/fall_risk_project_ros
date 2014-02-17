@@ -335,9 +335,6 @@ message_runtime_DIR:PATH=/opt/ros/hydro/share/message_runtime/cmake
 //The directory containing a CMake configuration file for nodelet.
 nodelet_DIR:PATH=/opt/ros/hydro/share/nodelet/cmake
 
-//The directory containing a CMake configuration file for pcl.
-pcl_DIR:PATH=pcl_DIR-NOTFOUND
-
 //The directory containing a CMake configuration file for pcl_conversions.
 pcl_conversions_DIR:PATH=/opt/ros/hydro/share/pcl_conversions/cmake
 
