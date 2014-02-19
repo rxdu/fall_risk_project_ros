@@ -9,6 +9,12 @@ RIVeR Lab, WPI
 
 You can find most launch files in fall_risk_assessment package.
 
+Turn on the turtlebot and run both mjpeg server and rosbridge server:
+
+```
+roslaunch fall_risk_assessment fall_risk_demo.launch 
+```
+
 Set up a webcam on a computer with MJPEG Server and ROSBridge running:
 
 ```
@@ -28,6 +34,7 @@ roslaunch fall_risk_assessment kinect_ref_line.launch
 ```
 
 2.Source folder
+-------------------
 
 **fall_risk_assessment**: mainly launch files at present
 

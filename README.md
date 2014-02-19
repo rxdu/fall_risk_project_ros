@@ -9,6 +9,12 @@ RIVeR Lab, WPI
 
 You can find most launch files in fall_risk_assessment package.
 
+Turn on the turtlebot and run both mjpeg server and rosbridge server:
+
+```
+roslaunch fall_risk_assessment fall_risk_demo.launch 
+```
+
 Set up a webcam on a computer with MJPEG Server and ROSBridge running:
 
 ```
@@ -38,8 +44,15 @@ roslaunch fall_risk_assessment kinect_ref_line.launch
 
 **uvc_camera**: catkinized version of tutorialROSOpenCV, mainly used for testing with webcam when robot is not available
 
+3.How to install mjpeg server and rosbridge server for ROS Hydro
+-------------------
 
-3.How to use OpenCV in a ROS node
+```
+sudo apt-get install ros-hydro-mjpeg-server
+sudo apt-get install ros-hydro-rosbridge-server
+```
+
+4.How to use OpenCV in a ROS node
 ------------------
 
 This article can give you a idea about how it works:
