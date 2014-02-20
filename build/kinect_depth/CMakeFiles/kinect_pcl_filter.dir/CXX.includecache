@@ -11,11 +11,15 @@ ros/ros.h
 -
 sensor_msgs/PointCloud2.h
 -
+pcl/conversions.h
+-
 pcl_conversions/pcl_conversions.h
 -
 pcl/point_cloud.h
 -
 pcl/point_types.h
+-
+pcl/PCLPointCloud2.h
 -
 pcl/filters/voxel_grid.h
 -
