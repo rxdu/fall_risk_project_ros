@@ -14,21 +14,17 @@ ros::Publisher pub;
 void
 cloud_cb (const sensor_msgs::PointCloud2ConstPtr& input)
 {       
-    pcl::PCLPointCloud2::Ptr input_pcl;
+//    pcl::PCLPointCloud2::Ptr input_pcl;
     pcl::PCLPointCloud2::Ptr output_pcl;
     sensor_msgs::PointCloud2 output;
 
     pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_original;
     pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_filtered;
 
-    pcl_conversions::toPCL(*input, *input_pcl);
-    pcl::fromPCLPointCloud2(*input_pcl, *cloud_original);
+//    pcl_conversions::toPCL(*input, *input_pcl);
+//    pcl::fromPCLPointCloud2(*input_pcl, *cloud_original);
 
-    // Perform the actual filtering
-//    pcl::VoxelGrid<sensor_msgs::PointCloud2> sor;
-//    sor.setInputCloud (input);
-//    sor.setLeafSize (0.01, 0.01, 0.01);
-//    sor.filter (cloud_filtered);
+    pcl::fromROSMsg (*input, *cloud_original);
 
     pcl::StatisticalOutlierRemoval<pcl::PointXYZ> sor;
     sor.setInputCloud (cloud_original);
