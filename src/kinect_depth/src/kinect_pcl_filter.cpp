@@ -14,13 +14,15 @@ ros::Publisher pub;
 void
 cloud_cb (const sensor_msgs::PointCloud2ConstPtr& input)
 {           
+    pcl::PCLPointCloud2 input_pcl;
+    pcl::PCLPointCloud2 output_pcl;
     sensor_msgs::PointCloud2 output;
     pcl::PointCloud<pcl::PointXYZ>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZ>);
     pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_filtered (new pcl::PointCloud<pcl::PointXYZ>);
 
-//    pcl_conversions::toPCL(*input, *input_pcl);
-//    pcl::fromPCLPointCloud2(*input_pcl, *cloud_original);
-    pcl::fromROSMsg (*input, *cloud);   //deprecated method to do conversion
+    pcl_conversions::toPCL(*input, input_pcl);
+    pcl::fromPCLPointCloud2(input_pcl, *cloud);
+//    pcl::fromROSMsg (*input, *cloud);   //deprecated method to do conversion
 
     std::cerr << "Cloud before filtering: " << std::endl;
     std::cerr << *cloud << std::endl;
@@ -35,9 +37,9 @@ cloud_cb (const sensor_msgs::PointCloud2ConstPtr& input)
     std::cerr << "Cloud after filtering: " << std::endl;
     std::cerr << *cloud_filtered << std::endl;
 
-//    pcl::toPCLPointCloud2(*cloud_filtered,*output_pcl);
-//    pcl_conversions::fromPCL(*output_pcl,output);
-    pcl::toROSMsg(*cloud_filtered,output);   //deprecated method to do conversion
+    pcl::toPCLPointCloud2(*cloud_filtered,output_pcl);
+    pcl_conversions::fromPCL(output_pcl,output);
+//    pcl::toROSMsg(*cloud_filtered,output);   //deprecated method to do conversion
 
     // Publish the data
     pub.publish (output);
