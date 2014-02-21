@@ -38,6 +38,7 @@ cloud_cb (const sensor_msgs::PointCloud2ConstPtr& input)
 
 //    // Publish the data
     pcl::toPCLPointCloud2(*cloud_filtered,*output_pcl);
+    //pcl::toPCLPointCloud2(*cloud_original,*output_pcl);
     pcl_conversions::fromPCL(*output_pcl,output);
     pub.publish (output);
 }
