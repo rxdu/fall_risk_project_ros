@@ -13,29 +13,33 @@ ros::Publisher pub;
 
 void
 cloud_cb (const sensor_msgs::PointCloud2ConstPtr& input)
-{       
-//    pcl::PCLPointCloud2::Ptr input_pcl;
-    pcl::PCLPointCloud2::Ptr output_pcl;
+{           
     sensor_msgs::PointCloud2 output;
-
-    pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_original;
-    pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_filtered;
+    pcl::PointCloud<pcl::PointXYZ>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZ>);
+    pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_filtered (new pcl::PointCloud<pcl::PointXYZ>);
 
 //    pcl_conversions::toPCL(*input, *input_pcl);
 //    pcl::fromPCLPointCloud2(*input_pcl, *cloud_original);
+    pcl::fromROSMsg (*input, *cloud);   //deprecated method to do conversion
 
-    pcl::fromROSMsg (*input, *cloud_original);
+    std::cerr << "Cloud before filtering: " << std::endl;
+    std::cerr << *cloud << std::endl;
 
+    // Create the filtering object
     pcl::StatisticalOutlierRemoval<pcl::PointXYZ> sor;
-    sor.setInputCloud (cloud_original);
+    sor.setInputCloud (cloud);
     sor.setMeanK (50);
     sor.setStddevMulThresh (1.0);
     sor.filter (*cloud_filtered);
 
-//    // Publish the data
-    pcl::toPCLPointCloud2(*cloud_filtered,*output_pcl);
-    //pcl::toPCLPointCloud2(*cloud_original,*output_pcl);
-    pcl_conversions::fromPCL(*output_pcl,output);
+    std::cerr << "Cloud after filtering: " << std::endl;
+    std::cerr << *cloud_filtered << std::endl;
+
+//    pcl::toPCLPointCloud2(*cloud_filtered,*output_pcl);
+//    pcl_conversions::fromPCL(*output_pcl,output);
+    pcl::toROSMsg(*cloud_filtered,output);   //deprecated method to do conversion
+
+    // Publish the data
     pub.publish (output);
 }
 
@@ -43,7 +47,7 @@ int
 main (int argc, char** argv)
 {
   // Initialize ROS
-  ros::init (argc, argv, "my_pcl_tutorial");
+  ros::init (argc, argv, "kinect_pcl_filter");
   ros::NodeHandle nh;
 
   // Create a ROS subscriber for the input point cloud
