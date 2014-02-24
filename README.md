@@ -33,7 +33,7 @@ Draw reference lines on a image from kinect:
 roslaunch fall_risk_assessment kinect_ref_line.launch 
 ```
 
-2.Source folder
+2.Source Folder
 -------------------
 
 **fall_risk_assessment**: mainly launch files at present
@@ -43,6 +43,41 @@ roslaunch fall_risk_assessment kinect_ref_line.launch
 **kinect_image**: nodes about 2d image processing/vision
 
 **uvc_camera**: catkinized version of tutorialROSOpenCV, mainly used for testing with webcam when robot is not available
+
+3.Setting UP Your Workspace
+-------------------
+
+* Create your workspace
+
+```
+mkdir -p ~/fallrisk_ws/src
+cd ~/fallrisk_ws/src
+catkin_init_workspace
+cd ~/fallrisk_ws/
+catkin_make
+source devel/setup.bash
+```
+
+* Setting Up .bashrc File
+
+```
+echo source ~/fallrisk_ws/devel/setup.bash >> ~/.bashrc
+. ~/.bashrc
+```
+
+```
+cd ~/fallrisk_ws/src
+wstool init
+wstool set fall_risk_project_ros https://github.com/rxdu/FallRiskProjectROS.git --git
+wstool update
+```
+
+* Compile project
+
+```
+cd ~/fallrisk_ws
+catkin_make
+```
 
 3.How to install mjpeg server and rosbridge server for ROS Hydro
 -------------------
