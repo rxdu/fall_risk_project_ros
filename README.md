@@ -36,7 +36,7 @@ roslaunch fall_risk_assessment kinect_ref_line.launch
 2.Source Folder
 -------------------
 
-**fall_risk_assessment**: mainly launch files at present
+**fallrisk_bringup**: mainly launch files at present
 
 **kinect depth**: nodes about 3d depth/distance processing/vision
 

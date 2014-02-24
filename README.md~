@@ -75,6 +75,8 @@ wstool update
 * Compile project
 
 ```
+cd ~/fallrisk_ws/src/fall_risk_project_ros
+git checkout hydro_devel
 cd ~/fallrisk_ws
 catkin_make
 ```

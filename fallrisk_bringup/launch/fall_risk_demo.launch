@@ -1,8 +1,24 @@
 <launch>
   <include file="$(find turtlebot_bringup)/launch/minimal.launch">
   </include>
-  <include file="$(find openni_launch)/launch/openni.launch"> 
+
+<!--  Commenting this portion to enable gmapping. openni.launch file is called through 3dsensor.launch
+
+<include file="$(find openni_launch)/launch/openni.launch"> 
+  </include> -->
+
+<include file="$(find turtlebot_bringup)/launch/3dsensor.launch">
+    <arg name="rgb_processing" value="false" />
+    <arg name="depth_registration" value="false" />
+    <arg name="depth_processing" value="false" />
+    
+<!--      We must specify an absolute topic name because if not it will be prefixed by "$(arg camera)".
+         Probably is a bug in the nodelet manager: https://github.com/ros/nodelet_core/issues/7   -->
+
+    <arg name="scan_topic" value="/scan" />
   </include>
+
+
 
   <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch">
   </include>
