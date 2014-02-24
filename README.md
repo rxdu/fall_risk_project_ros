@@ -79,7 +79,7 @@ cd ~/fallrisk_ws
 catkin_make
 ```
 
-3.How to install mjpeg server and rosbridge server for ROS Hydro
+3.Installing mjpeg server and rosbridge server for ROS Hydro
 -------------------
 
 ```
@@ -87,7 +87,7 @@ sudo apt-get install ros-hydro-mjpeg-server
 sudo apt-get install ros-hydro-rosbridge-server
 ```
 
-4.How to use OpenCV in a ROS node
+4.Using OpenCV in a ROS node
 ------------------
 
 This article can give you a idea about how it works:

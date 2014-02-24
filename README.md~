@@ -68,7 +68,7 @@ echo source ~/fallrisk_ws/devel/setup.bash >> ~/.bashrc
 ```
 cd ~/fallrisk_ws/src
 wstool init
-wstool set drc https://github.com/WPI-Atlas-Lab/drc --git
+wstool set fall_risk_project_ros https://github.com/rxdu/FallRiskProjectROS.git --git
 wstool update
 ```
 
@@ -79,7 +79,7 @@ cd ~/fallrisk_ws
 catkin_make
 ```
 
-3.How to install mjpeg server and rosbridge server for ROS Hydro
+3.Installing mjpeg server and rosbridge server for ROS Hydro
 -------------------
 
 ```
