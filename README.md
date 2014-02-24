@@ -44,7 +44,7 @@ roslaunch fallrisk_bringup kinect_ref_line.launch
 
 **uvc_camera**: catkinized version of tutorialROSOpenCV, mainly used for testing with webcam when robot is not available
 
-3.Setting UP Your Workspace
+3.Setting Up Your Workspace
 -------------------
 
 * Create your workspace
