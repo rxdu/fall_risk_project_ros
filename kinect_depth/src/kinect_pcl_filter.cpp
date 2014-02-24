@@ -6,6 +6,7 @@
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
 #include <pcl/PCLPointCloud2.h>
+#include <pcl/filters/passthrough.h>
 #include <pcl/filters/voxel_grid.h>
 #include <pcl/filters/statistical_outlier_removal.h>
 
@@ -18,7 +19,8 @@ cloud_cb (const sensor_msgs::PointCloud2ConstPtr& input)
     pcl::PCLPointCloud2 output_pcl;
     sensor_msgs::PointCloud2 output;
     pcl::PointCloud<pcl::PointXYZ>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZ>);
-    pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_filtered (new pcl::PointCloud<pcl::PointXYZ>);
+    pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_pass_filtered (new pcl::PointCloud<pcl::PointXYZ>);
+    pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_outlier_filtered (new pcl::PointCloud<pcl::PointXYZ>);
 
     pcl_conversions::toPCL(*input, input_pcl);
     pcl::fromPCLPointCloud2(input_pcl, *cloud);
@@ -27,17 +29,25 @@ cloud_cb (const sensor_msgs::PointCloud2ConstPtr& input)
     std::cerr << "Cloud before filtering: " << std::endl;
     std::cerr << *cloud << std::endl;
 
-    // Create the filtering object
+    // PassThrough Filter
+    pcl::PassThrough<pcl::PointXYZ> pass;
+    pass.setInputCloud (cloud);
+    pass.setFilterFieldName ("z");
+    pass.setFilterLimits (0.0, 5.0);
+    //pass.setFilterLimitsNegative (true);
+    pass.filter (*cloud_pass_filtered);
+
+    // StatisticalOutlierRemoval Filter
     pcl::StatisticalOutlierRemoval<pcl::PointXYZ> sor;
-    sor.setInputCloud (cloud);
+    sor.setInputCloud (cloud_pass_filtered);
     sor.setMeanK (50);
     sor.setStddevMulThresh (1.0);
-    sor.filter (*cloud_filtered);
+    sor.filter (*cloud_outlier_filtered);
 
     std::cerr << "Cloud after filtering: " << std::endl;
-    std::cerr << *cloud_filtered << std::endl;
+    std::cerr << *cloud_outlier_filtered << std::endl;
 
-    pcl::toPCLPointCloud2(*cloud_filtered,output_pcl);
+    pcl::toPCLPointCloud2(*cloud_outlier_filtered,output_pcl);
     pcl_conversions::fromPCL(output_pcl,output);
 //    pcl::toROSMsg(*cloud_filtered,output);   //deprecated method to do conversion
 
