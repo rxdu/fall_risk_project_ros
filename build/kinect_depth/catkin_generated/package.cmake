@@ -1,7 +1,0 @@
-set(_CATKIN_CURRENT_PACKAGE "kinect_depth")
-set(kinect_depth_MAINTAINER "turtlebot <turtlebot@todo.todo>")
-set(kinect_depth_DEPRECATED "")
-set(kinect_depth_VERSION "0.0.0")
-set(kinect_depth_BUILD_DEPENDS "cv_bridge" "image_transport" "pcl" "pcl_ros" "roscpp" "sensor_msgs" "std_msgs")
-set(kinect_depth_RUN_DEPENDS "cv_bridge" "image_transport" "pcl" "pcl_ros" "roscpp" "sensor_msgs" "std_msgs")
-set(kinect_depth_BUILDTOOL_DEPENDS "catkin")

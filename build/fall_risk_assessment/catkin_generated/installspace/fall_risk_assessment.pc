@@ -1,8 +1,0 @@
-prefix=/home/rdu/catkin_ws/install
-
-Name: fall_risk_assessment
-Description: Description of fall_risk_assessment
-Version: 0.0.0
-Cflags: 
-Libs: -L/home/rdu/catkin_ws/install/lib 
-Requires: 
