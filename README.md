@@ -1,7 +1,7 @@
 FallRiskProjectROS
 ==================
 
-RIVeR Lab, WPI
+[RIVeR](http://robot.wpi.edu) Lab, WPI
 
 
 1.Launch Files
