@@ -11,16 +11,15 @@
 #include <pcl/filters/statistical_outlier_removal.h>
 
 ros::Publisher pub;
+void applyPassFilter(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud);
+void applyStatisticalOutlierRemoval(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud);
 
-void
-cloud_cb (const sensor_msgs::PointCloud2ConstPtr& input)
-{           
+void cloud_cb (const sensor_msgs::PointCloud2ConstPtr& input)
+{
     pcl::PCLPointCloud2 input_pcl;
     pcl::PCLPointCloud2 output_pcl;
     sensor_msgs::PointCloud2 output;
     pcl::PointCloud<pcl::PointXYZ>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZ>);
-    pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_pass_filtered (new pcl::PointCloud<pcl::PointXYZ>);
-    pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_outlier_filtered (new pcl::PointCloud<pcl::PointXYZ>);
 
     pcl_conversions::toPCL(*input, input_pcl);
     pcl::fromPCLPointCloud2(input_pcl, *cloud);
@@ -30,24 +29,15 @@ cloud_cb (const sensor_msgs::PointCloud2ConstPtr& input)
     std::cerr << *cloud << std::endl;
 
     // PassThrough Filter
-    pcl::PassThrough<pcl::PointXYZ> pass;
-    pass.setInputCloud (cloud);
-    pass.setFilterFieldName ("z");
-    pass.setFilterLimits (0.0, 5.0);
-    //pass.setFilterLimitsNegative (true);
-    pass.filter (*cloud_pass_filtered);
+    applyPassFilter(cloud);
 
     // StatisticalOutlierRemoval Filter
-    pcl::StatisticalOutlierRemoval<pcl::PointXYZ> sor;
-    sor.setInputCloud (cloud_pass_filtered);
-    sor.setMeanK (50);
-    sor.setStddevMulThresh (1.0);
-    sor.filter (*cloud_outlier_filtered);
+    applyStatisticalOutlierRemoval(cloud);
 
     std::cerr << "Cloud after filtering: " << std::endl;
-    std::cerr << *cloud_outlier_filtered << std::endl;
+    std::cerr << *cloud << std::endl;
 
-    pcl::toPCLPointCloud2(*cloud_outlier_filtered,output_pcl);
+    pcl::toPCLPointCloud2(*cloud,output_pcl);
     pcl_conversions::fromPCL(output_pcl,output);
 //    pcl::toROSMsg(*cloud_filtered,output);   //deprecated method to do conversion
 
@@ -55,8 +45,40 @@ cloud_cb (const sensor_msgs::PointCloud2ConstPtr& input)
     pub.publish (output);
 }
 
-int
-main (int argc, char** argv)
+void applyPassFilter(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud)
+{
+    //TODO filter limits need to be adjusted
+    pcl::PassThrough<pcl::PointXYZ> pass;
+
+    pass.setInputCloud (cloud);
+    pass.setFilterFieldName ("x");
+    pass.setFilterLimits (-15, 15);
+    //pass.setFilterLimitsNegative (true);
+    pass.filter (*cloud);
+
+    pass.setInputCloud (cloud);
+    pass.setFilterFieldName ("y");
+    pass.setFilterLimits (-15, 15);
+    //pass.setFilterLimitsNegative (true);
+    pass.filter (*cloud);
+
+    pass.setInputCloud (cloud);
+    pass.setFilterFieldName ("z");
+    pass.setFilterLimits (-15, 15);
+    //pass.setFilterLimitsNegative (true);
+    pass.filter (*cloud);
+}
+
+void applyStatisticalOutlierRemoval(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud)
+{
+    pcl::StatisticalOutlierRemoval<pcl::PointXYZ> sor;
+    sor.setInputCloud (cloud);
+    sor.setMeanK (50);
+    sor.setStddevMulThresh (1.0);
+    sor.filter (*cloud);
+}
+
+int main (int argc, char** argv)
 {
   // Initialize ROS
   ros::init (argc, argv, "kinect_pcl_filter");
