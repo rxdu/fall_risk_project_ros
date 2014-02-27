@@ -8,9 +8,9 @@
   </include> -->
 
 <include file="$(find turtlebot_bringup)/launch/3dsensor.launch">
-    <arg name="rgb_processing" value="false" />
+    <arg name="rgb_processing" value="true" />
     <arg name="depth_registration" value="false" />
-    <arg name="depth_processing" value="false" />
+    <arg name="depth_processing" value="true" />
     
 <!--      We must specify an absolute topic name because if not it will be prefixed by "$(arg camera)".
          Probably is a bug in the nodelet manager: https://github.com/ros/nodelet_core/issues/7   -->
