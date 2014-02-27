@@ -10,7 +10,6 @@ find_package(catkin REQUIRED COMPONENTS
   pcl_conversions
   pcl_ros
   roscpp
-  roscpp
   sensor_msgs
   std_msgs
 )
