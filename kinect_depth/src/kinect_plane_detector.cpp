@@ -1,6 +1,7 @@
 
 #include <iostream>
 #include <vector>
+#include <stdlib.h>
 
 // ROS specific includes
 
@@ -27,6 +28,7 @@ void cloud_cb (const PCLPointXYZPtr& input)
 ////    pcl::fromROSMsg (*input, *cloud);   //deprecated method to do conversion
 
 
+    PCLPointXYZRGB cluster, color_cloud;
     pcl::PointCloud<pcl::PointXYZ>::Ptr cloud = input;
 //    std::cerr << "Cloud before filtering: " << std::endl;
 //    std::cerr << *cloud << std::endl;
@@ -49,11 +51,11 @@ void cloud_cb (const PCLPointXYZPtr& input)
     // Create the filtering object
     pcl::ExtractIndices<pcl::PointXYZ> extract;
 
-    int nr_points = (int) cloud->points.size ();
+    int count=0, nr_points = (int) cloud->points.size ();
 
     // While 30% of the original cloud is still there
-//    while (cloud->points.size () > 0.3 * nr_points)
-//    {
+    while (cloud->points.size () > 0.3 * nr_points)
+    {
         // Segment the largest planar component from the remaining cloud
         seg.setInputCloud (cloud);
         seg.segment (*inliers, *coefficients);
@@ -61,7 +63,7 @@ void cloud_cb (const PCLPointXYZPtr& input)
         if (inliers->indices.size () == 0)
         {
             std::cerr << "Could not estimate a planar model for the given dataset." << std::endl;
- //           break;
+            break;
         }
         else
         {
@@ -75,23 +77,28 @@ void cloud_cb (const PCLPointXYZPtr& input)
         extract.filter (*cloud_p);
         std::cerr << "PointCloud representing the planar component: " << cloud_p->width * cloud_p->height << " data points." << std::endl;
 
+        // Color planes
+        copyPointCloud(*cloud_p, cluster);
+
+        uint8_t r = rand() % 255;
+        uint8_t g = rand() % 255;
+        uint8_t b = rand() % 255;
+        uint32_t rgb = ((uint32_t)r << 16 | (uint32_t)g << 8 | (uint32_t)b);
+
+        for (size_t i = 0; i < cluster.points.size(); i++)
+            cluster.points[i].rgb = *reinterpret_cast<float*>(&rgb);
+
+        if(count==0)
+            copyPointCloud(cluster, color_cloud);
+        else
+            color_cloud += cluster;
+
         // Create the filtering object
         extract.setNegative (true);
         extract.filter (*cloud_f);
         cloud.swap (cloud_f);
-//    }
-
-    PCLPointXYZRGB color_cloud;
-    copyPointCloud(*cloud_p, color_cloud);
-
-    for (size_t i = 0; i < color_cloud.points.size(); i++) {
-        // pack r/g/b into rgb
-        uint8_t r = 0, g = 0, b = 255;    // Example: Red color
-        uint32_t rgb = ((uint32_t)r << 16 | (uint32_t)g << 8 | (uint32_t)b);
-
-        color_cloud.points[i].rgb = *reinterpret_cast<float*>(&rgb);
+        count++;
     }
-
 
 //    std::cerr << "Cloud after filtering: " << std::endl;
 //    std::cerr << *cloud << std::endl;
@@ -100,8 +107,7 @@ void cloud_cb (const PCLPointXYZPtr& input)
 //    pcl_conversions::fromPCL(output_pcl,output);
 ////    pcl::toROSMsg(*cloud_filtered,output);   //deprecated method to do conversion
 
-//    // Publish the data
-    //pub_plane.publish (*cloud_p);
+    // Publish the data
     pub_plane.publish (color_cloud);
 }
 

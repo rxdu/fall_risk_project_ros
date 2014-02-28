@@ -9,7 +9,7 @@
 // User defined includes
 #include "../include/kinect_depth_common.h"
 
-ros::Publisher pub;
+//ros::Publisher pub;
 ros::Publisher pub_pcl;
 
 void applyPassFilter(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud);
@@ -43,7 +43,7 @@ void cloud_cb (const sensor_msgs::PointCloud2ConstPtr& input)
 //    pcl::toROSMsg(*cloud_filtered,output);   //deprecated method to do conversion
 
     // Publish the data
-    pub.publish (output);
+    //pub.publish (output);
     pub_pcl.publish(cloud);
 
 }
@@ -91,7 +91,7 @@ int main (int argc, char** argv)
   ros::Subscriber sub = nh.subscribe ("/camera/depth/points", 1, cloud_cb);
 
   // Create a ROS publisher for the output point cloud
-  pub = nh.advertise<sensor_msgs::PointCloud2> ("/camera/depth/points/filtered", 1);
+  //pub = nh.advertise<sensor_msgs::PointCloud2> ("/camera/depth/points/filtered", 1);
   pub_pcl = nh.advertise<PCLPointXYZ> ("/camera/depth/points/filtered_pcl", 1);
 
   // Spin
