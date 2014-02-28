@@ -16,8 +16,8 @@
 
 typedef pcl::PointCloud<pcl::PointXYZ> PCLPointXYZ;
 typedef pcl::PointCloud<pcl::PointXYZ>::Ptr PCLPointXYZPtr;
-typedef pcl::PointCloud <pcl::PointXYZRGB> PCLPointXYZRGB;
-typedef pcl::PointCloud <pcl::PointXYZRGB>::Ptr PCLPointXYZRGBPtr;
+typedef pcl::PointCloud<pcl::PointXYZRGB> PCLPointXYZRGB;
+typedef pcl::PointCloud<pcl::PointXYZRGB>::Ptr PCLPointXYZRGBPtr;
 
 
 #endif // KINECT_DEPTH_COMMON_H

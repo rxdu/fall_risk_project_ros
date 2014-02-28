@@ -52,8 +52,8 @@ void cloud_cb (const PCLPointXYZPtr& input)
     int nr_points = (int) cloud->points.size ();
 
     // While 30% of the original cloud is still there
-    while (cloud->points.size () > 0.3 * nr_points)
-    {
+//    while (cloud->points.size () > 0.3 * nr_points)
+//    {
         // Segment the largest planar component from the remaining cloud
         seg.setInputCloud (cloud);
         seg.segment (*inliers, *coefficients);
@@ -61,7 +61,7 @@ void cloud_cb (const PCLPointXYZPtr& input)
         if (inliers->indices.size () == 0)
         {
             std::cerr << "Could not estimate a planar model for the given dataset." << std::endl;
-            break;
+ //           break;
         }
         else
         {
@@ -79,7 +79,19 @@ void cloud_cb (const PCLPointXYZPtr& input)
         extract.setNegative (true);
         extract.filter (*cloud_f);
         cloud.swap (cloud_f);
+//    }
+
+    PCLPointXYZRGB color_cloud;
+    copyPointCloud(*cloud_p, color_cloud);
+
+    for (size_t i = 0; i < color_cloud.points.size(); i++) {
+        // pack r/g/b into rgb
+        uint8_t r = 0, g = 0, b = 255;    // Example: Red color
+        uint32_t rgb = ((uint32_t)r << 16 | (uint32_t)g << 8 | (uint32_t)b);
+
+        color_cloud.points[i].rgb = *reinterpret_cast<float*>(&rgb);
     }
+
 
 //    std::cerr << "Cloud after filtering: " << std::endl;
 //    std::cerr << *cloud << std::endl;
@@ -89,7 +101,8 @@ void cloud_cb (const PCLPointXYZPtr& input)
 ////    pcl::toROSMsg(*cloud_filtered,output);   //deprecated method to do conversion
 
 //    // Publish the data
-    pub_plane.publish (*cloud_p);
+    //pub_plane.publish (*cloud_p);
+    pub_plane.publish (color_cloud);
 }
 
 int main (int argc, char** argv)
