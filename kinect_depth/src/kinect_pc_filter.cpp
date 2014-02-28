@@ -1,16 +1,17 @@
-#include <ros/ros.h>
-#include <sensor_msgs/PointCloud2.h>
+
+// ROS specific includes
+
 // PCL specific includes
-#include <pcl/conversions.h>
-#include <pcl_conversions/pcl_conversions.h>
-#include <pcl/point_cloud.h>
-#include <pcl/point_types.h>
-#include <pcl/PCLPointCloud2.h>
 #include <pcl/filters/passthrough.h>
 #include <pcl/filters/voxel_grid.h>
 #include <pcl/filters/statistical_outlier_removal.h>
 
+// User defined includes
+#include "../include/kinect_depth_common.h"
+
 ros::Publisher pub;
+ros::Publisher pub_pcl;
+
 void applyPassFilter(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud);
 void applyStatisticalOutlierRemoval(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud);
 
@@ -43,6 +44,8 @@ void cloud_cb (const sensor_msgs::PointCloud2ConstPtr& input)
 
     // Publish the data
     pub.publish (output);
+    pub_pcl.publish(cloud);
+
 }
 
 void applyPassFilter(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud)
@@ -88,7 +91,8 @@ int main (int argc, char** argv)
   ros::Subscriber sub = nh.subscribe ("/camera/depth/points", 1, cloud_cb);
 
   // Create a ROS publisher for the output point cloud
-  pub = nh.advertise<sensor_msgs::PointCloud2> ("/camera/depth/filtered_points", 1);
+  pub = nh.advertise<sensor_msgs::PointCloud2> ("/camera/depth/points/filtered", 1);
+  pub_pcl = nh.advertise<PCLPointXYZ> ("/camera/depth/points/filtered_pcl", 1);
 
   // Spin
   ros::spin ();

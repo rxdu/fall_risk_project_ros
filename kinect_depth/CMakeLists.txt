@@ -169,5 +169,8 @@ include_directories(
 add_executable(distance_publisher src/distance_publisher.cpp)
 target_link_libraries(distance_publisher ${catkin_LIBRARIES})
 
-add_executable(kinect_pcl_filter src/kinect_pcl_filter.cpp)
-target_link_libraries(kinect_pcl_filter ${catkin_LIBRARIES})
+add_executable(kinect_pc_filter src/kinect_pc_filter.cpp)
+target_link_libraries(kinect_pc_filter ${catkin_LIBRARIES})
+
+add_executable(kinect_plane_detector src/kinect_plane_detector.cpp)
+target_link_libraries(kinect_plane_detector ${catkin_LIBRARIES})
