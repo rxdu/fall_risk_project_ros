@@ -174,3 +174,6 @@ target_link_libraries(kinect_pc_filter ${catkin_LIBRARIES})
 
 add_executable(kinect_plane_detector src/kinect_plane_detector.cpp)
 target_link_libraries(kinect_plane_detector ${catkin_LIBRARIES})
+
+add_executable(kinect_floor_detector src/kinect_floor_detector.cpp)
+target_link_libraries(kinect_floor_detector ${catkin_LIBRARIES})

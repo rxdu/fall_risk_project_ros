@@ -30,7 +30,7 @@ void cloud_cb (const sensor_msgs::PointCloud2ConstPtr& input)
     std::cerr << *cloud << std::endl;
 
     // PassThrough Filter
-    applyPassFilter(cloud);
+    //applyPassFilter(cloud);
 
     // StatisticalOutlierRemoval Filter
     applyStatisticalOutlierRemoval(cloud);
