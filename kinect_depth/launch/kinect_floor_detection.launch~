@@ -3,5 +3,5 @@
   </include> 
   
   <node name="kinect_pc_filter" pkg="kinect_depth" type="kinect_pc_filter"/>
-  <node name="kinect_plane_detector" pkg="kinect_depth" type="kinect_plane_detector"/>
+  <node name="kinect_floor_detector" pkg="kinect_depth" type="kinect_floor_detector"/>
 </launch>
