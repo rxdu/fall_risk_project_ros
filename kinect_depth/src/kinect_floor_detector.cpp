@@ -2,6 +2,8 @@
 #include <iostream>
 #include <vector>
 #include <stdlib.h>
+#include <algorithm>
+#include <iterator>
 
 // ROS specific includes
 
@@ -16,6 +18,8 @@
 
 // User defined includes
 #include "../include/kinect_depth_common.h"
+
+using namespace std;
 
 ros::Publisher pub_plane;
 void applyPassFilter(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud);
@@ -32,14 +36,18 @@ void cloud_cb (const PCLPointXYZPtr& input)
 
 
     PCLPointXYZRGB cluster, color_cloud;
-    pcl::PointCloud<pcl::PointXYZ>::Ptr cloud = input;
-//    std::cerr << "Cloud before filtering: " << std::endl;
-//    std::cerr << *cloud << std::endl;
-    pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_p (new pcl::PointCloud<pcl::PointXYZ>);
-    pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_f (new pcl::PointCloud<pcl::PointXYZ>);
+    PCLPointXYZ floor;
+    std::vector<PCLPointXYZ> planes;
+    PCLPointXYZPtr cloud = input;
+    PCLPointXYZPtr cloud_p (new PCLPointXYZ);
+    PCLPointXYZPtr cloud_f (new PCLPointXYZ);
 
     //Select detection area
-    applyPassFilter(cloud);
+    //    std::cerr << "Cloud before filtering: " << std::endl;
+    //    std::cerr << *cloud << std::endl;
+    applyPassFilter(cloud);    
+    //    std::cerr << "Cloud after filtering: " << std::endl;
+    //    std::cerr << *cloud << std::endl;
 
     //detect planes
     pcl::ModelCoefficients::Ptr coefficients (new pcl::ModelCoefficients ());
@@ -83,7 +91,7 @@ void cloud_cb (const PCLPointXYZPtr& input)
         extract.filter (*cloud_p);
         std::cerr << "PointCloud representing the planar component: " << cloud_p->width * cloud_p->height << " data points." << std::endl;
 
-//        // Color planes
+//        //Color planes
 //        copyPointCloud(*cloud_p, cluster);
 
 //        uint8_t r = rand() % 255;
@@ -98,6 +106,7 @@ void cloud_cb (const PCLPointXYZPtr& input)
 //            copyPointCloud(cluster, color_cloud);
 //        else
 //            color_cloud += cluster;
+        planes.push_back(*cloud_p);
 
         // Create the filtering object
         extract.setNegative (true);
@@ -107,17 +116,30 @@ void cloud_cb (const PCLPointXYZPtr& input)
     }
 
     // find the largest plane
+    int plane_number = planes.size();
+    std::vector<int> cloud_sizes;
+    std::cerr << "number of planes: "<<plane_number << std::endl;
 
+    for(int i=0;i<plane_number;i++)
+    {
+        cloud_sizes.push_back(planes.at(i).points.size ());
+    }
 
-//    std::cerr << "Cloud after filtering: " << std::endl;
-//    std::cerr << *cloud << std::endl;
+    vector<int>::const_iterator it2;
+    it2 = max_element(cloud_sizes.begin(), cloud_sizes.end());
+    int max_plane_index = std::distance(cloud_sizes.begin(), max_element(cloud_sizes.begin(), cloud_sizes.end()));
+
+    cout << " the max is " << *it2 << " at position "
+         << max_plane_index << std::endl;
+
+    floor = planes.at(max_plane_index);
 
 //    pcl::toPCLPointCloud2(*cloud,output_pcl);
 //    pcl_conversions::fromPCL(output_pcl,output);
 ////    pcl::toROSMsg(*cloud_filtered,output);   //deprecated method to do conversion
 
     // Publish the data
-    pub_plane.publish (color_cloud);
+    pub_plane.publish (floor);
 }
 
 void applyPassFilter(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud)
@@ -154,7 +176,7 @@ int main (int argc, char** argv)
   ros::Subscriber sub = nh.subscribe ("/camera/depth/points/filtered_pcl", 1, cloud_cb);
 
   // Create a ROS publisher for the output point cloud
-  pub_plane = nh.advertise<PCLPointXYZRGB> ("/camera/depth/points/floor", 1);
+  pub_plane = nh.advertise<PCLPointXYZ> ("/camera/depth/points/floor", 1);
 
   // Spin
   ros::spin ();
