@@ -11,6 +11,7 @@
 #include <pcl/ModelCoefficients.h>
 #include <pcl/sample_consensus/method_types.h>
 #include <pcl/sample_consensus/model_types.h>
+#include <pcl/sample_consensus/sac_model_perpendicular_plane.h>
 #include <pcl/segmentation/sac_segmentation.h>
 #include <pcl/filters/extract_indices.h>
 #include <pcl/filters/passthrough.h>
@@ -57,7 +58,11 @@ void cloud_cb (const PCLPointXYZPtr& input)
     // Optional
     seg.setOptimizeCoefficients (true);
     // Mandatory
-    seg.setModelType (pcl::SACMODEL_PLANE);
+//    seg.setModelType (pcl::SACMODEL_PLANE);
+    seg.setModelType (pcl::SACMODEL_PERPENDICULAR_PLANE);
+    const Eigen::Vector3f y(0,1,0);
+    seg.setAxis(y);
+    seg.setEpsAngle(0.5);
     seg.setMethodType (pcl::SAC_RANSAC);
     seg.setMaxIterations (1000);
     seg.setDistanceThreshold (0.01);
