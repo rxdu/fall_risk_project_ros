@@ -22,6 +22,13 @@ For example:
 rosrun rosserial_python serial_node.py _port:=/dev/ttyUSB0 _baud:=57600
 ```
 
+Published topic:
+
+/sensors/luminosity
+
+Message type:
+
+/std_msgs/Float64
 
 
 
