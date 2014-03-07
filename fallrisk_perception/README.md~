@@ -16,15 +16,8 @@ FallRiskProjectROS
 
 
 
-2.Installing mjpeg server and rosbridge server for ROS Hydro
--------------------
 
-```
-sudo apt-get install ros-hydro-mjpeg-server
-sudo apt-get install ros-hydro-rosbridge-server
-```
-
-3.Using OpenCV in a ROS node
+2.Using OpenCV in a ROS node
 ------------------
 
 This article can give you a idea about how it works:

@@ -3,7 +3,6 @@ FallRiskProjectROS
 
 [RIVeR Lab](http://robot.wpi.edu), WPI
 
-**fallrisk_bringup**: mainly launch files at present
 
 **kinect depth**: nodes about 3d depth/distance processing/vision
 
