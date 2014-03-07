@@ -3,8 +3,6 @@ FallRiskProjectROS
 
 [RIVeR Lab](http://robot.wpi.edu), WPI
 
-Drivers, libraries and etc.
-
 1.Title
 ------------------
 
