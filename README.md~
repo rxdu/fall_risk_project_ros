@@ -36,17 +36,17 @@ roslaunch fallrisk_bringup kinect_ref_line.launch
 2.Source Folder
 -------------------
 
-**fallrisk_bringup**: mainly launch files at present
+**fallrisk_bringup**: launch files to bringup the system 
 
-**fallrisk_common**: 
+**fallrisk_common**: drivers, denpendent libraries etc.
 
-**fallrisk_perception**: 
+**fallrisk_perception**: nodes about image processing, environment awareness
 
-**fallrisk_localization**: 
+**fallrisk_localization**: nodes about mapping and localization
 
-**fallrisk_navigation**: 
+**fallrisk_navigation**: nodes about planning and navigation
 
-**fallrisk_embedded**: 
+**fallrisk_embedded**: nodes run on embedded board
 
 3.Installing mjpeg server and rosbridge server for ROS Hydro
 -------------------
