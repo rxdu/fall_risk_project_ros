@@ -48,7 +48,7 @@ roslaunch fallrisk_bringup kinect_ref_line.launch
 
 **fallrisk_embedded**: nodes run on embedded board
 
-3.Installing mjpeg server and rosbridge server for ROS Hydro
+3.Installing Dependencies
 -------------------
 
 ```

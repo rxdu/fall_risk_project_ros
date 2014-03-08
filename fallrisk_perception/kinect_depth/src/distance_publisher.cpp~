@@ -74,7 +74,7 @@ public:
     //msg_dist.data=cv_ptr->image.at<float>( cv_ptr->image.cols/2,cv_ptr->image.rows/2);
     //msg_dist.data=0.0;
 
-    cout<<"distance detected"<<endl;
+    cout<<"distance detected "<<endl;
 
     dist_pub_.publish(msg_dist);
   }
