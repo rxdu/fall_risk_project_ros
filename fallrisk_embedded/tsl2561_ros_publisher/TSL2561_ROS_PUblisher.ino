@@ -11,7 +11,7 @@
 ros::NodeHandle nh;
 
 std_msgs::Float64 lux_msg;
-ros::Publisher pub_lux("lux", &lux_msg);
+ros::Publisher pub_lux("/sensors/luminosity", &lux_msg);
 
 // Create an SFE_TSL2561 object, here called "light":
 
