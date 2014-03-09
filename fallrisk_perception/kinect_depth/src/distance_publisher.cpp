@@ -23,7 +23,7 @@ public:
   DistancePublisher()
     : it_(nh_)
   {
-    image_sub_ = it_.subscribe("/camera/depth/image", 1, &DistancePublisher::imageCb, this);
+    image_sub_ = it_.subscribe("/camera/depth/image_rect", 1, &DistancePublisher::imageCb, this);
     dist_pub_ = nh_.advertise<std_msgs::Float32>("/distance/image_center_dist", 1);
 
     //cv::namedWindow(WINDOW);
@@ -73,6 +73,8 @@ public:
     msg_dist.data=cv_ptr->image.at<float>( cv_ptr->image.rows/2,cv_ptr->image.cols/2);
     //msg_dist.data=cv_ptr->image.at<float>( cv_ptr->image.cols/2,cv_ptr->image.rows/2);
     //msg_dist.data=0.0;
+
+    cout<<"distance detected"<<endl;
 
     dist_pub_.publish(msg_dist);
   }
