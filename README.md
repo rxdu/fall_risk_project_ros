@@ -17,13 +17,13 @@ roslaunch fallrisk_bringup startup_online.launch
 
 Just for convenience:
 
-a. Based on startup_online.launch, if you also want amcl navigation node running, launch 
+a. If you want to launch startup_online.launch and start amcl navigation node at the same time, launch 
 
 ```
 roslaunch fallrisk_bringup startup_online_nav.launch 
 ```
 
-b. Based on startup_online.launch, if you also want gmapping node running, launch 
+b. If you want to launch startup_online.launch and start gmapping node at the same time, launch 
 
 ```
 roslaunch fallrisk_bringup startup_online_map.launch 
