@@ -9,29 +9,18 @@ FallRiskProjectROS
 
 You can find most launch files in fall_risk_assessment package.
 
-Turn on the turtlebot and run both mjpeg server and rosbridge server:
+Turn on the turtlebot and run everything else (mjpeg server, rosbridge, user nodes etc.):
 
 ```
-roslaunch fallrisk_bringup fall_risk_demo.launch 
+roslaunch fallrisk_bringup startup_online.launch 
 ```
 
-Set up a webcam on a computer with MJPEG Server and ROSBridge running:
+Turn on the simulator and run everything else (mjpeg server, rosbridge, user nodes etc.):
 
 ```
-roslaunch fallrisk_bringup pc_rosbridge_mjpeg.launch 
+roslaunch fallrisk_bringup startup_offline.launch 
 ```
 
-Draw a circle with distance on a image from kinect:
-
-```
-roslaunch fallrisk_bringup kinect_dist_circle.launch 
-```
-
-Draw reference lines on a image from kinect:
-
-```
-roslaunch fallrisk_bringup kinect_ref_line.launch 
-```
 
 2.Source Folder
 -------------------
