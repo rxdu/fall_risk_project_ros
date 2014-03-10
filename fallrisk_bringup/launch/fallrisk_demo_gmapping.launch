@@ -1,4 +1,0 @@
-<launch>
-  <include file="$(find fallrisk_bringup)/launch/startup.launch"></include>
-  <include file="$(find fallrisk_turtlebot_navigation)/launch/turtlebot_gmapping.launch"></include>
-</launch>
