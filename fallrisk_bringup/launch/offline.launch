@@ -1,11 +1,3 @@
 <launch>
   <include file="$(find fallrisk_simulator)/launch/turtlesim_playground.launch"></include>
-
-  <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch"></include>
-  <node name="mjpeg_server" pkg="mjpeg_server" type="mjpeg_server" />
-  <node name="robot_pose_publisher" pkg="robot_pose_publisher" type="robot_pose_publisher" />
-
-  <node name="distance_publisher" pkg="kinect_depth" type="distance_publisher"/>
-  <node name="image_center_distance" pkg="kinect_image" type="image_center_distance"/>
-  <node name="image_reference_line" pkg="kinect_image" type="image_reference_line"/>
 </launch>
