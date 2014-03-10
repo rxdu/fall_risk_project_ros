@@ -12,7 +12,7 @@ You can find most launch files in fall_risk_assessment package.
 Turn on the turtlebot and run basic nodes (mjpeg server, rosbridge, user nodes etc.):
 
 ```
-roslaunch fallrisk_bringup startup_online_nav.launch 
+roslaunch fallrisk_bringup startup_online.launch 
 ```
 
 Based on startup_online_nav.launch, if you also want amcl navigation node running, launch 

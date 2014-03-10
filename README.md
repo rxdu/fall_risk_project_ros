@@ -15,13 +15,13 @@ Turn on the turtlebot and run basic nodes (mjpeg server, rosbridge, user nodes e
 roslaunch fallrisk_bringup startup_online.launch 
 ```
 
-Based on startup_online_nav.launch, if you also want amcl navigation node running, launch 
+Based on startup_online.launch, if you also want amcl navigation node running, launch 
 
 ```
 roslaunch fallrisk_bringup startup_online_nav.launch 
 ```
 
-Based on startup_online_nav.launch, if you also want gmapping node running, launch 
+Based on startup_online.launch, if you also want gmapping node running, launch 
 
 ```
 roslaunch fallrisk_bringup startup_online_map.launch 
