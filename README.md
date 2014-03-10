@@ -7,6 +7,8 @@ FallRiskProjectROS
 1.Launch Files
 ------------------
 
+**Robot online mode**
+
 You can find most launch files in fall_risk_assessment package.
 
 Turn on the turtlebot and run basic nodes (mjpeg server, rosbridge, user nodes etc.):
@@ -26,6 +28,8 @@ Based on startup_online.launch, if you also want gmapping node running, launch
 ```
 roslaunch fallrisk_bringup startup_online_map.launch 
 ```
+
+**Robot offline (simulation) mode**
 
 Turn on the simulator and run everything else (mjpeg server, rosbridge, user nodes etc.):
 
