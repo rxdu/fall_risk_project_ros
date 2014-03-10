@@ -42,9 +42,7 @@ roslaunch fallrisk_bringup kinect_ref_line.launch
 
 **fallrisk_perception**: nodes about image processing, environment awareness
 
-**fallrisk_localization**: nodes about mapping and localization
-
-**fallrisk_navigation**: nodes about planning and navigation
+**fallrisk_mapping_navigation**: nodes about mapping and localization, planning and navigation
 
 **fallrisk_embedded**: nodes run on embedded board
 

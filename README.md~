@@ -51,9 +51,18 @@ roslaunch fallrisk_bringup kinect_ref_line.launch
 3.Installing Dependencies
 -------------------
 
+Install robot web tools:
+
 ```
 sudo apt-get install ros-hydro-mjpeg-server
 sudo apt-get install ros-hydro-rosbridge-server
+sudo apt-get install ros-hydro-robot-pose-publisher
+```
+
+Install turtlebot simulator:
+
+```
+sudo apt-get install ros-hydro-turtlebot-simulator
 ```
 
 4.Setting Up Your Workspace
