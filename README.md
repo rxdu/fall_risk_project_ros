@@ -49,6 +49,8 @@ roslaunch fallrisk_bringup startup_offline.launch
 
 **fallrisk_mapping_navigation**: nodes about mapping and localization, planning and navigation
 
+**fallrisk_tools**: tools for web interface
+
 **fallrisk_embedded**: nodes run on embedded board
 
 3.Installing Dependencies

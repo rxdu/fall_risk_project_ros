@@ -1,11 +1,13 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(fallrisk_octopmap)
+project(checklist_status)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  octomap
+  roscpp
+  std_msgs
+  message_generation
 )
 
 ## System dependencies are found with CMake's conventions
@@ -49,11 +51,11 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate services in the 'srv' folder
-# add_service_files(
-#   FILES
-#   Service1.srv
+ add_service_files(
+   FILES
+   ChecklistStatus.srv
 #   Service2.srv
-# )
+ )
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -65,7 +67,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate added messages and services with any dependencies listed here
 # generate_messages(
 #   DEPENDENCIES
-#   std_msgs  # Or other packages containing msgs
+#   std_msgs
 # )
 
 ###################################
@@ -79,8 +81,8 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES fallrisk_octopmap
-#  CATKIN_DEPENDS octomap
+#  LIBRARIES checklist_status
+#  CATKIN_DEPENDS roscpp std_msgs
 #  DEPENDS system_lib
 )
 
@@ -96,19 +98,19 @@ include_directories(
 )
 
 ## Declare a cpp library
-# add_library(fallrisk_octopmap
-#   src/${PROJECT_NAME}/fallrisk_octopmap.cpp
+# add_library(checklist_status
+#   src/${PROJECT_NAME}/checklist_status.cpp
 # )
 
 ## Declare a cpp executable
-# add_executable(fallrisk_octopmap_node src/fallrisk_octopmap_node.cpp)
+# add_executable(checklist_status_node src/checklist_status_node.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
-# add_dependencies(fallrisk_octopmap_node fallrisk_octopmap_generate_messages_cpp)
+# add_dependencies(checklist_status_node checklist_status_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(fallrisk_octopmap_node
+# target_link_libraries(checklist_status_node
 #   ${catkin_LIBRARIES}
 # )
 
@@ -127,7 +129,7 @@ include_directories(
 # )
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS fallrisk_octopmap fallrisk_octopmap_node
+# install(TARGETS checklist_status checklist_status_node
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -152,7 +154,7 @@ include_directories(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_fallrisk_octopmap.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_checklist_status.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
