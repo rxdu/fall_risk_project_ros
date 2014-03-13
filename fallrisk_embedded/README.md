@@ -27,7 +27,7 @@ Published topic:
 
 Message type:
 
-/std_msgs/Float64
+/std_msgs/float32
 
 
 

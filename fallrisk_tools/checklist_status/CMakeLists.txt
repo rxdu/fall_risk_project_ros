@@ -53,7 +53,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate services in the 'srv' folder
  add_service_files(
    FILES
-   ChecklistStatus.srv
+   ChecklistStatusSrv.srv
 #   Service2.srv
  )
 
@@ -65,10 +65,10 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   std_msgs
-# )
+ generate_messages(
+   DEPENDENCIES
+   std_msgs
+ )
 
 ###################################
 ## catkin specific configuration ##
@@ -103,16 +103,19 @@ include_directories(
 # )
 
 ## Declare a cpp executable
-# add_executable(checklist_status_node src/checklist_status_node.cpp)
+## Specify libraries to link a library or executable target against
+ add_executable(checklist_status_server src/checklist_status_server.cpp)
+ target_link_libraries(checklist_status_server ${catkin_LIBRARIES})
+ add_dependencies(checklist_status_server checklist_status_generate_messages_cpp)
+
+ add_executable(checklist_status_client src/checklist_status_client.cpp)
+ target_link_libraries(checklist_status_client ${catkin_LIBRARIES})
+ add_dependencies(checklist_status_client checklist_status_generate_messages_cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
 # add_dependencies(checklist_status_node checklist_status_generate_messages_cpp)
 
-## Specify libraries to link a library or executable target against
-# target_link_libraries(checklist_status_node
-#   ${catkin_LIBRARIES}
-# )
 
 #############
 ## Install ##
