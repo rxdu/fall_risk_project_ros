@@ -3,11 +3,20 @@
 #include "checklist_status/ChecklistStatusSrv.h"
 
 float light;
+// Add new variables for other sensors
 
 bool getChecklistStatus(checklist_status::ChecklistStatusSrv::Request  &req,
          checklist_status::ChecklistStatusSrv::Response &res)
 {
+<<<<<<< HEAD
     res.luminosity=light;
+=======
+//  res.sum = req.a + req.b;
+//  ROS_INFO("request: x=%ld, y=%ld", (long int)req.a, (long int)req.b);
+//  ROS_INFO("sending back response: [%ld]", (long int)res.sum);
+//  return true;
+    res.luminosity=300;
+>>>>>>> 82f8bba03e65f0d7f1d208db8fd42b7257b8d61e
     ROS_INFO("Checklist update responded!");
     return true;
 }
@@ -22,7 +31,8 @@ int main(int argc, char **argv)
   ros::init(argc, argv, "checklist_status_server");
   ros::NodeHandle nh;
 
-  ros::Subscriber sub = nh.subscribe("/sensors/luminosity", 1000, getLuminosity);  
+  ros::Subscriber sub = nh.subscribe("/sensors/luminosity", 1000, getLuminosity);
+// Add new subscribers and callback functions for other sensors topic
   ros::ServiceServer service = nh.advertiseService("checklist_status", getChecklistStatus);
   ROS_INFO("Ready to provide checklist information:");
   ros::spin();
