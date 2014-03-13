@@ -1,4 +1,4 @@
-image: /home/rdu/fallrisk_ws/src/fall_risk_project_ros/fallrisk_mapping_navigation/maps/ECELounge.pgm
+image: /home/rdu/fallrisk_ws/src/fall_risk_project_ros/fallrisk_mapping_navigation/maps/lounge_kinect.pgm
 resolution: 0.050000
 origin: [-13.800000, -12.200000, 0.000000]
 negate: 0
