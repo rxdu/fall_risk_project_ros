@@ -1,0 +1,18 @@
+<launch>
+  <include file="$(find turtlebot_bringup)/launch/minimal.launch">
+  </include>
+
+<include file="$(find turtlebot_bringup)/launch/3dsensor.launch">
+    <arg name="rgb_processing" value="true" />
+    <arg name="depth_registration" value="false" />
+    <arg name="depth_processing" value="true" />
+    
+<!--      We must specify an absolute topic name because if not it will be prefixed by "$(arg camera)".
+         Probably is a bug in the nodelet manager: https://github.com/ros/nodelet_core/issues/7   -->
+
+    <arg name="scan_topic" value="/scan" />
+  </include>
+  
+  <node name="luminositySensor_node" pkg="rosserial_python" type="serial_node.py" args="_port=/dev/ttyUSB1 _baud=57600" />
+  
+</launch>
