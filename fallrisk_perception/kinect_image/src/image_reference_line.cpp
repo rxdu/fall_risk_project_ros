@@ -87,7 +87,11 @@ int main(int argc, char** argv)
 {
   ros::init(argc, argv, "image_ref_line");
   ImageRefLine irf;
-  ros::spin();
+  ros::Rate loop_rate(5);
+  while(ros::ok()){
+	ros::spinOnce();
+	loop_rate.sleep(); 
+  }
   return 0;
 }
 
