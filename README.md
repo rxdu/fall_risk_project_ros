@@ -120,8 +120,10 @@ cd ~/fallrisk_ws
 catkin_make
 ```
 
-5.Using Eclipse for ROS (Hydro) projects (reference from WPI DRC project wiki)
+5.Using Eclipse for ROS (Hydro) projects 
 -------------------
+
+(**reference from WPI DRC project wiki**)
 
 **For the whole workspace:**
 
