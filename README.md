@@ -121,8 +121,9 @@ catkin_make
 ```
 
 5.Using Eclipse for ROS (Hydro) projects (reference from WPI DRC project wiki)
+-------------------
 
-*For the whole workspace:*
+**For the whole workspace:**
 
 From the ros_workspace folder run:
 
@@ -132,7 +133,7 @@ catkin_make --force-cmake -G"Eclipse CDT4 - Unix Makefiles"
 
 You can then import the eclipse project that was created in the build folder. The files you need to edit are under "[Source directory]". Note that all packages are under the same project.
 
-*For just one package:*
+**For just one package:**
 
 Find the location where you wish to store your eclipse .project files. For example if you want to use this~/Workspace/eclipse/<package_name>:
 
