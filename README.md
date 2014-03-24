@@ -70,6 +70,19 @@ Install turtlebot simulator:
 sudo apt-get install ros-hydro-turtlebot-simulator
 ```
 
+For the laptop on the turtlebot, you also need to install:
+
+```
+sudo apt-get install ros-hydro-turtlebot ros-hydro-turtlebot-apps ros-hydro-turtlebot-viz ros-hydro-kobuki-ftdi
+```
+
+To set up kobuki base:
+
+```
+. /opt/ros/hydro/setup.bash
+rosrun kobuki_ftdi create_udev_rules
+```
+
 4.Setting Up Your Workspace
 -------------------
 
