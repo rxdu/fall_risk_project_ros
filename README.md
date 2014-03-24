@@ -64,16 +64,16 @@ sudo apt-get install ros-hydro-rosbridge-server
 sudo apt-get install ros-hydro-robot-pose-publisher
 ```
 
-Install turtlebot simulator:
+Install turtlebot apps and simulator:
 
 ```
-sudo apt-get install ros-hydro-turtlebot-simulator
+sudo apt-get install ros-hydro-turtlebot ros-hydro-turtlebot-apps ros-hydro-turtlebot-simulator
 ```
 
 For the laptop on the turtlebot, you also need to install:
 
 ```
-sudo apt-get install ros-hydro-turtlebot ros-hydro-turtlebot-apps ros-hydro-turtlebot-viz ros-hydro-kobuki-ftdi
+sudo apt-get install ros-hydro-turtlebot-viz ros-hydro-kobuki-ftdi
 ```
 
 To set up kobuki base:
