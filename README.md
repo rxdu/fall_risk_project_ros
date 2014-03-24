@@ -107,5 +107,42 @@ cd ~/fallrisk_ws
 catkin_make
 ```
 
+5.Using Eclipse for ROS (Hydro) projects (reference from WPI DRC project wiki)
+
+*For the whole workspace:*
+
+From the ros_workspace folder run:
+
+```
+catkin_make --force-cmake -G"Eclipse CDT4 - Unix Makefiles"
+```
+
+You can then import the eclipse project that was created in the build folder. The files you need to edit are under "[Source directory]". Note that all packages are under the same project.
+
+*For just one package:*
+
+Find the location where you wish to store your eclipse .project files. For example if you want to use this~/Workspace/eclipse/<package_name>:
+
+```
+cd ~/Workspace/eclipse
+mkdir <package_name>
+cd <package_name>
+cmake /home/rdu/fallrisk_ws/src/fall_risk_project_ros/<package_name>/ -G "Eclipse CDT4 - Unix Makefiles"
+```
+
+Now open eclipse:
+
+```
+eclipse&
+```
+
+```
+right click on 'project explorer' > import > General > Existing Projects  into Workspace > Next 
+point to the directory where you created the .project file 
+click Finish
+```
+
+Wait till it indexes and you should be good to go. If it does not index correctly it means the CMakeLists.txt is not written correctly.
+
 
 
