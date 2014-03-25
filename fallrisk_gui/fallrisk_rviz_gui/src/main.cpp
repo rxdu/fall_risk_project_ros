@@ -47,8 +47,8 @@ int main(int argc, char **argv)
 
   QApplication app( argc, argv );
 
-  MyViz* myviz = new MyViz();
-  //RvizGui* myviz = new RvizGui();
+  //MyViz* myviz = new MyViz();
+  RvizGui* myviz = new RvizGui();
   myviz->show();
 
   app.exec();

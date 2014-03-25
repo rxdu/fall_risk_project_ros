@@ -1,7 +1,10 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(kinect_depth)
-message("333333333333333333333333333333333")
-message(${CMAKE_CURRENT_BINARY_DIR})
+
+# For Test
+# message("333333333333333333333333333333333")
+# message(${CMAKE_CURRENT_BINARY_DIR})
+
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages

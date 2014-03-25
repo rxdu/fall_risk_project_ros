@@ -46,8 +46,8 @@ QT4_WRAP_UI(MOC_GUI_H
 )
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
-message("1111111111111111111111111111111111111111")
-message("ddd${CMAKE_RUNTIME_OUTPUT_DIRECTORY}dd")
+#message("1111111111111111111111111111111111111111")
+#message("ddd${CMAKE_RUNTIME_OUTPUT_DIRECTORY}dd")
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
@@ -113,8 +113,8 @@ include_directories(
 #   src/${PROJECT_NAME}/fallrisk_rviz_gui.cpp
 # )
 
-add_executable(main ${SOURCE_FILES} ${MOC_SRC_H} ${MOC_GUI_H})
-target_link_libraries(main ${QT_LIBRARIES} ${catkin_LIBRARIES})
+add_executable(fallrisk_gui ${SOURCE_FILES} ${MOC_SRC_H} ${MOC_GUI_H})
+target_link_libraries(fallrisk_gui ${QT_LIBRARIES} ${catkin_LIBRARIES})
 
 ## Declare a cpp executable
 # add_executable(fallrisk_rviz_gui_node src/fallrisk_rviz_gui_node.cpp)
