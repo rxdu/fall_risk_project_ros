@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(fallrisk_rviz_gui)
 
+#set(CMAKE_RUNTIME_OUTPUT_DIRECTORY /home/rdu/fallrisk_ws/devel/lib/fallrisk_rviz_gui)
+
 ## Find catkin macros and libraries
-## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
-## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   rviz
@@ -14,9 +14,40 @@ find_package(catkin REQUIRED COMPONENTS
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
 
-## Qt Dependencies
+## Configuration of Qt 
+find_package(Qt4 COMPONENTS QtCore QtGui REQUIRED)
 
+include(${QT_USE_FILE})
+add_definitions(-DQT_NO_KEYWORDS)
+add_definitions(${QT_DEFINITIONS})
 
+set(HEADER_FILES 
+  src/rviz_gui.h
+  include/myviz.h
+)
+
+set(SOURCE_FILES
+  src/rviz_gui.cpp
+  src/main.cpp
+  src/myviz.cpp
+  ${MOC_FILES}
+)
+
+set(FORM_FILES 
+  src/rviz_gui.ui
+)
+
+QT4_WRAP_CPP(MOC_SRC_H
+  ${HEADER_FILES}
+)
+
+QT4_WRAP_UI(MOC_GUI_H 
+  ${FORM_FILES}
+)
+
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
+message("1111111111111111111111111111111111111111")
+message("ddd${CMAKE_RUNTIME_OUTPUT_DIRECTORY}dd")
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
@@ -73,6 +104,7 @@ catkin_package(
 ## Your package locations should be listed before other locations
 # include_directories(include)
 include_directories(
+  include
   ${catkin_INCLUDE_DIRS}
 )
 
@@ -80,6 +112,9 @@ include_directories(
 # add_library(fallrisk_rviz_gui
 #   src/${PROJECT_NAME}/fallrisk_rviz_gui.cpp
 # )
+
+add_executable(main ${SOURCE_FILES} ${MOC_SRC_H} ${MOC_GUI_H})
+target_link_libraries(main ${QT_LIBRARIES} ${catkin_LIBRARIES})
 
 ## Declare a cpp executable
 # add_executable(fallrisk_rviz_gui_node src/fallrisk_rviz_gui_node.cpp)
