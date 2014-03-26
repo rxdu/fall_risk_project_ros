@@ -38,6 +38,7 @@
 #include "myviz.h"
 #include "rviz_gui.h"
 
+
 int main(int argc, char **argv)
 {
   if( !ros::isInitialized() )
@@ -47,7 +48,7 @@ int main(int argc, char **argv)
 
   QApplication app( argc, argv );
 
-  //MyViz* myviz = new MyViz();
+ // MyViz* myviz = new MyViz();
   RvizGui* myviz = new RvizGui();
   myviz->show();
 

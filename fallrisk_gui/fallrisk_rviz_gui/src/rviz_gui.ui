@@ -14,25 +14,29 @@
    <string>Health Care Robotic System</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="8" column="4">
+   <item row="8" column="6">
     <widget class="QPushButton" name="pushButton_17">
      <property name="text">
       <string>PushButton</string>
      </property>
     </widget>
    </item>
-   <item row="5" column="0" rowspan="3" colspan="4">
+   <item row="5" column="0" rowspan="3" colspan="5">
     <widget class="QGroupBox" name="gb_livevideo">
      <property name="title">
       <string>Live Video</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_3">
-      <item row="0" column="3" rowspan="2">
-       <layout class="QFormLayout" name="videoctrol_layout">
-        <property name="fieldGrowthPolicy">
-         <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
-        </property>
-        <item row="1" column="0" colspan="2">
+      <item row="0" column="0" rowspan="2">
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string>Image Topic:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QComboBox" name="cbImageTopic">
           <item>
            <property name="text">
@@ -46,21 +50,14 @@
           </item>
          </widget>
         </item>
-        <item row="0" column="0" colspan="2">
-         <widget class="QLabel" name="label_3">
-          <property name="text">
-           <string>Image Topic:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0" colspan="2">
+        <item>
          <widget class="QLabel" name="label_4">
           <property name="text">
            <string>Transport Hint:</string>
           </property>
          </widget>
         </item>
-        <item row="3" column="0" colspan="2">
+        <item>
          <widget class="QComboBox" name="cbTransHint">
           <item>
            <property name="text">
@@ -74,15 +71,25 @@
           </item>
          </widget>
         </item>
+        <item>
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
        </layout>
       </item>
-      <item row="0" column="0" rowspan="2" colspan="2">
-       <layout class="QGridLayout" name="livevideo_layout"/>
-      </item>
-      <item row="0" column="2" rowspan="2">
-       <widget class="Line" name="line">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_5">
+        <property name="text">
+         <string>Video Quality:</string>
         </property>
        </widget>
       </item>
@@ -93,12 +100,8 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="label_5">
-        <property name="text">
-         <string>Video Quality:</string>
-        </property>
-       </widget>
+      <item row="0" column="1" rowspan="2" colspan="3">
+       <layout class="QGridLayout" name="livevideo_layout"/>
       </item>
      </layout>
     </widget>
@@ -110,7 +113,7 @@
      </property>
     </widget>
    </item>
-   <item row="8" column="3">
+   <item row="8" column="4">
     <widget class="QPushButton" name="pushButton_7">
      <property name="text">
       <string>PushButton</string>
@@ -124,21 +127,21 @@
      </property>
     </widget>
    </item>
-   <item row="8" column="5">
-    <widget class="QPushButton" name="pushButton">
-     <property name="text">
-      <string>PushButton</string>
-     </property>
-    </widget>
-   </item>
-   <item row="8" column="6">
+   <item row="8" column="8">
     <widget class="QPushButton" name="pushButton_2">
      <property name="text">
       <string>PushButton</string>
      </property>
     </widget>
    </item>
-   <item row="5" column="4" rowspan="2">
+   <item row="8" column="7">
+    <widget class="QPushButton" name="pushButton">
+     <property name="text">
+      <string>PushButton</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="6" rowspan="2">
     <widget class="QGroupBox" name="gb_keyctrl">
      <property name="title">
       <string>Keyboard Control</string>
@@ -220,21 +223,35 @@
      </layout>
     </widget>
    </item>
-   <item row="5" column="5" rowspan="2" colspan="3">
+   <item row="5" column="7" rowspan="2" colspan="3">
     <widget class="QGroupBox" name="gb_robotstatus">
      <property name="title">
       <string>Robot Status</string>
      </property>
     </widget>
    </item>
-   <item row="0" column="5" rowspan="5" colspan="3">
+   <item row="8" column="9">
+    <widget class="QPushButton" name="pushButton_3">
+     <property name="text">
+      <string>PushButton</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="7" rowspan="5" colspan="3">
     <widget class="QGroupBox" name="gb_checklist">
      <property name="title">
       <string>Checklist</string>
      </property>
     </widget>
    </item>
-   <item row="0" column="0" rowspan="5" colspan="5">
+   <item row="8" column="3">
+    <widget class="QPushButton" name="pushButton_9">
+     <property name="text">
+      <string>PushButton</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0" rowspan="5" colspan="7">
     <widget class="QTabWidget" name="tab_display">
      <property name="currentIndex">
       <number>0</number>
@@ -256,24 +273,24 @@
      </widget>
     </widget>
    </item>
-   <item row="8" column="7">
-    <widget class="QPushButton" name="pushButton_3">
+   <item row="7" column="6">
+    <widget class="QPushButton" name="pushButton_4">
      <property name="text">
-      <string>PushButton</string>
+      <string>Stop Robot</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="5" rowspan="2">
+    <widget class="Line" name="line">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
      </property>
     </widget>
    </item>
    <item row="8" column="2">
-    <widget class="QPushButton" name="pushButton_9">
+    <widget class="QPushButton" name="pushButton_5">
      <property name="text">
       <string>PushButton</string>
-     </property>
-    </widget>
-   </item>
-   <item row="7" column="4">
-    <widget class="QPushButton" name="pushButton_4">
-     <property name="text">
-      <string>Stop Robot</string>
      </property>
     </widget>
    </item>

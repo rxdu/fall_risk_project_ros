@@ -34,7 +34,7 @@ private:
   rviz::VisualizationManager* manager_;
   rviz::RenderPanel* render_panel_;
   rviz::Display* grid_;
-  rviz::ImageDisplay* image_display_;
+
 };
 
 #endif // RVIZ_GUI_H
