@@ -9,7 +9,10 @@ RvizGui::RvizGui(QWidget *parent) :
 
     // Initialize GUI elements
     render_panel_ = new rviz::RenderPanel();
-    ui->display_layout->addWidget(render_panel_);
+    ui->display3d_layout->addWidget(render_panel_);
+
+    //image_display_ = new rviz::ImageDisplay();
+    //ui->livevideo_layout->addWidget(image_display_);
 
     manager_ = new rviz::VisualizationManager( render_panel_ );
     render_panel_->initialize( manager_->getSceneManager(), manager_ );

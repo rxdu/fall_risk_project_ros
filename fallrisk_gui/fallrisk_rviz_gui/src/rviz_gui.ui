@@ -6,108 +6,276 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>922</width>
-    <height>583</height>
+    <width>1109</width>
+    <height>838</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Health Care Robotic System</string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout_3">
-   <item>
-    <layout class="QGridLayout" name="main_layout">
-     <item row="0" column="0">
-      <layout class="QHBoxLayout" name="display_layout"/>
-     </item>
-     <item row="1" column="0">
-      <layout class="QHBoxLayout" name="control_layout">
-       <item>
-        <layout class="QGridLayout" name="gridLayout_2">
-         <item row="0" column="0">
-          <widget class="QSlider" name="horizontalSlider">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="8" column="4">
+    <widget class="QPushButton" name="pushButton_17">
+     <property name="text">
+      <string>PushButton</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0" rowspan="3" colspan="4">
+    <widget class="QGroupBox" name="gb_livevideo">
+     <property name="title">
+      <string>Live Video</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_3">
+      <item row="0" column="3" rowspan="2">
+       <layout class="QFormLayout" name="videoctrol_layout">
+        <property name="fieldGrowthPolicy">
+         <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+        </property>
+        <item row="1" column="0" colspan="2">
+         <widget class="QComboBox" name="cbImageTopic">
+          <item>
+           <property name="text">
+            <string>Color Image</string>
            </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QGridLayout" name="gridLayout_4">
-         <item row="0" column="0">
-          <widget class="QGroupBox" name="groupBox">
-           <property name="title">
-            <string>Keyboard Control</string>
+          </item>
+          <item>
+           <property name="text">
+            <string>Mono Image</string>
            </property>
-           <layout class="QGridLayout" name="gridLayout_6">
-            <item row="0" column="1">
-             <layout class="QGridLayout" name="gridLayout_5">
-              <item row="3" column="1" colspan="2">
-               <widget class="QSlider" name="horizontalSlider_2">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="2">
-               <widget class="QPushButton" name="pushButton_4">
-                <property name="text">
-                 <string>Right (D)</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="1">
-               <widget class="QPushButton" name="pushButton_5">
-                <property name="text">
-                 <string>Backward (S)</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="1">
-               <widget class="QPushButton" name="pushButton">
-                <property name="text">
-                 <string>Forward (W)</string>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="0">
-               <widget class="QLabel" name="label">
-                <property name="text">
-                 <string>Velocity:</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0">
-               <widget class="QPushButton" name="pushButton_3">
-                <property name="text">
-                 <string>Left (A)</string>
-                </property>
-               </widget>
-              </item>
-              <item row="4" column="1" colspan="2">
-               <widget class="QSlider" name="horizontalSlider_3">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="4" column="0">
-               <widget class="QLabel" name="label_2">
-                <property name="text">
-                 <string>Rotation:</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-           </layout>
-          </widget>
-         </item>
-        </layout>
+          </item>
+         </widget>
+        </item>
+        <item row="0" column="0" colspan="2">
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string>Image Topic:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0" colspan="2">
+         <widget class="QLabel" name="label_4">
+          <property name="text">
+           <string>Transport Hint:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0" colspan="2">
+         <widget class="QComboBox" name="cbTransHint">
+          <item>
+           <property name="text">
+            <string>image_raw</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>theora</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="0" column="0" rowspan="2" colspan="2">
+       <layout class="QGridLayout" name="livevideo_layout"/>
+      </item>
+      <item row="0" column="2" rowspan="2">
+       <widget class="Line" name="line">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1" colspan="3">
+       <widget class="QSlider" name="horizontalSlider">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_5">
+        <property name="text">
+         <string>Video Quality:</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="8" column="1">
+    <widget class="QPushButton" name="pushButton_8">
+     <property name="text">
+      <string>PushButton</string>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="3">
+    <widget class="QPushButton" name="pushButton_7">
+     <property name="text">
+      <string>PushButton</string>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="0">
+    <widget class="QPushButton" name="pushButton_6">
+     <property name="text">
+      <string>PushButton</string>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="5">
+    <widget class="QPushButton" name="pushButton">
+     <property name="text">
+      <string>PushButton</string>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="6">
+    <widget class="QPushButton" name="pushButton_2">
+     <property name="text">
+      <string>PushButton</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="4" rowspan="2">
+    <widget class="QGroupBox" name="gb_keyctrl">
+     <property name="title">
+      <string>Keyboard Control</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_6">
+      <item row="0" column="0">
+       <layout class="QGridLayout" name="gridLayout_5">
+        <item row="1" column="4">
+         <widget class="QPushButton" name="btnRight">
+          <property name="text">
+           <string>Right (D)</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="3">
+         <widget class="QPushButton" name="btnDown">
+          <property name="text">
+           <string>Down (S)</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="QPushButton" name="btnUp">
+          <property name="text">
+           <string>Up (W)</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QPushButton" name="btnLeft">
+          <property name="text">
+           <string>Left (A)</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="2" colspan="3">
+         <widget class="QSlider" name="sliderVelocity">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="2" colspan="3">
+         <widget class="QSlider" name="sliderRotation">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>Velocity:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>Rotation:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2" colspan="3">
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>5</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="5" column="5" rowspan="2" colspan="3">
+    <widget class="QGroupBox" name="gb_robotstatus">
+     <property name="title">
+      <string>Robot Status</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="5" rowspan="5" colspan="3">
+    <widget class="QGroupBox" name="gb_checklist">
+     <property name="title">
+      <string>Checklist</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0" rowspan="5" colspan="5">
+    <widget class="QTabWidget" name="tab_display">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="tab_3dscene">
+      <attribute name="title">
+       <string>3D Scene</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <layout class="QHBoxLayout" name="display3d_layout"/>
        </item>
       </layout>
-     </item>
-    </layout>
+     </widget>
+     <widget class="QWidget" name="tab_map">
+      <attribute name="title">
+       <string>Map</string>
+      </attribute>
+     </widget>
+    </widget>
+   </item>
+   <item row="8" column="7">
+    <widget class="QPushButton" name="pushButton_3">
+     <property name="text">
+      <string>PushButton</string>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="2">
+    <widget class="QPushButton" name="pushButton_9">
+     <property name="text">
+      <string>PushButton</string>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="4">
+    <widget class="QPushButton" name="pushButton_4">
+     <property name="text">
+      <string>Stop Robot</string>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>
