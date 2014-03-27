@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include <QEvent>
+#include <QKeyEvent>
+#include <QStatusBar>
 
 #include "rviz/visualization_manager.h"
 #include "rviz/render_panel.h"
@@ -10,6 +12,11 @@
 
 #include <ros/ros.h>
 #include <geometry_msgs/Twist.h>
+
+#define LIN_VEL_MAX 0.25
+#define LIN_VEL_MIN 0.08
+#define ANG_VEL_MAX 1.2
+#define ANG_VEL_MIN 0.65
 
 namespace Ui {
 class RvizGui;
@@ -41,11 +48,14 @@ private:
 
     void sendMoveBaseCmd();
 
+
 private Q_SLOTS:
-    void moveForward();
-    void moveBackward();
-    void moveLeft();
-    void moveRight();
+    void moveBaseForward();
+    void moveBaseBackward();
+    void moveBaseLeft();
+    void moveBaseRight();
+    void keyPressEvent(QKeyEvent *event);
+    void setRobotVelocity();
 
 private:
   rviz::VisualizationManager* manager_;
@@ -56,6 +66,8 @@ private:
   ros::NodeHandle nh_;
   ros::Publisher moveBaseCmdPub;
   geometry_msgs::Twist moveBaseCmd;
+  float linearVelocity;
+  float angularVelocity;
 
 };
 

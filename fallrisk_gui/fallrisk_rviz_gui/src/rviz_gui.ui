@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1109</width>
+    <width>1088</width>
     <height>838</height>
    </rect>
   </property>
@@ -147,7 +147,7 @@
       <string>Keyboard Control</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_6">
-      <item row="0" column="0">
+      <item row="1" column="0">
        <layout class="QGridLayout" name="gridLayout_5">
         <item row="1" column="4">
          <widget class="QPushButton" name="btnRight">
@@ -178,14 +178,26 @@
          </widget>
         </item>
         <item row="3" column="2" colspan="3">
-         <widget class="QSlider" name="sliderVelocity">
+         <widget class="QSlider" name="sliderLinearVel">
+          <property name="minimum">
+           <number>0</number>
+          </property>
+          <property name="maximum">
+           <number>100</number>
+          </property>
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
          </widget>
         </item>
         <item row="4" column="2" colspan="3">
-         <widget class="QSlider" name="sliderRotation">
+         <widget class="QSlider" name="sliderAngularVel">
+          <property name="minimum">
+           <number>0</number>
+          </property>
+          <property name="maximum">
+           <number>100</number>
+          </property>
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
@@ -219,6 +231,13 @@
          </spacer>
         </item>
        </layout>
+      </item>
+      <item row="0" column="0">
+       <widget class="QCheckBox" name="checkBox">
+        <property name="text">
+         <string>Enable Assistive Teleoperation</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -275,6 +294,9 @@
    </item>
    <item row="7" column="6">
     <widget class="QPushButton" name="pushButton_4">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 26, 26);</string>
+     </property>
      <property name="text">
       <string>Stop Robot</string>
      </property>

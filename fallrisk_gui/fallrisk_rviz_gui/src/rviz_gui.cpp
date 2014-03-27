@@ -11,6 +11,8 @@ RvizGui::RvizGui(QWidget *parent) :
     ui(new Ui::RvizGui)
 {
     ui->setupUi(this);
+    ui->sliderLinearVel->setValue(75);
+    ui->sliderAngularVel->setValue(75);
 
     initVariables();
     initDisplayWidgets();
@@ -25,14 +27,19 @@ RvizGui::~RvizGui()
 void RvizGui::initVariables()
 {
     moveBaseCmdPub = nh_.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity",1);
+
+    setRobotVelocity();
 }
 
 void RvizGui::initActionsConnections()
 {
-    connect(ui->btnUp, SIGNAL(clicked()), this, SLOT(moveForward()));
-    connect(ui->btnDown, SIGNAL(clicked()), this, SLOT(moveBackward()));
-    connect(ui->btnLeft, SIGNAL(clicked()), this, SLOT(moveLeft()));
-    connect(ui->btnRight, SIGNAL(clicked()), this, SLOT(moveRight()));
+    connect(ui->btnUp, SIGNAL(clicked()), this, SLOT(moveBaseForward()));
+    connect(ui->btnDown, SIGNAL(clicked()), this, SLOT(moveBaseBackward()));
+    connect(ui->btnLeft, SIGNAL(clicked()), this, SLOT(moveBaseLeft()));
+    connect(ui->btnRight, SIGNAL(clicked()), this, SLOT(moveBaseRight()));
+
+    connect(ui->sliderLinearVel, SIGNAL(valueChanged(int)),this,SLOT(setRobotVelocity()));
+    connect(ui->sliderAngularVel, SIGNAL(valueChanged(int)),this,SLOT(setRobotVelocity()));
 }
 
 void RvizGui::initDisplayWidgets()
@@ -60,11 +67,55 @@ void RvizGui::initDisplayWidgets()
 
 }
 
-void RvizGui::moveForward()
+void RvizGui::keyPressEvent(QKeyEvent *event)
+{
+    switch(event->key())
+    {
+    case Qt::Key_W:
+        moveBaseForward();
+        sendMoveBaseCmd();
+        ROS_INFO("key W pressed");
+        break;
+    case Qt::Key_A:
+        moveBaseLeft();
+        sendMoveBaseCmd();
+        ROS_INFO("key A pressed");
+        break;
+    case Qt::Key_D:
+        moveBaseRight();
+        sendMoveBaseCmd();
+        ROS_INFO("key D pressed");
+        break;
+    case Qt::Key_S:
+        moveBaseBackward();
+        sendMoveBaseCmd();
+        ROS_INFO("key S pressed");
+        break;
+//    case Qt::Key_Q:
+//        move_in();
+//        break;
+//    case Qt::Key_E:
+//        move_out();
+//        break;
+    default:
+        QWidget::keyPressEvent(event);
+        break;
+    }
+}
+
+void RvizGui::setRobotVelocity()
+{
+    linearVelocity = ui->sliderLinearVel->value()*(LIN_VEL_MAX-LIN_VEL_MIN)/100+LIN_VEL_MIN;
+    ROS_INFO("Linear velocity:%f",linearVelocity);
+    angularVelocity = ui->sliderAngularVel->value()*(ANG_VEL_MAX-ANG_VEL_MIN)/100+ANG_VEL_MIN;
+    ROS_INFO("Angular velocity:%f",angularVelocity);
+}
+
+void RvizGui::moveBaseForward()
 {
     ROS_INFO("move forward");
 
-    moveBaseCmd.linear.x=0.2;
+    moveBaseCmd.linear.x=linearVelocity;
     moveBaseCmd.linear.y=0;
     moveBaseCmd.linear.z=0;
 
@@ -72,25 +123,22 @@ void RvizGui::moveForward()
     moveBaseCmd.angular.y=0;
     moveBaseCmd.angular.z=0;
 
-    sendMoveBaseCmd();
 }
 
-void RvizGui::moveBackward()
+void RvizGui::moveBaseBackward()
 {
     ROS_INFO("move backward");
 
-    moveBaseCmd.linear.x=-0.2;
+    moveBaseCmd.linear.x=-linearVelocity;
     moveBaseCmd.linear.y=0;
     moveBaseCmd.linear.z=0;
 
     moveBaseCmd.angular.x=0;
     moveBaseCmd.angular.y=0;
     moveBaseCmd.angular.z=0;
-
-    sendMoveBaseCmd();
 }
 
-void RvizGui::moveLeft()
+void RvizGui::moveBaseLeft()
 {
     ROS_INFO("move left");
 
@@ -100,12 +148,10 @@ void RvizGui::moveLeft()
 
     moveBaseCmd.angular.x=0;
     moveBaseCmd.angular.y=0;
-    moveBaseCmd.angular.z=1;
-
-    sendMoveBaseCmd();
+    moveBaseCmd.angular.z=angularVelocity;
 }
 
-void RvizGui::moveRight()
+void RvizGui::moveBaseRight()
 {
     ROS_INFO("move right");
 
@@ -115,9 +161,7 @@ void RvizGui::moveRight()
 
     moveBaseCmd.angular.x=0;
     moveBaseCmd.angular.y=0;
-    moveBaseCmd.angular.z=-1;
-
-    sendMoveBaseCmd();
+    moveBaseCmd.angular.z=-angularVelocity;
 }
 
 void RvizGui::sendMoveBaseCmd()
@@ -125,6 +169,6 @@ void RvizGui::sendMoveBaseCmd()
     if(ros::ok() && moveBaseCmdPub)
     {
         moveBaseCmdPub.publish(moveBaseCmd);
-        ROS_INFO("move cmd sent");
+        ROS_INFO("move base cmd sent");
     }
 }
