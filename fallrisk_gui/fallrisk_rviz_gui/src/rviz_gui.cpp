@@ -45,25 +45,6 @@ void RvizGui::initActionsConnections()
 void RvizGui::initDisplayWidgets()
 {
     // Initialize GUI elements
-//    render_panel_ = new rviz::RenderPanel();
-//    ui->display3d_layout->addWidget(render_panel_);
-
-//    manager_ = new rviz::VisualizationManager( render_panel_ );
-//    render_panel_->initialize( manager_->getSceneManager(), manager_ );
-//    manager_->initialize();
-//    manager_->startUpdate();
-
-//    grid_ = manager_->createDisplay( "rviz/Image", "image display grid", true );
-//    ROS_ASSERT( grid_ != NULL );
-//    // Create a Grid display.
-//    //   grid_ = manager_->createDisplay( "rviz/Grid", "adjustable grid", true );
-//    //   ROS_ASSERT( grid_ != NULL );
-
-//    // Configure the GridDisplay the way we like it.
-//    // grid_->subProp( "Line Style" )->setValue( "Billboards" );
-//    // grid_->subProp( "Color" )->setValue( Qt::yellow );
-
-//    grid_->setTopic("/image_raw","sensor_msgs/Image");
     render_panel_ = new rviz::RenderPanel();
     ui->display3d_layout->addWidget(render_panel_);
 
@@ -71,12 +52,11 @@ void RvizGui::initDisplayWidgets()
     render_panel_->initialize( manager_->getSceneManager(), manager_ );
 
     //set the fixed frame before initializing Visualization Manager. pointcloud2 will not work with this
-
     manager_->setFixedFrame("/base_link");
     manager_->initialize();
     manager_->startUpdate();
 
-    // Create a Grid display.
+    // Create a main display.
     mainDisplay_ = manager_->createDisplay( "rviz/PointCloud2", "Image View", true );
     ROS_ASSERT( mainDisplay_ != NULL );
 
@@ -85,6 +65,12 @@ void RvizGui::initDisplayWidgets()
     mainDisplay_->subProp( "Style" )->setValue( "Boxes" );
     mainDisplay_->subProp( "Size" )->setValue( 0.01 );
     mainDisplay_->subProp("Alpha")->setValue(1);
+
+    imagePanel_=new rviz::Panel();
+    imagePanel_->initialize(manager_);
+    imageDisplay_ = manager_->createDisplay( "rviz/Image", "Image View", true );
+    imageDisplay_->subProp("Topic")->setValue("/camera/image_raw");
+    ui->livevideo_layout->addWidget(imagePanel_);
 
     /*
     //Image :
@@ -114,8 +100,6 @@ void RvizGui::initDisplayWidgets()
         grid_->subProp( "Style" )->setValue( "Boxes" );
         grid_->subProp( "Size" )->setValue( 0.01 );
         grid_->subProp("Alpha")->setValue(1);
-
-
     */
 
 }

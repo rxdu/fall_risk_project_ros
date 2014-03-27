@@ -9,6 +9,7 @@
 #include "rviz/visualization_manager.h"
 #include "rviz/render_panel.h"
 #include "rviz/display.h"
+#include "rviz/panel.h"
 
 #include <ros/ros.h>
 #include <geometry_msgs/Twist.h>
@@ -28,6 +29,7 @@ class Display;
 class RenderPanel;
 class VisualizationManager;
 class ImageDisplay;
+class Panel;
 }
 
 class RvizGui : public QWidget
@@ -61,6 +63,8 @@ private:
   rviz::VisualizationManager* manager_;
   rviz::RenderPanel* render_panel_;
   rviz::Display* mainDisplay_;
+  rviz::Display* imageDisplay_;
+  rviz::Panel* imagePanel_;
 
 private:
   ros::NodeHandle nh_;
