@@ -64,6 +64,59 @@ void RvizGui::initDisplayWidgets()
 //    // grid_->subProp( "Color" )->setValue( Qt::yellow );
 
 //    grid_->setTopic("/image_raw","sensor_msgs/Image");
+    render_panel_ = new rviz::RenderPanel();
+    ui->display3d_layout->addWidget(render_panel_);
+
+    manager_ = new rviz::VisualizationManager( render_panel_ );
+    render_panel_->initialize( manager_->getSceneManager(), manager_ );
+
+    //set the fixed frame before initializing Visualization Manager. pointcloud2 will not work with this
+
+    manager_->setFixedFrame("/base_link");
+    manager_->initialize();
+    manager_->startUpdate();
+
+    // Create a Grid display.
+    mainDisplay_ = manager_->createDisplay( "rviz/PointCloud2", "Image View", true );
+    ROS_ASSERT( mainDisplay_ != NULL );
+
+    mainDisplay_->subProp( "Topic" )->setValue( "/camera/depth/points" );
+    mainDisplay_->subProp( "Selectable" )->setValue( "true" );
+    mainDisplay_->subProp( "Style" )->setValue( "Boxes" );
+    mainDisplay_->subProp( "Size" )->setValue( 0.01 );
+    mainDisplay_->subProp("Alpha")->setValue(1);
+
+    /*
+    //Image :
+        grid_ = manager_->createDisplay( "rviz/Image", "Image View", true );
+        ROS_ASSERT( grid_ != NULL );
+        grid_->subProp( "Image Topic" )->setValue( "/camera/rgb/image_raw" );
+        grid_->subProp( "Transport Hint" )->setValue( "theora" );
+
+
+    //Depth Cloud :
+        grid_ = manager_->createDisplay( "rviz/DepthCloud", "Image View", true );
+        ROS_ASSERT( grid_ != NULL );
+
+        grid_->subProp( "Depth Map Topic" )->setValue( "/camera/depth/image_raw" );
+        grid_->subProp( "Depth Map Transport Hint" )->setValue( "raw" );
+        grid_->subProp( "Color Image Topic" )->setValue( "/camera/rgb/image_raw" );
+        grid_->subProp( "Color Transport Hint" )->setValue( "raw" );
+        grid_->subProp("Queue Size")->setValue(5);
+        grid_->subProp("Style")->setValue("Flat Squares");
+
+    //PointCloud2 :
+        grid_ = manager_->createDisplay( "rviz/PointCloud2", "Image View", true );
+        ROS_ASSERT( grid_ != NULL );
+
+        grid_->subProp( "Topic" )->setValue( "/camera/depth/points" );
+        grid_->subProp( "Selectable" )->setValue( "true" );
+        grid_->subProp( "Style" )->setValue( "Boxes" );
+        grid_->subProp( "Size" )->setValue( 0.01 );
+        grid_->subProp("Alpha")->setValue(1);
+
+
+    */
 
 }
 

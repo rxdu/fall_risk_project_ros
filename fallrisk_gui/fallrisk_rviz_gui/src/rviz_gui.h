@@ -60,7 +60,7 @@ private Q_SLOTS:
 private:
   rviz::VisualizationManager* manager_;
   rviz::RenderPanel* render_panel_;
-  rviz::Display* grid_;
+  rviz::Display* mainDisplay_;
 
 private:
   ros::NodeHandle nh_;
