@@ -15,11 +15,16 @@
 #include <ros/ros.h>
 #include <geometry_msgs/Twist.h>
 #include <std_msgs/Float32.h>
+#include <kobuki_msgs/SensorState.h>
 
 #define LIN_VEL_MAX 0.25
 #define LIN_VEL_MIN 0.08
 #define ANG_VEL_MAX 1.2
 #define ANG_VEL_MIN 0.65
+
+#define BASE_BATTERY_CAP 165
+#define BASE_BATTERY_LOW 140
+#define BASE_BATTERY_DANGER 132
 
 namespace Ui {
 class FallRiskGUI;
@@ -71,13 +76,15 @@ private:
 private:
   ros::NodeHandle nh_;
   ros::Publisher moveBaseCmdPub;
-  ros::Subscriber distSub;
+  ros::Subscriber centerDistSub;
+  ros::Subscriber baseSensorStatus;
 
   geometry_msgs::Twist moveBaseCmd;
   float linearVelocity;
   float angularVelocity;
 
   void distanceSubCallback(const std_msgs::Float32::ConstPtr& msg);
+  void baseStatusCheck(const kobuki_msgs::SensorState::ConstPtr& msg);
 };
 
 #endif // FALLRISK_GUI_H

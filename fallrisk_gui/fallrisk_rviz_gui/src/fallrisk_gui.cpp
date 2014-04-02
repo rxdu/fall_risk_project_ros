@@ -25,7 +25,8 @@ FallRiskGUI::~FallRiskGUI()
 void FallRiskGUI::initVariables()
 {
     moveBaseCmdPub = nh_.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity",1);
-    distSub = nh_.subscribe("/distance/image_center_dist",1,&FallRiskGUI::distanceSubCallback,this);
+    centerDistSub = nh_.subscribe("/distance/image_center_dist",1,&FallRiskGUI::distanceSubCallback,this);
+    baseSensorStatus = nh_.subscribe("/mobile_base/sensors/core",1,&FallRiskGUI::baseStatusCheck,this);
 
     setRobotVelocity();
 }
@@ -65,11 +66,11 @@ void FallRiskGUI::initDisplayWidgets()
     mainDisplay_->subProp( "Size" )->setValue( 0.01 );
     mainDisplay_->subProp("Alpha")->setValue(1);
 
-    imagePanel_=new rviz::Panel();
-    imagePanel_->initialize(manager_);
-    imageDisplay_ = manager_->createDisplay( "rviz/Image", "Image View", true );
-    imageDisplay_->subProp("Topic")->setValue("/camera/image_raw");
-    ui->livevideo_layout->addWidget(imagePanel_);
+//    imagePanel_=new rviz::Panel();
+//    imagePanel_->initialize(manager_);
+//    imageDisplay_ = manager_->createDisplay( "rviz/Image", "Image View", true );
+//    imageDisplay_->subProp("Topic")->setValue("/camera/rgb/image_raw");
+//    ui->livevideo_layout->addWidget(imagePanel_);
 
     /*
     //Image :
@@ -141,10 +142,26 @@ void FallRiskGUI::keyPressEvent(QKeyEvent *event)
 
 void FallRiskGUI::distanceSubCallback(const std_msgs::Float32::ConstPtr& msg)
 {
-    ROS_INFO("distance: %f",msg->data);
+//    ROS_INFO("distance: %f",msg->data);
     QLocale german(QLocale::German, QLocale::Germany);
-    QString dist = german.toString(msg->data, 'f', 2);
-    ui->lbDistance->setText(dist);
+    QString qdist = german.toString(msg->data, 'f', 2);
+    ui->lbDistance->setText(qdist);
+}
+
+void FallRiskGUI::baseStatusCheck(const kobuki_msgs::SensorState::ConstPtr& msg)
+{
+    // battery of kobuki base
+    ROS_INFO("battery: %d",msg->battery);
+//    QString danger = "QProgressBar::chunk {background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,stop: 0 #FF0350,stop: 0.4999 #FF0020,stop: 0.5 #FF0019,stop: 1 #FF0000 );border-bottom-right-radius: 5px;border-bottom-left-radius: 5px;border: .px solid black;}";
+//    QString safe= "QProgressBar::chunk {background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,stop: 0 #78d,stop: 0.4999 #46a,stop: 0.5 #45a,stop: 1 #238 );border-bottom-right-radius: 7px;border-bottom-left-radius: 7px;border: 1px solid black;}";
+    int battery_percentage = 0;
+
+    battery_percentage = (msg->battery - BASE_BATTERY_DANGER)*100/(BASE_BATTERY_CAP-BASE_BATTERY_DANGER);
+    ui->pbBaseBattery->setValue(battery_percentage);
+//    if(msg->battery <= BASE_BATTERY_LOW)
+//        //ui->pbBaseBattery->setStyleSheet(danger);
+//    else
+        //ui->pbBaseBattery->setStyleSheet(safe);
 }
 
 void FallRiskGUI::setRobotVelocity()
