@@ -14,6 +14,7 @@
 
 #include <ros/ros.h>
 #include <geometry_msgs/Twist.h>
+#include <std_msgs/Float32.h>
 
 #define LIN_VEL_MAX 0.25
 #define LIN_VEL_MIN 0.08
@@ -70,9 +71,13 @@ private:
 private:
   ros::NodeHandle nh_;
   ros::Publisher moveBaseCmdPub;
+  ros::Subscriber distSub;
+
   geometry_msgs::Twist moveBaseCmd;
   float linearVelocity;
   float angularVelocity;
+
+  void distanceSubCallback(const std_msgs::Float32::ConstPtr& msg);
 };
 
 #endif // FALLRISK_GUI_H

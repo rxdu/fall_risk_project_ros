@@ -251,6 +251,32 @@
       <property name="title">
        <string>Robot Status</string>
       </property>
+      <widget class="QLabel" name="label_6">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>40</y>
+         <width>57</width>
+         <height>15</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Distance:</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lbDistance">
+       <property name="geometry">
+        <rect>
+         <x>100</x>
+         <y>40</y>
+         <width>57</width>
+         <height>15</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>00.00</string>
+       </property>
+      </widget>
      </widget>
     </item>
    </layout>

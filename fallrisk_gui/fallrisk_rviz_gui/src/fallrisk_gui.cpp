@@ -25,6 +25,7 @@ FallRiskGUI::~FallRiskGUI()
 void FallRiskGUI::initVariables()
 {
     moveBaseCmdPub = nh_.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity",1);
+    distSub = nh_.subscribe("/distance/image_center_dist",1,&FallRiskGUI::distanceSubCallback,this);
 
     setRobotVelocity();
 }
@@ -136,6 +137,14 @@ void FallRiskGUI::keyPressEvent(QKeyEvent *event)
         QWidget::keyPressEvent(event);
         break;
     }
+}
+
+void FallRiskGUI::distanceSubCallback(const std_msgs::Float32::ConstPtr& msg)
+{
+    ROS_INFO("distance: %f",msg->data);
+    QLocale german(QLocale::German, QLocale::Germany);
+    QString dist = german.toString(msg->data, 'f', 2);
+    ui->lbDistance->setText(dist);
 }
 
 void FallRiskGUI::setRobotVelocity()
