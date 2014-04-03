@@ -11,6 +11,10 @@ FallRiskGUI::FallRiskGUI(QWidget *parent) :
     ui->setupUi(this);
     ui->sliderLinearVel->setValue(75);
     ui->sliderAngularVel->setValue(75);
+//    ui->cbBedroomItem1->setStyleSheet("QCheckBox { background-color : red; color : black; };");
+//    ui->cbBedroomItem2->setStyleSheet("QCheckBox { background-color : yellow; color : black; };");
+//    ui->cbBedroomItem3->setStyleSheet("QCheckBox { background-color : green; color : black; };");
+
 
     initVariables();
     initDisplayWidgets();
@@ -116,22 +120,22 @@ void FallRiskGUI::keyPressEvent(QKeyEvent *event)
     {
     case Qt::Key_W:
         moveBaseForward();
-        sendMoveBaseCmd();
+//        sendMoveBaseCmd();
         ROS_INFO("key W pressed");
         break;
     case Qt::Key_A:
         moveBaseLeft();
-        sendMoveBaseCmd();
+//        sendMoveBaseCmd();
         ROS_INFO("key A pressed");
         break;
     case Qt::Key_D:
         moveBaseRight();
-        sendMoveBaseCmd();
+//        sendMoveBaseCmd();
         ROS_INFO("key D pressed");
         break;
     case Qt::Key_S:
         moveBaseBackward();
-        sendMoveBaseCmd();
+//        sendMoveBaseCmd();
         ROS_INFO("key S pressed");
         break;
 //    case Qt::Key_Q:
@@ -277,6 +281,7 @@ void FallRiskGUI::moveBaseForward()
     moveBaseCmd.angular.y=0;
     moveBaseCmd.angular.z=0;
 
+    sendMoveBaseCmd();
 }
 
 void FallRiskGUI::moveBaseBackward()
@@ -290,6 +295,8 @@ void FallRiskGUI::moveBaseBackward()
     moveBaseCmd.angular.x=0;
     moveBaseCmd.angular.y=0;
     moveBaseCmd.angular.z=0;
+
+    sendMoveBaseCmd();
 }
 
 void FallRiskGUI::moveBaseLeft()
@@ -303,6 +310,8 @@ void FallRiskGUI::moveBaseLeft()
     moveBaseCmd.angular.x=0;
     moveBaseCmd.angular.y=0;
     moveBaseCmd.angular.z=angularVelocity;
+
+    sendMoveBaseCmd();
 }
 
 void FallRiskGUI::moveBaseRight()
@@ -316,6 +325,8 @@ void FallRiskGUI::moveBaseRight()
     moveBaseCmd.angular.x=0;
     moveBaseCmd.angular.y=0;
     moveBaseCmd.angular.z=-angularVelocity;
+
+    sendMoveBaseCmd();
 }
 
 void FallRiskGUI::sendMoveBaseCmd()
