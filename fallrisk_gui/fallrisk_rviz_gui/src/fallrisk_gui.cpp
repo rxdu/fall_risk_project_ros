@@ -174,27 +174,69 @@ void FallRiskGUI::baseStatusCheck(const kobuki_msgs::SensorState::ConstPtr& msg)
     if(msg->bumper == msg->BUMPER_LEFT)
     {
         ROS_INFO("BUMPER LEFT");
-        ui->btnBumperLeft->setAutoFillBackground(true);
-        ui->btnBumperLeft->setStyleSheet(("background-color: rgb(255, 0, 0); color: rgb(255, 255, 255)"));
+        ui->lbBumperLeft->setStyleSheet("QLabel { background-color : rgb(255, 0, 0); color : rgb(255, 255, 255); }");
     }
     else if(msg->bumper == msg->BUMPER_CENTRE)
     {
         ROS_INFO("BUMPER CENTER");
-        ui->btnBumperCenter->setAutoFillBackground(true);
-        ui->btnBumperCenter->setStyleSheet(("background-color: rgb(255, 0, 0); color: rgb(255, 255, 255)"));
-
+        ui->lbBumperCenter->setStyleSheet("QLabel { background-color : rgb(255, 0, 0); color : rgb(255, 255, 255); }");
     }
     else if(msg->bumper == msg->BUMPER_RIGHT)
     {
         ROS_INFO("BUMPER RIGHT");
-        ui->btnBumperRight->setAutoFillBackground(true);
-        ui->btnBumperRight->setStyleSheet(("background-color: rgb(255, 0, 0); color: rgb(255, 255, 255)"));
+        ui->lbBumperRight->setStyleSheet("QLabel { background-color : rgb(255, 0, 0); color : rgb(255, 255, 255); }");
     }
     else
     {
-        ui->btnBumperLeft->setStyleSheet(("background-color: rgb(0, 204, 102); color: rgb(255, 255, 255)"));
-        ui->btnBumperCenter->setStyleSheet(("background-color: rgb(0, 204, 102); color: rgb(255, 255, 255)"));
-        ui->btnBumperRight->setStyleSheet(("background-color: rgb(0, 204, 102); color: rgb(255, 255, 255)"));
+        ui->lbBumperCenter->setStyleSheet("QLabel { background-color : rgb(0, 204, 102); color : rgb(255, 255, 255); }");
+        ui->lbBumperLeft->setStyleSheet("QLabel { background-color : rgb(0, 204, 102); color : rgb(255, 255, 255); }");
+        ui->lbBumperRight->setStyleSheet("QLabel { background-color : rgb(0, 204, 102); color : rgb(255, 255, 255); }");
+    }
+
+    /*------------ wheel drop sensors -------------*/
+    if(msg->wheel_drop == msg->WHEEL_DROP_LEFT)
+    {
+        ROS_INFO("wheel drop left");
+        ui->lbWheelLeft->setStyleSheet("QLabel { background-color : rgb(255, 0, 0); color : rgb(255, 255, 255); }");
+    }
+    else if(msg->wheel_drop == msg->WHEEL_DROP_RIGHT)
+    {
+        ROS_INFO("wheel drop right");
+        ui->lbWheelRight->setStyleSheet("QLabel { background-color : rgb(255, 0, 0); color : rgb(255, 255, 255); }");
+    }
+    else if(msg->wheel_drop == ( msg->WHEEL_DROP_LEFT+msg->WHEEL_DROP_RIGHT))
+    {
+        ROS_INFO("wheel drop both");
+        ui->lbWheelLeft->setStyleSheet("QLabel { background-color : rgb(255, 0, 0); color : rgb(255, 255, 255); }");
+        ui->lbWheelRight->setStyleSheet("QLabel { background-color : rgb(255, 0, 0); color : rgb(255, 255, 255); }");
+    }
+    else
+    {
+        ui->lbWheelLeft->setStyleSheet("QLabel { background-color : rgb(0, 204, 102); color : rgb(255, 255, 255); }");
+        ui->lbWheelRight->setStyleSheet("QLabel { background-color : rgb(0, 204, 102); color : rgb(255, 255, 255); }");
+    }
+
+    /*-------------- cliff sensors ---------------*/
+    if(msg->cliff == msg->CLIFF_LEFT)
+    {
+        ROS_INFO("cliff left");
+        ui->lbCliffLeft->setStyleSheet("QLabel { background-color : rgb(255, 0, 0); color : rgb(255, 255, 255); }");
+    }
+    else if(msg->cliff == msg->CLIFF_CENTRE)
+    {
+        ROS_INFO("cliff center");
+        ui->lbCliffCenter->setStyleSheet("QLabel { background-color : rgb(255, 0, 0); color : rgb(255, 255, 255); }");
+    }
+    else if(msg->cliff == msg->CLIFF_RIGHT)
+    {
+        ROS_INFO("cliff right");
+        ui->lbCliffRight->setStyleSheet("QLabel { background-color : rgb(255, 0, 0); color : rgb(255, 255, 255); }");
+    }
+    else
+    {
+        ui->lbCliffCenter->setStyleSheet("QLabel { background-color : rgb(0, 204, 102); color : rgb(255, 255, 255); }");
+        ui->lbCliffLeft->setStyleSheet("QLabel { background-color : rgb(0, 204, 102); color : rgb(255, 255, 255); }");
+        ui->lbCliffRight->setStyleSheet("QLabel { background-color : rgb(0, 204, 102); color : rgb(255, 255, 255); }");
     }
 }
 
