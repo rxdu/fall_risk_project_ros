@@ -15,7 +15,13 @@
 #include <ros/ros.h>
 #include <geometry_msgs/Twist.h>
 #include <std_msgs/Float32.h>
+#include <sensor_msgs/Image.h>
 #include <kobuki_msgs/SensorState.h>
+#include <image_transport/image_transport.h>
+#include <cv_bridge/cv_bridge.h>
+#include <sensor_msgs/image_encodings.h>
+
+#include <opencv2/highgui/highgui.hpp>
 
 #define LIN_VEL_MAX 0.25
 #define LIN_VEL_MIN 0.08
@@ -79,12 +85,16 @@ private:
   ros::Subscriber centerDistSub;
   ros::Subscriber baseSensorStatus;
 
+  image_transport::ImageTransport it_;
+  image_transport::Subscriber liveVideoSub;
+
   geometry_msgs::Twist moveBaseCmd;
   float linearVelocity;
   float angularVelocity;
 
   void distanceSubCallback(const std_msgs::Float32::ConstPtr& msg);
   void baseStatusCheck(const kobuki_msgs::SensorState::ConstPtr& msg);
+  void liveVideoCallback(const sensor_msgs::ImageConstPtr &msg);
 };
 
 #endif // FALLRISK_GUI_H

@@ -9,6 +9,8 @@ find_package(catkin REQUIRED COMPONENTS
   rviz
   sensor_msgs
   std_msgs
+  cv_bridge
+  image_transport
 )
 
 ## System dependencies are found with CMake's conventions

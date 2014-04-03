@@ -6,7 +6,7 @@
 
 FallRiskGUI::FallRiskGUI(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::FallRiskGUI)
+    ui(new Ui::FallRiskGUI),it_(nh_)
 {
     ui->setupUi(this);
     ui->sliderLinearVel->setValue(75);
@@ -15,11 +15,15 @@ FallRiskGUI::FallRiskGUI(QWidget *parent) :
     initVariables();
     initDisplayWidgets();
     initActionsConnections();
+
+    //just for testing, needs to be commented out
+    cv::namedWindow("Image window");
 }
 
 FallRiskGUI::~FallRiskGUI()
 {
     delete ui;
+    cv::destroyWindow("Image window");
 }
 
 void FallRiskGUI::initVariables()
@@ -27,6 +31,8 @@ void FallRiskGUI::initVariables()
     moveBaseCmdPub = nh_.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity",1);
     centerDistSub = nh_.subscribe("/distance/image_center_dist",1,&FallRiskGUI::distanceSubCallback,this);
     baseSensorStatus = nh_.subscribe("/mobile_base/sensors/core",1,&FallRiskGUI::baseStatusCheck,this);
+
+    liveVideoSub = it_.subscribe("/camera/rgb/image_raw",1,&FallRiskGUI::liveVideoCallback,this);
 
     setRobotVelocity();
 }
@@ -63,7 +69,7 @@ void FallRiskGUI::initDisplayWidgets()
     mainDisplay_->subProp( "Topic" )->setValue( "/camera/depth/points" );
     mainDisplay_->subProp( "Selectable" )->setValue( "true" );
     mainDisplay_->subProp( "Style" )->setValue( "Boxes" );
-    mainDisplay_->subProp( "Size" )->setValue( 0.01 );
+//    mainDisplay_->subProp( "Size" )->setValue( 0.01 );
     mainDisplay_->subProp("Alpha")->setValue(1);
 
 //    imagePanel_=new rviz::Panel();
@@ -142,26 +148,71 @@ void FallRiskGUI::keyPressEvent(QKeyEvent *event)
 
 void FallRiskGUI::distanceSubCallback(const std_msgs::Float32::ConstPtr& msg)
 {
-//    ROS_INFO("distance: %f",msg->data);
-    QLocale german(QLocale::German, QLocale::Germany);
-    QString qdist = german.toString(msg->data, 'f', 2);
-    ui->lbDistance->setText(qdist);
+////    ROS_INFO("distance: %f",msg->data);
+//    QLocale german(QLocale::German, QLocale::Germany);
+//    QString qdist = german.toString(msg->data, 'f', 2);
+//    ui->lbDistance->setText(qdist);
 }
 
 void FallRiskGUI::baseStatusCheck(const kobuki_msgs::SensorState::ConstPtr& msg)
 {
-    // battery of kobuki base
-    ROS_INFO("battery: %d",msg->battery);
-//    QString danger = "QProgressBar::chunk {background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,stop: 0 #FF0350,stop: 0.4999 #FF0020,stop: 0.5 #FF0019,stop: 1 #FF0000 );border-bottom-right-radius: 5px;border-bottom-left-radius: 5px;border: .px solid black;}";
-//    QString safe= "QProgressBar::chunk {background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,stop: 0 #78d,stop: 0.4999 #46a,stop: 0.5 #45a,stop: 1 #238 );border-bottom-right-radius: 7px;border-bottom-left-radius: 7px;border: 1px solid black;}";
+    /*---------- battery of kobuki base -----------*/
+//    ROS_INFO("battery: %d",msg->battery);
+
     int battery_percentage = 0;
 
     battery_percentage = (msg->battery - BASE_BATTERY_DANGER)*100/(BASE_BATTERY_CAP-BASE_BATTERY_DANGER);
     ui->pbBaseBattery->setValue(battery_percentage);
 //    if(msg->battery <= BASE_BATTERY_LOW)
-//        //ui->pbBaseBattery->setStyleSheet(danger);
+//    QPalette p = ui->pbBaseBattery->palette();
+//        p.setColor(QPalette::Highlight, Qt::red);
+//        ui->pbBaseBattery->setPalette(p);
 //    else
         //ui->pbBaseBattery->setStyleSheet(safe);
+
+    /*-------------- bumper sensors ---------------*/
+    if(msg->bumper == msg->BUMPER_LEFT)
+    {
+        ROS_INFO("BUMPER LEFT");
+        ui->btnBumperLeft->setAutoFillBackground(true);
+        ui->btnBumperLeft->setStyleSheet(("background-color: rgb(255, 0, 0); color: rgb(255, 255, 255)"));
+    }
+    else if(msg->bumper == msg->BUMPER_CENTRE)
+    {
+        ROS_INFO("BUMPER CENTER");
+        ui->btnBumperCenter->setAutoFillBackground(true);
+        ui->btnBumperCenter->setStyleSheet(("background-color: rgb(255, 0, 0); color: rgb(255, 255, 255)"));
+
+    }
+    else if(msg->bumper == msg->BUMPER_RIGHT)
+    {
+        ROS_INFO("BUMPER RIGHT");
+        ui->btnBumperRight->setAutoFillBackground(true);
+        ui->btnBumperRight->setStyleSheet(("background-color: rgb(255, 0, 0); color: rgb(255, 255, 255)"));
+    }
+    else
+    {
+        ui->btnBumperLeft->setStyleSheet(("background-color: rgb(0, 204, 102); color: rgb(255, 255, 255)"));
+        ui->btnBumperCenter->setStyleSheet(("background-color: rgb(0, 204, 102); color: rgb(255, 255, 255)"));
+        ui->btnBumperRight->setStyleSheet(("background-color: rgb(0, 204, 102); color: rgb(255, 255, 255)"));
+    }
+}
+
+void FallRiskGUI::liveVideoCallback(const sensor_msgs::ImageConstPtr& msg)
+{
+    cv_bridge::CvImagePtr cv_ptr;
+    try
+    {
+        cv_ptr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8);
+    }
+    catch (cv_bridge::Exception& e)
+    {
+        ROS_ERROR("cv_bridge exception: %s", e.what());
+        return;
+    }
+
+    cv::imshow("Image window", cv_ptr->image);
+    cv::waitKey(3);
 }
 
 void FallRiskGUI::setRobotVelocity()
