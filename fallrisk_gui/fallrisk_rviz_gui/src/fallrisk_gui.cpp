@@ -1,3 +1,7 @@
+#include <QDialog>
+#include <QApplication>
+#include <QMainWindow>
+
 #include "fallrisk_gui.h"
 #include "ui_fallrisk_gui.h"
 
@@ -17,7 +21,7 @@ FallRiskGUI::FallRiskGUI(QWidget *parent) :
     initActionsConnections();
 
     //just for testing, needs to be commented out
-    cv::namedWindow("Image window");
+//    cv::namedWindow("Image window");
 }
 
 FallRiskGUI::~FallRiskGUI()
@@ -63,14 +67,15 @@ void FallRiskGUI::initDisplayWidgets()
     manager_->startUpdate();
 
     // Create a main display.
-    mainDisplay_ = manager_->createDisplay( "rviz/PointCloud2", "Image View", true );
+    mainDisplay_ = manager_->createDisplay( "rviz/PointCloud2", "3D Pointcloud view", true );
     ROS_ASSERT( mainDisplay_ != NULL );
 
     mainDisplay_->subProp( "Topic" )->setValue( "/camera/depth/points" );
     mainDisplay_->subProp( "Selectable" )->setValue( "true" );
     mainDisplay_->subProp( "Style" )->setValue( "Boxes" );
-//    mainDisplay_->subProp( "Size" )->setValue( 0.01 );
     mainDisplay_->subProp("Alpha")->setValue(1);
+    manager_->createDisplay( "rviz/Grid", "Image View", true );
+//    gridDisplay_->subProp("Topic")->setValue("/camera/rgb/image_raw");
 
 //    imagePanel_=new rviz::Panel();
 //    imagePanel_->initialize(manager_);
@@ -200,10 +205,11 @@ void FallRiskGUI::baseStatusCheck(const kobuki_msgs::SensorState::ConstPtr& msg)
 
 void FallRiskGUI::liveVideoCallback(const sensor_msgs::ImageConstPtr& msg)
 {
+
     cv_bridge::CvImagePtr cv_ptr;
     try
     {
-        cv_ptr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8);
+        cv_ptr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR16);
     }
     catch (cv_bridge::Exception& e)
     {
@@ -211,9 +217,27 @@ void FallRiskGUI::liveVideoCallback(const sensor_msgs::ImageConstPtr& msg)
         return;
     }
 
-    cv::imshow("Image window", cv_ptr->image);
-    cv::waitKey(3);
+//    CVImageWidget* imagewidget = new CVImageWidget();
+
+//    ui->display3d_layout->addWidget(imagewidget);
+    // Load an image
+
+//    imagewidget->showImage(cv_ptr->image);
+//    cv::Mat img = cv_ptr->image;
+    cv::Mat img;
+    cv::cvtColor(cv_ptr->image,img,CV_BGR2RGB);
+    cv::resize(img,img,cvSize(450,250));
+
+    QImage imgIn= QImage((uchar*) img.data, 450, 250, img.cols*3, QImage::Format_RGB888);
+//    ROS_INFO("%d",cv_ptr->image.type());
+        QLabel* myLabel = ui->label_6;
+        myLabel->setPixmap(QPixmap::fromImage(imgIn));
+        myLabel->show();
+
+//    cv::imshow("Image window", cv_ptr->image);
+//        cv::waitKey(3);
 }
+
 
 void FallRiskGUI::setRobotVelocity()
 {

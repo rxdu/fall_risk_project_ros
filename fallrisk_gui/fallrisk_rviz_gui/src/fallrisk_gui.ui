@@ -130,7 +130,15 @@
         </widget>
        </item>
        <item row="0" column="1" rowspan="2" colspan="3">
-        <layout class="QGridLayout" name="livevideo_layout"/>
+        <layout class="QGridLayout" name="livevideo_layout">
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_6">
+           <property name="text">
+            <string>TextLabel</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
       </layout>
      </widget>
@@ -339,7 +347,7 @@
      <x>0</x>
      <y>0</y>
      <width>1099</width>
-     <height>20</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>

@@ -6,6 +6,8 @@
 #include <QEvent>
 #include <QKeyEvent>
 #include <QStatusBar>
+#include <QImage>
+#include <QPainter>
 
 #include "rviz/visualization_manager.h"
 #include "rviz/render_panel.h"
@@ -22,6 +24,7 @@
 #include <sensor_msgs/image_encodings.h>
 
 #include <opencv2/highgui/highgui.hpp>
+#include <opencv2/opencv.hpp>
 
 #define LIN_VEL_MAX 0.25
 #define LIN_VEL_MIN 0.08
@@ -53,6 +56,7 @@ public:
     explicit FallRiskGUI(QWidget *parent = 0);
     ~FallRiskGUI();
 
+
 private:
     Ui::FallRiskGUI *ui;
 
@@ -77,7 +81,7 @@ private:
   rviz::RenderPanel* render_panel_;
   rviz::Display* mainDisplay_;
   rviz::Display* imageDisplay_;
-  rviz::Panel* imagePanel_;
+  rviz::RenderPanel* imagePanel_;
 
 private:
   ros::NodeHandle nh_;
@@ -96,5 +100,51 @@ private:
   void baseStatusCheck(const kobuki_msgs::SensorState::ConstPtr& msg);
   void liveVideoCallback(const sensor_msgs::ImageConstPtr &msg);
 };
+
+class CVImageWidget : public QWidget
+{
+    Q_OBJECT
+public:
+    explicit CVImageWidget(QWidget *parent = 0) : QWidget(parent) {}
+
+    QSize sizeHint() const { return _qimage.size(); }
+    QSize minimumSizeHint() const { return _qimage.size(); }
+
+public:
+    void showImage(const cv::Mat& image){
+        QImage _qimage;
+        cv::Mat _tmp;
+        //        switch (image.type()) {
+        //        case CV_8UC1:
+        //            cv::cvtColor(image, _tmp, CV_GRAY2RGB);
+        //            break;
+        //        case CV_8UC3:
+//        cv::cvtColor(image, _tmp, CV_BGR2RGB);
+        //            break;
+        //        }
+
+//        assert(_tmp.isContinuous());
+
+        _qimage = QImage(_tmp.data, _tmp.cols, _tmp.rows, _tmp.step, QImage::Format_RGB888);
+
+        repaint();
+
+    }
+
+
+protected:
+    void paintEvent(QPaintEvent* /*event*/) {
+           // Display the image
+           QImage _qimage;
+           QPainter painter(this);
+           painter.drawImage(QPoint(0,0), _qimage);
+           painter.end();
+       }
+
+    QImage _qimage;
+    cv::Mat _tmp;
+};
+
+
 
 #endif // FALLRISK_GUI_H
