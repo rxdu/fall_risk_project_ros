@@ -45,7 +45,7 @@ void FallRiskGUI::initVariables()
     centerDistSub = nh_.subscribe("/distance/image_center_dist",1,&FallRiskGUI::distanceSubCallback,this);
     baseSensorStatus = nh_.subscribe("/mobile_base/sensors/core",1,&FallRiskGUI::baseStatusCheck,this);
 
-    liveVideoSub = it_.subscribe("/camera/rgb/image_raw",1,&FallRiskGUI::liveVideoCallback,this);
+    liveVideoSub = it_.subscribe("/camera/rgb/image_raw",1,&FallRiskGUI::liveVideoCallback,this,image_transport::TransportHints("compressed"));
 
     setRobotVelocity();
 }
@@ -269,13 +269,29 @@ void FallRiskGUI::liveVideoCallback(const sensor_msgs::ImageConstPtr& msg)
     }
 //  convert cv image into RGB image and resize it to the size of available layout
     cv::Mat RGBImg;
-    int width=300;    //set the width here and the image would be shown in 4:3 ratio
+    QLabel* liveVideoLabel = ui->liveVideoLabel;
+
+    int height = liveVideoLabel->height();
+    int width =  liveVideoLabel->width();
+
+    if(liveVideoLabel->height() > liveVideoLabel->width()*3/4)
+        height= liveVideoLabel->width()*3/4 ;
+    else
+        width = liveVideoLabel->height()*4/3 ;
+
+//    if(liveVideoLabel->height() > liveVideoLabel->width()*3/4)
+//        height = liveVideoLabel->height();
+//    else
+//        height = liveVideoLabel->width()*3/4;
+
+//    width = height *4/3;
+
     cv::cvtColor(cv_ptr->image,RGBImg,CV_BGR2RGB);
-    cv::resize(RGBImg,RGBImg,cvSize(width,width*3/4));
+    cv::resize(RGBImg,RGBImg,cvSize(width,height));
 
 //  convert RGB image into QImage and publish that on the label for livevideo
     QImage qImage_= QImage((uchar*) RGBImg.data, RGBImg.cols, RGBImg.rows, RGBImg.cols*3, QImage::Format_RGB888);
-    QLabel* liveVideoLabel = ui->liveVideoLabel;
+
     liveVideoLabel->setPixmap(QPixmap::fromImage(qImage_));
     liveVideoLabel->show();
 }
