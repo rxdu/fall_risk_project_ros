@@ -14,7 +14,17 @@ FallRiskGUI::FallRiskGUI(QWidget *parent) :
 //    ui->cbBedroomItem1->setStyleSheet("QCheckBox { background-color : red; color : black; };");
 //    ui->cbBedroomItem2->setStyleSheet("QCheckBox { background-color : yellow; color : black; };");
 //    ui->cbBedroomItem3->setStyleSheet("QCheckBox { background-color : green; color : black; };");
-
+    ui->lbLightingItem1->setStyleSheet("QLabel { background-color : red; color : rgb(255, 255, 255); }");
+    ui->lbLightingItem2->setStyleSheet("QLabel { background-color : green; color : rgb(255, 255, 255); }");
+    ui->lbFloorsItem1->setStyleSheet("QLabel { background-color : green; color : rgb(255, 255, 255); }");
+    ui->lbFloorsItem2->setStyleSheet("QLabel { background-color : green; color : rgb(255, 255, 255); }");
+    ui->lbStairsItem1->setStyleSheet("QLabel { background-color : green; color : rgb(255, 255, 255); }");
+    ui->lbStairsItem2->setStyleSheet("QLabel { background-color : green; color : rgb(255, 255, 255); }");
+    ui->lbStairsItem3->setStyleSheet("QLabel { background-color : red; color : rgb(255, 255, 255); }");
+    ui->lbBedroomItem1->setStyleSheet("QLabel { background-color : green; color : rgb(255, 255, 255); }");
+    ui->lbBedroomItem2->setStyleSheet("QLabel { background-color : red; color : rgb(255, 255, 255); }");
+    ui->lbBedroomItem3->setStyleSheet("QLabel { background-color : green; color : rgb(255, 255, 255); }");
+    ui->lbPetItem1->setStyleSheet("QLabel { background-color : yellow; color : rgb(255, 255, 255); }");
 
     initVariables();
     initDisplayWidgets();
