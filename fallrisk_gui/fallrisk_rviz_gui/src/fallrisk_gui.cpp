@@ -61,6 +61,7 @@ void FallRiskGUI::initDisplayWidgets()
     manager_->initialize();
     manager_->startUpdate();
 
+
     // Create a main display.
     mainDisplay_ = manager_->createDisplay( "rviz/PointCloud2", "3D Pointcloud view", true );
     ROS_ASSERT( mainDisplay_ != NULL );
@@ -70,13 +71,11 @@ void FallRiskGUI::initDisplayWidgets()
     mainDisplay_->subProp( "Style" )->setValue( "Boxes" );
     mainDisplay_->subProp("Alpha")->setValue(1);
     manager_->createDisplay( "rviz/Grid", "Grid", true );
-//    gridDisplay_->subProp("Topic")->setValue("/camera/rgb/image_raw");
 
-//    imagePanel_=new rviz::Panel();
-//    imagePanel_->initialize(manager_);
-//    imageDisplay_ = manager_->createDisplay( "rviz/Image", "Image View", true );
-//    imageDisplay_->subProp("Topic")->setValue("/camera/rgb/image_raw");
-//    ui->livevideo_layout->addWidget(imagePanel_);
+    octomapDisplay_ = manager_->createDisplay( "rviz/MarkerArray", "Octomap view", true );
+    ROS_ASSERT( octomapDisplay_ != NULL );
+
+    octomapDisplay_->subProp( "Marker Topic" )->setValue( "/occupied_cells_vis_array" );
 
     /*
     //Image :
@@ -98,15 +97,23 @@ void FallRiskGUI::initDisplayWidgets()
         grid_->subProp("Style")->setValue("Flat Squares");
 
     //PointCloud2 :
-        grid_ = manager_->createDisplay( "rviz/PointCloud2", "Image View", true );
-        ROS_ASSERT( grid_ != NULL );
+    mainDisplay_ = manager_->createDisplay( "rviz/PointCloud2", "3D Pointcloud view", true );
+    ROS_ASSERT( mainDisplay_ != NULL );
 
-        grid_->subProp( "Topic" )->setValue( "/camera/depth/points" );
-        grid_->subProp( "Selectable" )->setValue( "true" );
-        grid_->subProp( "Style" )->setValue( "Boxes" );
-        grid_->subProp( "Size" )->setValue( 0.01 );
-        grid_->subProp("Alpha")->setValue(1);
-    */
+    mainDisplay_->subProp( "Topic" )->setValue( "/camera/depth/points" );
+    mainDisplay_->subProp( "Selectable" )->setValue( "true" );
+    mainDisplay_->subProp( "Style" )->setValue( "Boxes" );
+    mainDisplay_->subProp("Alpha")->setValue(1);
+    manager_->createDisplay( "rviz/Grid", "Grid", true );
+
+    //MarkerArray :
+    rviz::Display* octomapDisplay_ = manager_->createDisplay( "rviz/MarkerArray", "Octomap view", true );
+    ROS_ASSERT( octomapDisplay_ != NULL );
+
+    octomapDisplay_->subProp( "Marker Topic" )->setValue( "/occupied_cells_vis_array" );
+
+
+*/
 
 }
 
@@ -213,13 +220,13 @@ void FallRiskGUI::liveVideoCallback(const sensor_msgs::ImageConstPtr& msg)
     }
 //  convert cv image into RGB image and resize it to the size of available layout
     cv::Mat RGBImg;
-    int width=300;    //set the width here and the image would be shown in 4:3 ratio
+    QLabel* liveVideoLabel = ui->liveVideoLabel;
+    int width=liveVideoLabel->width();    //set the width here and the image would be shown in 4:3 ratio
     cv::cvtColor(cv_ptr->image,RGBImg,CV_BGR2RGB);
     cv::resize(RGBImg,RGBImg,cvSize(width,width*3/4));
 
 //  convert RGB image into QImage and publish that on the label for livevideo
     QImage qImage_= QImage((uchar*) RGBImg.data, RGBImg.cols, RGBImg.rows, RGBImg.cols*3, QImage::Format_RGB888);
-    QLabel* liveVideoLabel = ui->liveVideoLabel;
     liveVideoLabel->setPixmap(QPixmap::fromImage(qImage_));
     liveVideoLabel->show();
 }

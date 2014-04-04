@@ -80,7 +80,8 @@ private:
   rviz::VisualizationManager* manager_;
   rviz::RenderPanel* render_panel_;
   rviz::Display* mainDisplay_;
-  rviz::Display* imageDisplay_;
+//  rviz::Display* imageDisplay_;
+  rviz::Display* octomapDisplay_;
   rviz::RenderPanel* imagePanel_;
 
 private:
