@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1099</width>
-    <height>868</height>
+    <width>1128</width>
+    <height>879</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,35 +15,6 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0" colspan="2">
-     <widget class="QTabWidget" name="tab_display">
-      <property name="currentIndex">
-       <number>0</number>
-      </property>
-      <widget class="QWidget" name="tab_3dscene">
-       <attribute name="title">
-        <string>3D Scene</string>
-       </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout">
-        <item>
-         <layout class="QHBoxLayout" name="display3d_layout"/>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="tab_map">
-       <attribute name="title">
-        <string>Map</string>
-       </attribute>
-      </widget>
-     </widget>
-    </item>
-    <item row="0" column="2">
-     <widget class="QGroupBox" name="gb_checklist">
-      <property name="title">
-       <string>Checklist</string>
-      </property>
-     </widget>
-    </item>
     <item row="1" column="0">
      <widget class="QGroupBox" name="gb_livevideo">
       <property name="minimumSize">
@@ -115,26 +86,15 @@
          </item>
         </layout>
        </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_5">
-         <property name="text">
-          <string>Video Quality:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1" colspan="3">
-        <widget class="QSlider" name="horizontalSlider">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1" rowspan="2" colspan="3">
+       <item row="0" column="1" rowspan="2" colspan="2">
         <layout class="QGridLayout" name="livevideo_layout">
          <item row="0" column="0">
           <widget class="QLabel" name="liveVideoLabel">
            <property name="text">
-            <string>TextLabel</string>
+            <string>Video</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
@@ -254,89 +214,447 @@
       </layout>
      </widget>
     </item>
+    <item row="0" column="2">
+     <widget class="QGroupBox" name="gb_checklist">
+      <property name="maximumSize">
+       <size>
+        <width>310</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="title">
+       <string>Checklist</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_7">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_10">
+         <property name="text">
+          <string>Lighting:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" colspan="2">
+        <widget class="QCheckBox" name="cbLightingItem1">
+         <property name="text">
+          <string>Top and bottom of stairs</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QLabel" name="lbLightingItem1">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0" colspan="2">
+        <widget class="QCheckBox" name="cbLightingItem2">
+         <property name="text">
+          <string>Path from bedroom to bathroom</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="2">
+        <widget class="QLabel" name="lbLightingItem2">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_11">
+         <property name="text">
+          <string>Floors:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0" colspan="2">
+        <widget class="QCheckBox" name="cbFloorsItem1">
+         <property name="text">
+          <string>Wires and cords place near walls</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="2">
+        <widget class="QLabel" name="lbFloorsItem1">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0" colspan="2">
+        <widget class="QCheckBox" name="cbFloorsItem2">
+         <property name="text">
+          <string>Walkways free and clear of clutter</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="2">
+        <widget class="QLabel" name="lbFloorsItem2">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0">
+        <widget class="QLabel" name="label_14">
+         <property name="text">
+          <string>Stairs:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="0" colspan="2">
+        <widget class="QCheckBox" name="cbStairsItem1">
+         <property name="text">
+          <string>Bottom step clearly marked</string>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="2">
+        <widget class="QLabel" name="lbStairsItem1">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="0" colspan="2">
+        <widget class="QCheckBox" name="cbStairsItem2">
+         <property name="text">
+          <string>Steps have risers</string>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="2">
+        <widget class="QLabel" name="lbStairsItem2">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="0" colspan="2">
+        <widget class="QCheckBox" name="cbStairsItem3">
+         <property name="text">
+          <string> Secure and visible railing</string>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="2">
+        <widget class="QLabel" name="lbStairsItem3">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="10" column="0">
+        <widget class="QLabel" name="label_12">
+         <property name="text">
+          <string>Bedroom:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="11" column="0" colspan="2">
+        <widget class="QCheckBox" name="cbBedroomItem1">
+         <property name="text">
+          <string>Enough room between bed and wall</string>
+         </property>
+        </widget>
+       </item>
+       <item row="11" column="2">
+        <widget class="QLabel" name="lbBedroomItem1">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="12" column="0" colspan="2">
+        <widget class="QCheckBox" name="cbBedroomItem2">
+         <property name="text">
+          <string>Clear path from bed to bathroom</string>
+         </property>
+        </widget>
+       </item>
+       <item row="12" column="2">
+        <widget class="QLabel" name="lbBedroomItem2">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="13" column="0" colspan="2">
+        <widget class="QCheckBox" name="cbBedroomItem3">
+         <property name="text">
+          <string>Reasonable bed height</string>
+         </property>
+        </widget>
+       </item>
+       <item row="13" column="2">
+        <widget class="QLabel" name="lbBedroomItem3">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="14" column="0">
+        <widget class="QLabel" name="label_13">
+         <property name="text">
+          <string>Pet:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="15" column="0" colspan="2">
+        <widget class="QCheckBox" name="cbPetItem1">
+         <property name="text">
+          <string>No pet in the house</string>
+         </property>
+        </widget>
+       </item>
+       <item row="15" column="2">
+        <widget class="QLabel" name="lbPetItem1">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="16" column="1">
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="17" column="0" colspan="3">
+        <widget class="Line" name="line">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="18" column="0" colspan="3">
+        <layout class="QGridLayout" name="gridLayout_6">
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_15">
+           <property name="text">
+            <string>Safe:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLabel" name="label_16">
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
+           <property name="text">
+            <string>Green </string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_19">
+           <property name="text">
+            <string>Warning:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLabel" name="label_18">
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
+           <property name="text">
+            <string>Yellow</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_20">
+           <property name="text">
+            <string>Danger:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QLabel" name="label_17">
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
+           <property name="text">
+            <string>Red</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="0" column="0" colspan="2">
+     <widget class="QTabWidget" name="tab_display">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab_3dscene">
+       <attribute name="title">
+        <string>3D Scene</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <layout class="QHBoxLayout" name="display3d_layout"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_map">
+       <attribute name="title">
+        <string>Map</string>
+       </attribute>
+      </widget>
+     </widget>
+    </item>
     <item row="1" column="2">
      <widget class="QGroupBox" name="gb_robotstatus">
       <property name="title">
        <string>Robot Status</string>
       </property>
-      <widget class="QProgressBar" name="pbBaseBattery">
-       <property name="geometry">
-        <rect>
-         <x>140</x>
-         <y>40</y>
-         <width>118</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="value">
-        <number>100</number>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_7">
-       <property name="geometry">
-        <rect>
-         <x>30</x>
-         <y>40</y>
-         <width>101</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Robot Battery:</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="btnBumperCenter">
-       <property name="geometry">
-        <rect>
-         <x>110</x>
-         <y>100</y>
-         <width>80</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Center</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="btnBumperLeft">
-       <property name="geometry">
-        <rect>
-         <x>40</x>
-         <y>130</y>
-         <width>80</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Left</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="btnBumperRight">
-       <property name="geometry">
-        <rect>
-         <x>180</x>
-         <y>130</y>
-         <width>80</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Right</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_8">
-       <property name="geometry">
-        <rect>
-         <x>30</x>
-         <y>70</y>
-         <width>111</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Bumper Sensor:</string>
-       </property>
-      </widget>
+      <layout class="QGridLayout" name="gridLayout_4">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_7">
+         <property name="text">
+          <string>Battery:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1" colspan="2">
+        <widget class="QProgressBar" name="pbBaseBattery">
+         <property name="value">
+          <number>100</number>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" colspan="3">
+        <widget class="QLabel" name="label_8">
+         <property name="text">
+          <string>Bumper Sensor:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="lbBumperLeft">
+         <property name="text">
+          <string>Left</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLabel" name="lbBumperCenter">
+         <property name="text">
+          <string>Center</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="2">
+        <widget class="QLabel" name="lbBumperRight">
+         <property name="text">
+          <string>Right</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0" colspan="3">
+        <widget class="QLabel" name="label_9">
+         <property name="text">
+          <string>Cliff Sensor:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="lbCliffLeft">
+         <property name="text">
+          <string>Left</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QLabel" name="lbCliffCenter">
+         <property name="text">
+          <string>Center</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="2">
+        <widget class="QLabel" name="lbCliffRight">
+         <property name="text">
+          <string>Right</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0" colspan="3">
+        <widget class="QLabel" name="label_6">
+         <property name="text">
+          <string>Wheel Drop:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0">
+        <widget class="QLabel" name="lbWheelLeft">
+         <property name="text">
+          <string>Left</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="2">
+        <widget class="QLabel" name="lbWheelRight">
+         <property name="text">
+          <string>Right</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </item>
    </layout>
@@ -346,8 +664,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1099</width>
-     <height>25</height>
+     <width>1128</width>
+     <height>20</height>
     </rect>
    </property>
   </widget>

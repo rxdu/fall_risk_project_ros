@@ -10,6 +10,20 @@ FallRiskGUI::FallRiskGUI(QWidget *parent) :
     ui->setupUi(this);
     ui->sliderLinearVel->setValue(75);
     ui->sliderAngularVel->setValue(75);
+//    ui->cbBedroomItem1->setStyleSheet("QCheckBox { background-color : red; color : black; };");
+//    ui->cbBedroomItem2->setStyleSheet("QCheckBox { background-color : yellow; color : black; };");
+//    ui->cbBedroomItem3->setStyleSheet("QCheckBox { background-color : green; color : black; };");
+    ui->lbLightingItem1->setStyleSheet("QLabel { background-color : red; color : rgb(255, 255, 255); }");
+    ui->lbLightingItem2->setStyleSheet("QLabel { background-color : green; color : rgb(255, 255, 255); }");
+    ui->lbFloorsItem1->setStyleSheet("QLabel { background-color : green; color : rgb(255, 255, 255); }");
+    ui->lbFloorsItem2->setStyleSheet("QLabel { background-color : green; color : rgb(255, 255, 255); }");
+    ui->lbStairsItem1->setStyleSheet("QLabel { background-color : green; color : rgb(255, 255, 255); }");
+    ui->lbStairsItem2->setStyleSheet("QLabel { background-color : green; color : rgb(255, 255, 255); }");
+    ui->lbStairsItem3->setStyleSheet("QLabel { background-color : red; color : rgb(255, 255, 255); }");
+    ui->lbBedroomItem1->setStyleSheet("QLabel { background-color : green; color : rgb(255, 255, 255); }");
+    ui->lbBedroomItem2->setStyleSheet("QLabel { background-color : red; color : rgb(255, 255, 255); }");
+    ui->lbBedroomItem3->setStyleSheet("QLabel { background-color : green; color : rgb(255, 255, 255); }");
+    ui->lbPetItem1->setStyleSheet("QLabel { background-color : yellow; color : rgb(255, 255, 255); }");
 
     initVariables();
     initDisplayWidgets();
@@ -31,7 +45,7 @@ void FallRiskGUI::initVariables()
     centerDistSub = nh_.subscribe("/distance/image_center_dist",1,&FallRiskGUI::distanceSubCallback,this);
     baseSensorStatus = nh_.subscribe("/mobile_base/sensors/core",1,&FallRiskGUI::baseStatusCheck,this);
 
-    liveVideoSub = it_.subscribe("/camera/rgb/image_raw",1,&FallRiskGUI::liveVideoCallback,this);
+    liveVideoSub = it_.subscribe("/camera/rgb/image_raw",1,&FallRiskGUI::liveVideoCallback,this,image_transport::TransportHints("compressed"));
 
     setRobotVelocity();
 }
@@ -123,22 +137,22 @@ void FallRiskGUI::keyPressEvent(QKeyEvent *event)
     {
     case Qt::Key_W:
         moveBaseForward();
-        sendMoveBaseCmd();
+//        sendMoveBaseCmd();
         ROS_INFO("key W pressed");
         break;
     case Qt::Key_A:
         moveBaseLeft();
-        sendMoveBaseCmd();
+//        sendMoveBaseCmd();
         ROS_INFO("key A pressed");
         break;
     case Qt::Key_D:
         moveBaseRight();
-        sendMoveBaseCmd();
+//        sendMoveBaseCmd();
         ROS_INFO("key D pressed");
         break;
     case Qt::Key_S:
         moveBaseBackward();
-        sendMoveBaseCmd();
+//        sendMoveBaseCmd();
         ROS_INFO("key S pressed");
         break;
 //    case Qt::Key_Q:
@@ -181,27 +195,69 @@ void FallRiskGUI::baseStatusCheck(const kobuki_msgs::SensorState::ConstPtr& msg)
     if(msg->bumper == msg->BUMPER_LEFT)
     {
         ROS_INFO("BUMPER LEFT");
-        ui->btnBumperLeft->setAutoFillBackground(true);
-        ui->btnBumperLeft->setStyleSheet(("background-color: rgb(255, 0, 0); color: rgb(255, 255, 255)"));
+        ui->lbBumperLeft->setStyleSheet("QLabel { background-color : rgb(255, 0, 0); color : rgb(255, 255, 255); }");
     }
     else if(msg->bumper == msg->BUMPER_CENTRE)
     {
         ROS_INFO("BUMPER CENTER");
-        ui->btnBumperCenter->setAutoFillBackground(true);
-        ui->btnBumperCenter->setStyleSheet(("background-color: rgb(255, 0, 0); color: rgb(255, 255, 255)"));
-
+        ui->lbBumperCenter->setStyleSheet("QLabel { background-color : rgb(255, 0, 0); color : rgb(255, 255, 255); }");
     }
     else if(msg->bumper == msg->BUMPER_RIGHT)
     {
         ROS_INFO("BUMPER RIGHT");
-        ui->btnBumperRight->setAutoFillBackground(true);
-        ui->btnBumperRight->setStyleSheet(("background-color: rgb(255, 0, 0); color: rgb(255, 255, 255)"));
+        ui->lbBumperRight->setStyleSheet("QLabel { background-color : rgb(255, 0, 0); color : rgb(255, 255, 255); }");
     }
     else
     {
-        ui->btnBumperLeft->setStyleSheet(("background-color: rgb(0, 204, 102); color: rgb(255, 255, 255)"));
-        ui->btnBumperCenter->setStyleSheet(("background-color: rgb(0, 204, 102); color: rgb(255, 255, 255)"));
-        ui->btnBumperRight->setStyleSheet(("background-color: rgb(0, 204, 102); color: rgb(255, 255, 255)"));
+        ui->lbBumperCenter->setStyleSheet("QLabel { background-color : rgb(0, 204, 102); color : rgb(255, 255, 255); }");
+        ui->lbBumperLeft->setStyleSheet("QLabel { background-color : rgb(0, 204, 102); color : rgb(255, 255, 255); }");
+        ui->lbBumperRight->setStyleSheet("QLabel { background-color : rgb(0, 204, 102); color : rgb(255, 255, 255); }");
+    }
+
+    /*------------ wheel drop sensors -------------*/
+    if(msg->wheel_drop == msg->WHEEL_DROP_LEFT)
+    {
+        ROS_INFO("wheel drop left");
+        ui->lbWheelLeft->setStyleSheet("QLabel { background-color : rgb(255, 0, 0); color : rgb(255, 255, 255); }");
+    }
+    else if(msg->wheel_drop == msg->WHEEL_DROP_RIGHT)
+    {
+        ROS_INFO("wheel drop right");
+        ui->lbWheelRight->setStyleSheet("QLabel { background-color : rgb(255, 0, 0); color : rgb(255, 255, 255); }");
+    }
+    else if(msg->wheel_drop == ( msg->WHEEL_DROP_LEFT+msg->WHEEL_DROP_RIGHT))
+    {
+        ROS_INFO("wheel drop both");
+        ui->lbWheelLeft->setStyleSheet("QLabel { background-color : rgb(255, 0, 0); color : rgb(255, 255, 255); }");
+        ui->lbWheelRight->setStyleSheet("QLabel { background-color : rgb(255, 0, 0); color : rgb(255, 255, 255); }");
+    }
+    else
+    {
+        ui->lbWheelLeft->setStyleSheet("QLabel { background-color : rgb(0, 204, 102); color : rgb(255, 255, 255); }");
+        ui->lbWheelRight->setStyleSheet("QLabel { background-color : rgb(0, 204, 102); color : rgb(255, 255, 255); }");
+    }
+
+    /*-------------- cliff sensors ---------------*/
+    if(msg->cliff == msg->CLIFF_LEFT)
+    {
+        ROS_INFO("cliff left");
+        ui->lbCliffLeft->setStyleSheet("QLabel { background-color : rgb(255, 0, 0); color : rgb(255, 255, 255); }");
+    }
+    else if(msg->cliff == msg->CLIFF_CENTRE)
+    {
+        ROS_INFO("cliff center");
+        ui->lbCliffCenter->setStyleSheet("QLabel { background-color : rgb(255, 0, 0); color : rgb(255, 255, 255); }");
+    }
+    else if(msg->cliff == msg->CLIFF_RIGHT)
+    {
+        ROS_INFO("cliff right");
+        ui->lbCliffRight->setStyleSheet("QLabel { background-color : rgb(255, 0, 0); color : rgb(255, 255, 255); }");
+    }
+    else
+    {
+        ui->lbCliffCenter->setStyleSheet("QLabel { background-color : rgb(0, 204, 102); color : rgb(255, 255, 255); }");
+        ui->lbCliffLeft->setStyleSheet("QLabel { background-color : rgb(0, 204, 102); color : rgb(255, 255, 255); }");
+        ui->lbCliffRight->setStyleSheet("QLabel { background-color : rgb(0, 204, 102); color : rgb(255, 255, 255); }");
     }
 }
 
@@ -221,9 +277,24 @@ void FallRiskGUI::liveVideoCallback(const sensor_msgs::ImageConstPtr& msg)
 //  convert cv image into RGB image and resize it to the size of available layout
     cv::Mat RGBImg;
     QLabel* liveVideoLabel = ui->liveVideoLabel;
-    int width=liveVideoLabel->width();    //set the width here and the image would be shown in 4:3 ratio
+
+    int height = liveVideoLabel->height();
+    int width =  liveVideoLabel->width();
+
+    if(liveVideoLabel->height() > liveVideoLabel->width()*3/4)
+        height= liveVideoLabel->width()*3/4 ;
+    else
+        width = liveVideoLabel->height()*4/3 ;
+
+//    if(liveVideoLabel->height() > liveVideoLabel->width()*3/4)
+//        height = liveVideoLabel->height();
+//    else
+//        height = liveVideoLabel->width()*3/4;
+
+//    width = height *4/3;
+
     cv::cvtColor(cv_ptr->image,RGBImg,CV_BGR2RGB);
-    cv::resize(RGBImg,RGBImg,cvSize(width,width*3/4));
+    cv::resize(RGBImg,RGBImg,cvSize(width,height));
 
 //  convert RGB image into QImage and publish that on the label for livevideo
     QImage qImage_= QImage((uchar*) RGBImg.data, RGBImg.cols, RGBImg.rows, RGBImg.cols*3, QImage::Format_RGB888);
@@ -252,6 +323,7 @@ void FallRiskGUI::moveBaseForward()
     moveBaseCmd.angular.y=0;
     moveBaseCmd.angular.z=0;
 
+    sendMoveBaseCmd();
 }
 
 void FallRiskGUI::moveBaseBackward()
@@ -265,6 +337,8 @@ void FallRiskGUI::moveBaseBackward()
     moveBaseCmd.angular.x=0;
     moveBaseCmd.angular.y=0;
     moveBaseCmd.angular.z=0;
+
+    sendMoveBaseCmd();
 }
 
 void FallRiskGUI::moveBaseLeft()
@@ -278,6 +352,8 @@ void FallRiskGUI::moveBaseLeft()
     moveBaseCmd.angular.x=0;
     moveBaseCmd.angular.y=0;
     moveBaseCmd.angular.z=angularVelocity;
+
+    sendMoveBaseCmd();
 }
 
 void FallRiskGUI::moveBaseRight()
@@ -291,6 +367,8 @@ void FallRiskGUI::moveBaseRight()
     moveBaseCmd.angular.x=0;
     moveBaseCmd.angular.y=0;
     moveBaseCmd.angular.z=-angularVelocity;
+
+    sendMoveBaseCmd();
 }
 
 void FallRiskGUI::sendMoveBaseCmd()
