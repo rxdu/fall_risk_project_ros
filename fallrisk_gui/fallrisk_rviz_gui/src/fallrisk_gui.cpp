@@ -1,12 +1,7 @@
-#include <QDialog>
-#include <QApplication>
-#include <QMainWindow>
-
 #include "fallrisk_gui.h"
 #include "ui_fallrisk_gui.h"
 
 #include <iostream>
-#include <sensor_msgs/Image.h>
 
 FallRiskGUI::FallRiskGUI(QWidget *parent) :
     QMainWindow(parent),
@@ -74,7 +69,7 @@ void FallRiskGUI::initDisplayWidgets()
     mainDisplay_->subProp( "Selectable" )->setValue( "true" );
     mainDisplay_->subProp( "Style" )->setValue( "Boxes" );
     mainDisplay_->subProp("Alpha")->setValue(1);
-    manager_->createDisplay( "rviz/Grid", "Image View", true );
+    manager_->createDisplay( "rviz/Grid", "Grid", true );
 //    gridDisplay_->subProp("Topic")->setValue("/camera/rgb/image_raw");
 
 //    imagePanel_=new rviz::Panel();
@@ -216,26 +211,17 @@ void FallRiskGUI::liveVideoCallback(const sensor_msgs::ImageConstPtr& msg)
         ROS_ERROR("cv_bridge exception: %s", e.what());
         return;
     }
+//  convert cv image into RGB image and resize it to the size of available layout
+    cv::Mat RGBImg;
+    int width=300;    //set the width here and the image would be shown in 4:3 ratio
+    cv::cvtColor(cv_ptr->image,RGBImg,CV_BGR2RGB);
+    cv::resize(RGBImg,RGBImg,cvSize(width,width*3/4));
 
-//    CVImageWidget* imagewidget = new CVImageWidget();
-
-//    ui->display3d_layout->addWidget(imagewidget);
-    // Load an image
-
-//    imagewidget->showImage(cv_ptr->image);
-//    cv::Mat img = cv_ptr->image;
-    cv::Mat img;
-    cv::cvtColor(cv_ptr->image,img,CV_BGR2RGB);
-    cv::resize(img,img,cvSize(450,250));
-
-    QImage imgIn= QImage((uchar*) img.data, 450, 250, img.cols*3, QImage::Format_RGB888);
-//    ROS_INFO("%d",cv_ptr->image.type());
-        QLabel* myLabel = ui->label_6;
-        myLabel->setPixmap(QPixmap::fromImage(imgIn));
-        myLabel->show();
-
-//    cv::imshow("Image window", cv_ptr->image);
-//        cv::waitKey(3);
+//  convert RGB image into QImage and publish that on the label for livevideo
+    QImage qImage_= QImage((uchar*) RGBImg.data, RGBImg.cols, RGBImg.rows, RGBImg.cols*3, QImage::Format_RGB888);
+    QLabel* liveVideoLabel = ui->liveVideoLabel;
+    liveVideoLabel->setPixmap(QPixmap::fromImage(qImage_));
+    liveVideoLabel->show();
 }
 
 
