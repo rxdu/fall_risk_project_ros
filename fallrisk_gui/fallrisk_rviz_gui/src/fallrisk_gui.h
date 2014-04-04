@@ -6,6 +6,8 @@
 #include <QEvent>
 #include <QKeyEvent>
 #include <QStatusBar>
+#include <QImage>
+#include <QPainter>
 
 #include "rviz/visualization_manager.h"
 #include "rviz/render_panel.h"
@@ -22,6 +24,7 @@
 #include <sensor_msgs/image_encodings.h>
 
 #include <opencv2/highgui/highgui.hpp>
+#include <opencv2/opencv.hpp>
 
 #define LIN_VEL_MAX 0.25
 #define LIN_VEL_MIN 0.08
@@ -53,6 +56,7 @@ public:
     explicit FallRiskGUI(QWidget *parent = 0);
     ~FallRiskGUI();
 
+
 private:
     Ui::FallRiskGUI *ui;
 
@@ -77,7 +81,7 @@ private:
   rviz::RenderPanel* render_panel_;
   rviz::Display* mainDisplay_;
   rviz::Display* imageDisplay_;
-  rviz::Panel* imagePanel_;
+  rviz::RenderPanel* imagePanel_;
 
 private:
   ros::NodeHandle nh_;
@@ -96,5 +100,6 @@ private:
   void baseStatusCheck(const kobuki_msgs::SensorState::ConstPtr& msg);
   void liveVideoCallback(const sensor_msgs::ImageConstPtr &msg);
 };
+
 
 #endif // FALLRISK_GUI_H

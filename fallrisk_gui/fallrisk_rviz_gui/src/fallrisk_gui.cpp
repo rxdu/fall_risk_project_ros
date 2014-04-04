@@ -2,7 +2,6 @@
 #include "ui_fallrisk_gui.h"
 
 #include <iostream>
-#include <sensor_msgs/Image.h>
 
 FallRiskGUI::FallRiskGUI(QWidget *parent) :
     QMainWindow(parent),
@@ -31,7 +30,7 @@ FallRiskGUI::FallRiskGUI(QWidget *parent) :
     initActionsConnections();
 
     //just for testing, needs to be commented out
-    cv::namedWindow("Image window");
+//    cv::namedWindow("Image window");
 }
 
 FallRiskGUI::~FallRiskGUI()
@@ -77,14 +76,15 @@ void FallRiskGUI::initDisplayWidgets()
     manager_->startUpdate();
 
     // Create a main display.
-    mainDisplay_ = manager_->createDisplay( "rviz/PointCloud2", "Image View", true );
+    mainDisplay_ = manager_->createDisplay( "rviz/PointCloud2", "3D Pointcloud view", true );
     ROS_ASSERT( mainDisplay_ != NULL );
 
     mainDisplay_->subProp( "Topic" )->setValue( "/camera/depth/points" );
     mainDisplay_->subProp( "Selectable" )->setValue( "true" );
     mainDisplay_->subProp( "Style" )->setValue( "Boxes" );
-//    mainDisplay_->subProp( "Size" )->setValue( 0.01 );
     mainDisplay_->subProp("Alpha")->setValue(1);
+    manager_->createDisplay( "rviz/Grid", "Grid", true );
+//    gridDisplay_->subProp("Topic")->setValue("/camera/rgb/image_raw");
 
 //    imagePanel_=new rviz::Panel();
 //    imagePanel_->initialize(manager_);
@@ -256,20 +256,30 @@ void FallRiskGUI::baseStatusCheck(const kobuki_msgs::SensorState::ConstPtr& msg)
 
 void FallRiskGUI::liveVideoCallback(const sensor_msgs::ImageConstPtr& msg)
 {
+
     cv_bridge::CvImagePtr cv_ptr;
     try
     {
-        cv_ptr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8);
+        cv_ptr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR16);
     }
     catch (cv_bridge::Exception& e)
     {
         ROS_ERROR("cv_bridge exception: %s", e.what());
         return;
     }
+//  convert cv image into RGB image and resize it to the size of available layout
+    cv::Mat RGBImg;
+    int width=300;    //set the width here and the image would be shown in 4:3 ratio
+    cv::cvtColor(cv_ptr->image,RGBImg,CV_BGR2RGB);
+    cv::resize(RGBImg,RGBImg,cvSize(width,width*3/4));
 
-    cv::imshow("Image window", cv_ptr->image);
-    cv::waitKey(3);
+//  convert RGB image into QImage and publish that on the label for livevideo
+    QImage qImage_= QImage((uchar*) RGBImg.data, RGBImg.cols, RGBImg.rows, RGBImg.cols*3, QImage::Format_RGB888);
+    QLabel* liveVideoLabel = ui->liveVideoLabel;
+    liveVideoLabel->setPixmap(QPixmap::fromImage(qImage_));
+    liveVideoLabel->show();
 }
+
 
 void FallRiskGUI::setRobotVelocity()
 {
