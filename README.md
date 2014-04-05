@@ -62,6 +62,7 @@ Install robot web tools:
 sudo apt-get install ros-hydro-mjpeg-server
 sudo apt-get install ros-hydro-rosbridge-server
 sudo apt-get install ros-hydro-robot-pose-publisher
+sudo apt-get install ros-hydro-octomap-server
 ```
 
 Install turtlebot apps and simulator:
