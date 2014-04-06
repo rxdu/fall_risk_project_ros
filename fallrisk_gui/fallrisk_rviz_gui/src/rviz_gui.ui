@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1088</width>
-    <height>838</height>
+    <width>1197</width>
+    <height>906</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -285,7 +285,7 @@
       </size>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab_3dscene">
       <attribute name="title">
@@ -301,6 +301,11 @@
       <attribute name="title">
        <string>Map</string>
       </attribute>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <layout class="QGridLayout" name="map_layout"/>
+       </item>
+      </layout>
      </widget>
     </widget>
    </item>

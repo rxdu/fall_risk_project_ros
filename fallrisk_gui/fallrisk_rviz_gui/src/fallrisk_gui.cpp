@@ -1,8 +1,9 @@
 #include "fallrisk_gui.h"
 #include "ui_fallrisk_gui.h"
-
+#include "rviz/default_plugin/view_controllers/fixed_orientation_ortho_view_controller.h"
 #include <iostream>
-
+#include "rviz/view_manager.h"
+#include "rviz/default_plugin/view_controllers/orbit_view_controller.h"
 FallRiskGUI::FallRiskGUI(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::FallRiskGUI),it_(nh_)
@@ -10,14 +11,14 @@ FallRiskGUI::FallRiskGUI(QWidget *parent) :
     ui->setupUi(this);
     ui->sliderLinearVel->setValue(75);
     ui->sliderAngularVel->setValue(75);
-//    ui->cbBedroomItem1->setStyleSheet("QCheckBox { background-color : red; color : black; };");
-//    ui->cbBedroomItem2->setStyleSheet("QCheckBox { background-color : yellow; color : black; };");
-//    ui->cbBedroomItem3->setStyleSheet("QCheckBox { background-color : green; color : black; };");
+    //    ui->cbBedroomItem1->setStyleSheet("QCheckBox { background-color : red; color : black; };");
+    //    ui->cbBedroomItem2->setStyleSheet("QCheckBox { background-color : yellow; color : black; };");
+    //    ui->cbBedroomItem3->setStyleSheet("QCheckBox { background-color : green; color : black; };");
     ui->lbLightingItem1->setStyleSheet("QLabel { background-color : red; color : rgb(255, 255, 255); }");
     ui->lbLightingItem2->setStyleSheet("QLabel { background-color : green; color : rgb(255, 255, 255); }");
     ui->lbFloorsItem1->setStyleSheet("QLabel { background-color : green; color : rgb(255, 255, 255); }");
     ui->lbFloorsItem2->setStyleSheet("QLabel { background-color : green; color : rgb(255, 255, 255); }");
-    ui->lbStairsItem1->setStyleSheet("QLabel { background-color : green; color : rgb(255, 255, 255); }");
+    ui->lbStairsItem1->setStyleSheet("QLabdel { background-color : green; color : rgb(255, 255, 255); }");
     ui->lbStairsItem2->setStyleSheet("QLabel { background-color : green; color : rgb(255, 255, 255); }");
     ui->lbStairsItem3->setStyleSheet("QLabel { background-color : red; color : rgb(255, 255, 255); }");
     ui->lbBedroomItem1->setStyleSheet("QLabel { background-color : green; color : rgb(255, 255, 255); }");
@@ -30,7 +31,7 @@ FallRiskGUI::FallRiskGUI(QWidget *parent) :
     initActionsConnections();
 
     //just for testing, needs to be commented out
-//    cv::namedWindow("Image window");
+    //    cv::namedWindow("Image window");
 }
 
 FallRiskGUI::~FallRiskGUI()
@@ -63,12 +64,39 @@ void FallRiskGUI::initActionsConnections()
 
 void FallRiskGUI::initDisplayWidgets()
 {
-    // Initialize GUI elements
-    render_panel_ = new rviz::RenderPanel();
-    ui->display3d_layout->addWidget(render_panel_);
 
-    manager_ = new rviz::VisualizationManager( render_panel_ );
-    render_panel_->initialize( manager_->getSceneManager(), manager_ );
+    //Setup the UI elements for displaying 2D map
+    mapRenderPanel_ = new rviz::RenderPanel();
+    ui->map_layout->addWidget(mapRenderPanel_);
+    mapManager_ = new rviz::VisualizationManager( mapRenderPanel_ );
+    mapRenderPanel_->initialize( mapManager_->getSceneManager(), mapManager_);
+    mapManager_->setFixedFrame("/base_link");
+    mapManager_->initialize();
+    mapManager_->startUpdate();
+
+    //Create and assign FixedOrientationOrthoViewController to the existing viewmanager of the visualization manager
+    viewManager_ = mapManager_->getViewManager();
+    viewManager_->setCurrentViewControllerType("rviz/TopDownOrtho");
+    viewController_ = viewManager_->getCurrent();
+
+    //Set parameters of the view controller to show map correctly
+    viewController_->subProp("X")->setValue(0);
+    viewController_->subProp("Y")->setValue(0);
+    viewController_->subProp("Angle")->setValue(0);
+    viewController_->subProp("Scale")->setValue(20);
+
+    // Create a map display
+    mapDisplay_ = mapManager_->createDisplay( "rviz/Map", "2D Map view", true );
+    ROS_ASSERT( mapDisplay_ != NULL );
+
+    mapDisplay_->subProp( "Topic" )->setValue( "/map" );
+
+    // Initialize GUI elements for main panel
+    renderPanel_ = new rviz::RenderPanel();
+    ui->display3d_layout->addWidget(renderPanel_);
+
+    manager_ = new rviz::VisualizationManager( renderPanel_ );
+    renderPanel_->initialize( manager_->getSceneManager(), manager_ );
 
     //set the fixed frame before initializing Visualization Manager. pointcloud2 will not work with this
     manager_->setFixedFrame("/base_link");
@@ -76,14 +104,14 @@ void FallRiskGUI::initDisplayWidgets()
     manager_->startUpdate();
 
 
-    // Create a main display.
+    // Create a main display to show pointcloud and octomap
     mainDisplay_ = manager_->createDisplay( "rviz/PointCloud2", "3D Pointcloud view", true );
     ROS_ASSERT( mainDisplay_ != NULL );
 
     mainDisplay_->subProp( "Topic" )->setValue( "/camera/depth/points" );
     mainDisplay_->subProp( "Selectable" )->setValue( "true" );
     mainDisplay_->subProp( "Style" )->setValue( "Boxes" );
-    mainDisplay_->subProp("Alpha")->setValue(1);
+    mainDisplay_->subProp("Alpha")->setValue(0.5);
     manager_->createDisplay( "rviz/Grid", "Grid", true );
 
     octomapDisplay_ = manager_->createDisplay( "rviz/MarkerArray", "Octomap view", true );
@@ -137,30 +165,30 @@ void FallRiskGUI::keyPressEvent(QKeyEvent *event)
     {
     case Qt::Key_W:
         moveBaseForward();
-//        sendMoveBaseCmd();
+        //        sendMoveBaseCmd();
         ROS_INFO("key W pressed");
         break;
     case Qt::Key_A:
         moveBaseLeft();
-//        sendMoveBaseCmd();
+        //        sendMoveBaseCmd();
         ROS_INFO("key A pressed");
         break;
     case Qt::Key_D:
         moveBaseRight();
-//        sendMoveBaseCmd();
+        //        sendMoveBaseCmd();
         ROS_INFO("key D pressed");
         break;
     case Qt::Key_S:
         moveBaseBackward();
-//        sendMoveBaseCmd();
+        //        sendMoveBaseCmd();
         ROS_INFO("key S pressed");
         break;
-//    case Qt::Key_Q:
-//        move_in();
-//        break;
-//    case Qt::Key_E:
-//        move_out();
-//        break;
+        //    case Qt::Key_Q:
+        //        move_in();
+        //        break;
+        //    case Qt::Key_E:
+        //        move_out();
+        //        break;
     default:
         QWidget::keyPressEvent(event);
         break;
@@ -169,27 +197,27 @@ void FallRiskGUI::keyPressEvent(QKeyEvent *event)
 
 void FallRiskGUI::distanceSubCallback(const std_msgs::Float32::ConstPtr& msg)
 {
-////    ROS_INFO("distance: %f",msg->data);
-//    QLocale german(QLocale::German, QLocale::Germany);
-//    QString qdist = german.toString(msg->data, 'f', 2);
-//    ui->lbDistance->setText(qdist);
+    ////    ROS_INFO("distance: %f",msg->data);
+    //    QLocale german(QLocale::German, QLocale::Germany);
+    //    QString qdist = german.toString(msg->data, 'f', 2);
+    //    ui->lbDistance->setText(qdist);
 }
 
 void FallRiskGUI::baseStatusCheck(const kobuki_msgs::SensorState::ConstPtr& msg)
 {
     /*---------- battery of kobuki base -----------*/
-//    ROS_INFO("battery: %d",msg->battery);
+    //    ROS_INFO("battery: %d",msg->battery);
 
     int battery_percentage = 0;
 
     battery_percentage = (msg->battery - BASE_BATTERY_DANGER)*100/(BASE_BATTERY_CAP-BASE_BATTERY_DANGER);
     ui->pbBaseBattery->setValue(battery_percentage);
-//    if(msg->battery <= BASE_BATTERY_LOW)
-//    QPalette p = ui->pbBaseBattery->palette();
-//        p.setColor(QPalette::Highlight, Qt::red);
-//        ui->pbBaseBattery->setPalette(p);
-//    else
-        //ui->pbBaseBattery->setStyleSheet(safe);
+    //    if(msg->battery <= BASE_BATTERY_LOW)
+    //    QPalette p = ui->pbBaseBattery->palette();
+    //        p.setColor(QPalette::Highlight, Qt::red);
+    //        ui->pbBaseBattery->setPalette(p);
+    //    else
+    //ui->pbBaseBattery->setStyleSheet(safe);
 
     /*-------------- bumper sensors ---------------*/
     if(msg->bumper == msg->BUMPER_LEFT)
@@ -274,7 +302,7 @@ void FallRiskGUI::liveVideoCallback(const sensor_msgs::ImageConstPtr& msg)
         ROS_ERROR("cv_bridge exception: %s", e.what());
         return;
     }
-//  convert cv image into RGB image and resize it to the size of available layout
+    //  convert cv image into RGB image and resize it to the size of available layout
     cv::Mat RGBImg;
     QLabel* liveVideoLabel = ui->liveVideoLabel;
 
@@ -282,21 +310,21 @@ void FallRiskGUI::liveVideoCallback(const sensor_msgs::ImageConstPtr& msg)
     int width =  liveVideoLabel->width();
 
     if(liveVideoLabel->height() > liveVideoLabel->width()*3/4)
-        height= liveVideoLabel->width()*3/4 ;
+        height= liveVideoLabel->width()*3/4;
     else
-        width = liveVideoLabel->height()*4/3 ;
+        width = liveVideoLabel->height()*4/3;
 
-//    if(liveVideoLabel->height() > liveVideoLabel->width()*3/4)
-//        height = liveVideoLabel->height();
-//    else
-//        height = liveVideoLabel->width()*3/4;
+    //    if(liveVideoLabel->height() > liveVideoLabel->width()*3/4)
+    //        height = liveVideoLabel->height();
+    //    else
+    //        height = liveVideoLabel->width()*3/4;
 
-//    width = height *4/3;
+    //    width = height *4/3;
 
     cv::cvtColor(cv_ptr->image,RGBImg,CV_BGR2RGB);
     cv::resize(RGBImg,RGBImg,cvSize(width,height));
 
-//  convert RGB image into QImage and publish that on the label for livevideo
+    //  convert RGB image into QImage and publish that on the label for livevideo
     QImage qImage_= QImage((uchar*) RGBImg.data, RGBImg.cols, RGBImg.rows, RGBImg.cols*3, QImage::Format_RGB888);
     liveVideoLabel->setPixmap(QPixmap::fromImage(qImage_));
     liveVideoLabel->show();

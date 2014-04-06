@@ -78,10 +78,15 @@ private Q_SLOTS:
 
 private:
   rviz::VisualizationManager* manager_;
-  rviz::RenderPanel* render_panel_;
+  rviz::VisualizationManager* mapManager_;
+  rviz::RenderPanel* renderPanel_;
+  rviz::RenderPanel* mapRenderPanel_ ;
+  rviz::ViewManager* viewManager_;
+  rviz::ViewController* viewController_ ;
   rviz::Display* mainDisplay_;
 //  rviz::Display* imageDisplay_;
   rviz::Display* octomapDisplay_;
+  rviz::Display* mapDisplay_ ;
   rviz::RenderPanel* imagePanel_;
 
 private:
