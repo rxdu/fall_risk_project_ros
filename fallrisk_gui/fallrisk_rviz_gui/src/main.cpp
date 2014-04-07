@@ -37,6 +37,8 @@
 #include <ros/ros.h>
 #include "myviz.h"
 #include "rviz_gui.h"
+#include "fallrisk_gui.h"
+
 
 int main(int argc, char **argv)
 {
@@ -47,11 +49,14 @@ int main(int argc, char **argv)
 
   QApplication app( argc, argv );
 
-  //MyViz* myviz = new MyViz();
-  RvizGui* myviz = new RvizGui();
-  myviz->show();
+ // MyViz* myviz = new MyViz();
+//  RvizGui* myviz = new RvizGui();
+//  myviz->show();
+  FallRiskGUI* fallrisk_gui = new FallRiskGUI();
+  fallrisk_gui->show();
 
   app.exec();
 
-  delete myviz;
+//  delete myviz;
+  delete fallrisk_gui;
 }

@@ -9,6 +9,8 @@ find_package(catkin REQUIRED COMPONENTS
   rviz
   sensor_msgs
   std_msgs
+  cv_bridge
+  image_transport
 )
 
 ## System dependencies are found with CMake's conventions
@@ -24,17 +26,20 @@ add_definitions(${QT_DEFINITIONS})
 set(HEADER_FILES 
   src/rviz_gui.h
   include/myviz.h
+  src/fallrisk_gui.h
 )
 
 set(SOURCE_FILES
   src/rviz_gui.cpp
   src/main.cpp
   src/myviz.cpp
+  src/fallrisk_gui.cpp
   ${MOC_FILES}
 )
 
 set(FORM_FILES 
   src/rviz_gui.ui
+  src/fallrisk_gui.ui
 )
 
 QT4_WRAP_CPP(MOC_SRC_H
