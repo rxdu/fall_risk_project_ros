@@ -105,6 +105,16 @@ private:
   void distanceSubCallback(const std_msgs::Float32::ConstPtr& msg);
   void baseStatusCheck(const kobuki_msgs::SensorState::ConstPtr& msg);
   void liveVideoCallback(const sensor_msgs::ImageConstPtr &msg);
+
+
+  QString fixedFrame_;
+  QString mapTopic_;
+  QString imageTopic_;
+  QString pointCloudTopic_;
+  QString octomapTopic_;
+  QString baseSensorTopic_;
+  QString velocityTopic_;
+
 };
 
 

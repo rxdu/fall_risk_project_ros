@@ -37,16 +37,28 @@ FallRiskGUI::FallRiskGUI(QWidget *parent) :
 FallRiskGUI::~FallRiskGUI()
 {
     delete ui;
-    cv::destroyWindow("Image window");
+    delete mapManager_;
+    delete mapRenderPanel_;
+    delete manager_;
+    delete renderPanel_;
+
+//    cv::destroyWindow("Image window");
 }
 
 void FallRiskGUI::initVariables()
 {
-    moveBaseCmdPub = nh_.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity",1);
-    centerDistSub = nh_.subscribe("/distance/image_center_dist",1,&FallRiskGUI::distanceSubCallback,this);
-    baseSensorStatus = nh_.subscribe("/mobile_base/sensors/core",1,&FallRiskGUI::baseStatusCheck,this);
+    fixedFrame_ =  QString("/base_link");
+    mapTopic_ = QString("/map");
+    imageTopic_ = QString("/camera/rgb/image_raw"); ;
+    pointCloudTopic_=QString("/camera/depth/points");
+    octomapTopic_=QString( "/occupied_cells_vis_array" );
+    baseSensorTopic_=QString("/mobile_base/sensors/core");
+    velocityTopic_=QString("/mobile_base/commands/velocity");
 
-    liveVideoSub = it_.subscribe("/camera/rgb/image_raw",1,&FallRiskGUI::liveVideoCallback,this,image_transport::TransportHints("compressed"));
+    moveBaseCmdPub = nh_.advertise<geometry_msgs::Twist>(velocityTopic_.toStdString(),1);
+    centerDistSub = nh_.subscribe("/distance/image_center_dist",1,&FallRiskGUI::distanceSubCallback,this);
+    baseSensorStatus = nh_.subscribe(baseSensorTopic_.toStdString(),1,&FallRiskGUI::baseStatusCheck,this);
+    liveVideoSub = it_.subscribe(imageTopic_.toStdString(),1,&FallRiskGUI::liveVideoCallback,this,image_transport::TransportHints("compressed"));
 
     setRobotVelocity();
 }
@@ -70,7 +82,7 @@ void FallRiskGUI::initDisplayWidgets()
     ui->map_layout->addWidget(mapRenderPanel_);
     mapManager_ = new rviz::VisualizationManager( mapRenderPanel_ );
     mapRenderPanel_->initialize( mapManager_->getSceneManager(), mapManager_);
-    mapManager_->setFixedFrame("/base_link");
+    mapManager_->setFixedFrame(fixedFrame_);
     mapManager_->initialize();
     mapManager_->startUpdate();
 
@@ -89,7 +101,8 @@ void FallRiskGUI::initDisplayWidgets()
     mapDisplay_ = mapManager_->createDisplay( "rviz/Map", "2D Map view", true );
     ROS_ASSERT( mapDisplay_ != NULL );
 
-    mapDisplay_->subProp( "Topic" )->setValue( "/map" );
+    mapDisplay_->subProp( "Topic" )->setValue( mapTopic_ );
+    mapManager_->createDisplay( "rviz/RobotModel", "Turtlebot", true );
 
     // Initialize GUI elements for main panel
     renderPanel_ = new rviz::RenderPanel();
@@ -99,7 +112,7 @@ void FallRiskGUI::initDisplayWidgets()
     renderPanel_->initialize( manager_->getSceneManager(), manager_ );
 
     //set the fixed frame before initializing Visualization Manager. pointcloud2 will not work with this
-    manager_->setFixedFrame("/base_link");
+    manager_->setFixedFrame(fixedFrame_);
     manager_->initialize();
     manager_->startUpdate();
 
@@ -108,16 +121,17 @@ void FallRiskGUI::initDisplayWidgets()
     mainDisplay_ = manager_->createDisplay( "rviz/PointCloud2", "3D Pointcloud view", true );
     ROS_ASSERT( mainDisplay_ != NULL );
 
-    mainDisplay_->subProp( "Topic" )->setValue( "/camera/depth/points" );
+    mainDisplay_->subProp( "Topic" )->setValue( pointCloudTopic_ );
     mainDisplay_->subProp( "Selectable" )->setValue( "true" );
     mainDisplay_->subProp( "Style" )->setValue( "Boxes" );
     mainDisplay_->subProp("Alpha")->setValue(0.5);
     manager_->createDisplay( "rviz/Grid", "Grid", true );
+    manager_->createDisplay( "rviz/RobotModel", "Turtlebot", true );
 
     octomapDisplay_ = manager_->createDisplay( "rviz/MarkerArray", "Octomap view", true );
     ROS_ASSERT( octomapDisplay_ != NULL );
 
-    octomapDisplay_->subProp( "Marker Topic" )->setValue( "/occupied_cells_vis_array" );
+    octomapDisplay_->subProp( "Marker Topic" )->setValue(octomapTopic_);
 
     /*
     //Image :
@@ -313,13 +327,6 @@ void FallRiskGUI::liveVideoCallback(const sensor_msgs::ImageConstPtr& msg)
         height= liveVideoLabel->width()*3/4;
     else
         width = liveVideoLabel->height()*4/3;
-
-    //    if(liveVideoLabel->height() > liveVideoLabel->width()*3/4)
-    //        height = liveVideoLabel->height();
-    //    else
-    //        height = liveVideoLabel->width()*3/4;
-
-    //    width = height *4/3;
 
     cv::cvtColor(cv_ptr->image,RGBImg,CV_BGR2RGB);
     cv::resize(RGBImg,RGBImg,cvSize(width,height));
