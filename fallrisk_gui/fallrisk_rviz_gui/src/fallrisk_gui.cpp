@@ -4,6 +4,11 @@
 #include <iostream>
 #include "rviz/view_manager.h"
 #include "rviz/default_plugin/view_controllers/orbit_view_controller.h"
+#include "rviz/default_plugin/tools/measure_tool.h"
+#include "rviz/tool_manager.h"
+#include "rviz/default_plugin/tools/point_tool.h"
+
+
 FallRiskGUI::FallRiskGUI(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::FallRiskGUI),it_(nh_)
@@ -28,6 +33,7 @@ FallRiskGUI::FallRiskGUI(QWidget *parent) :
 
     initVariables();
     initDisplayWidgets();
+    initTools();
     initActionsConnections();
 
     //just for testing, needs to be commented out
@@ -42,7 +48,7 @@ FallRiskGUI::~FallRiskGUI()
     delete manager_;
     delete renderPanel_;
 
-//    cv::destroyWindow("Image window");
+    //    cv::destroyWindow("Image window");
 }
 
 void FallRiskGUI::initVariables()
@@ -69,6 +75,10 @@ void FallRiskGUI::initActionsConnections()
     connect(ui->btnDown, SIGNAL(clicked()), this, SLOT(moveBaseBackward()));
     connect(ui->btnLeft, SIGNAL(clicked()), this, SLOT(moveBaseLeft()));
     connect(ui->btnRight, SIGNAL(clicked()), this, SLOT(moveBaseRight()));
+
+    connect(ui->btnMeasure, SIGNAL(clicked()), this, SLOT(getDistance()));
+//    connect(ui->btnInteract, SIGNAL(clicked()), this, SLOT(toolManager_->setCurrentTool(interactTool_);));
+
 
     connect(ui->sliderLinearVel, SIGNAL(valueChanged(int)),this,SLOT(setRobotVelocity()));
     connect(ui->sliderAngularVel, SIGNAL(valueChanged(int)),this,SLOT(setRobotVelocity()));
@@ -132,6 +142,10 @@ void FallRiskGUI::initDisplayWidgets()
     ROS_ASSERT( octomapDisplay_ != NULL );
 
     octomapDisplay_->subProp( "Marker Topic" )->setValue(octomapTopic_);
+
+//    toolManager_ = manager_->getToolManager();
+//    measureTool_ = toolManager_->addTool("rviz/Measure");
+//    toolManager_->setCurrentTool(measureTool_);
 
     /*
     //Image :
@@ -414,3 +428,21 @@ void FallRiskGUI::sendMoveBaseCmd()
         ROS_INFO("move base cmd sent");
     }
 }
+
+
+void FallRiskGUI::initTools(){
+    toolManager_ = manager_->getToolManager();
+
+    pointTool_ = toolManager_->addTool("rviz/PublishPoint");
+    measureTool_ = toolManager_->addTool("rviz/Measure");
+    setGoal_ = toolManager_->addTool("rviz/SetGoal");
+    setInitialPose_=toolManager_->addTool("rviz/SetInitialPose");
+    interactTool_ = toolManager_->addTool("rviz/Interact");
+
+}
+
+void FallRiskGUI::getDistance(){
+    toolManager_->setCurrentTool(measureTool_);
+}
+
+

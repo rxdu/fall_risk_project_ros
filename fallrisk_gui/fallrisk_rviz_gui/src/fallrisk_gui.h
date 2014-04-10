@@ -13,6 +13,9 @@
 #include "rviz/render_panel.h"
 #include "rviz/display.h"
 #include "rviz/panel.h"
+#include "rviz/default_plugin/tools/measure_tool.h"
+#include "rviz/tool_manager.h"
+#include "rviz/default_plugin/tools/point_tool.h"
 
 #include <ros/ros.h>
 #include <geometry_msgs/Twist.h>
@@ -64,8 +67,9 @@ private:
     void initActionsConnections();
     void initDisplayWidgets();
     void initVariables();
-
+    void initTools();
     void sendMoveBaseCmd();
+    void getDistance();
 
 
 private Q_SLOTS:
@@ -79,15 +83,26 @@ private Q_SLOTS:
 private:
   rviz::VisualizationManager* manager_;
   rviz::VisualizationManager* mapManager_;
+
   rviz::RenderPanel* renderPanel_;
   rviz::RenderPanel* mapRenderPanel_ ;
+  rviz::RenderPanel* imagePanel_;
+
   rviz::ViewManager* viewManager_;
   rviz::ViewController* viewController_ ;
+
   rviz::Display* mainDisplay_;
 //  rviz::Display* imageDisplay_;
   rviz::Display* octomapDisplay_;
   rviz::Display* mapDisplay_ ;
-  rviz::RenderPanel* imagePanel_;
+
+  rviz::ToolManager* toolManager_ ;
+
+  rviz::Tool* measureTool_ ;
+  rviz::Tool* pointTool_ ;
+  rviz::Tool* interactTool_;
+  rviz::Tool* setGoal_;
+  rviz::Tool* setInitialPose_;
 
 private:
   ros::NodeHandle nh_;
