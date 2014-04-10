@@ -20,7 +20,7 @@
       <item>
        <widget class="QLabel" name="label_21">
         <property name="text">
-         <string>TextLabel</string>
+         <string>Interact</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -30,7 +30,7 @@
       <item>
        <widget class="QLabel" name="label_24">
         <property name="text">
-         <string>TextLabel</string>
+         <string>Measure</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -40,7 +40,7 @@
       <item>
        <widget class="QLabel" name="label_23">
         <property name="text">
-         <string>TextLabel</string>
+         <string>2D Pose Estimate</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -50,7 +50,7 @@
       <item>
        <widget class="QLabel" name="label_22">
         <property name="text">
-         <string>TextLabel</string>
+         <string>2D Nav Goal</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -60,7 +60,7 @@
       <item>
        <widget class="QLabel" name="label_5">
         <property name="text">
-         <string>TextLabel</string>
+         <string>Publish Point</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
