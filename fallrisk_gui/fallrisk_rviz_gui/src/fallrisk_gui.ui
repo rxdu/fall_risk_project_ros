@@ -15,206 +15,76 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="1" column="0">
-     <widget class="QGroupBox" name="gb_livevideo">
-      <property name="minimumSize">
-       <size>
-        <width>450</width>
-        <height>250</height>
-       </size>
-      </property>
-      <property name="title">
-       <string>Live Video</string>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_3">
-       <item row="0" column="0" rowspan="2">
-        <layout class="QVBoxLayout" name="verticalLayout_2">
-         <item>
-          <widget class="QLabel" name="label_3">
-           <property name="text">
-            <string>Image Topic:</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QComboBox" name="cbImageTopic">
-           <item>
-            <property name="text">
-             <string>Color Image</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Mono Image</string>
-            </property>
-           </item>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_4">
-           <property name="text">
-            <string>Transport Hint:</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QComboBox" name="cbTransHint">
-           <item>
-            <property name="text">
-             <string>image_raw</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>theora</string>
-            </property>
-           </item>
-          </widget>
-         </item>
-         <item>
-          <spacer name="verticalSpacer">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>40</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </item>
-       <item row="0" column="1" rowspan="2" colspan="2">
-        <layout class="QGridLayout" name="livevideo_layout">
-         <item row="0" column="0">
-          <widget class="QLabel" name="liveVideoLabel">
-           <property name="text">
-            <string>Video</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </widget>
+    <item row="0" column="0" colspan="2">
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QPushButton" name="btnRvizInteract">
+        <property name="text">
+         <string>Interact</string>
+        </property>
+        <property name="flat">
+         <bool>true</bool>
+        </property>
+        <attribute name="buttonGroup">
+         <string notr="true">btnGroupRvizTools</string>
+        </attribute>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnRvizMeasure">
+        <property name="text">
+         <string>Measure</string>
+        </property>
+        <property name="flat">
+         <bool>true</bool>
+        </property>
+        <attribute name="buttonGroup">
+         <string notr="true">btnGroupRvizTools</string>
+        </attribute>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnRvizPoseEstimate">
+        <property name="text">
+         <string>2D Pose Estimate</string>
+        </property>
+        <property name="flat">
+         <bool>true</bool>
+        </property>
+        <attribute name="buttonGroup">
+         <string notr="true">btnGroupRvizTools</string>
+        </attribute>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnRvizNavGoal">
+        <property name="text">
+         <string>2D Nav Goal</string>
+        </property>
+        <property name="flat">
+         <bool>true</bool>
+        </property>
+        <attribute name="buttonGroup">
+         <string notr="true">btnGroupRvizTools</string>
+        </attribute>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnRvizPublishPoint">
+        <property name="text">
+         <string>Publish Point</string>
+        </property>
+        <property name="flat">
+         <bool>true</bool>
+        </property>
+        <attribute name="buttonGroup">
+         <string notr="true">btnGroupRvizTools</string>
+        </attribute>
+       </widget>
+      </item>
+     </layout>
     </item>
-    <item row="1" column="1">
-     <widget class="QGroupBox" name="gb_keyctrl">
-      <property name="title">
-       <string>Keyboard Control</string>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_2">
-       <item row="0" column="0">
-        <widget class="QCheckBox" name="checkBox">
-         <property name="text">
-          <string>Enable Assistive Teleoperation</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <layout class="QGridLayout" name="gridLayout_5">
-         <item row="1" column="4">
-          <widget class="QPushButton" name="btnRight">
-           <property name="text">
-            <string>Right (D)</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="3">
-          <widget class="QPushButton" name="btnDown">
-           <property name="text">
-            <string>Down (S)</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="3">
-          <widget class="QPushButton" name="btnUp">
-           <property name="text">
-            <string>Up (W)</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="2">
-          <widget class="QPushButton" name="btnLeft">
-           <property name="text">
-            <string>Left (A)</string>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="2" colspan="3">
-          <widget class="QSlider" name="sliderLinearVel">
-           <property name="minimum">
-            <number>0</number>
-           </property>
-           <property name="maximum">
-            <number>100</number>
-           </property>
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="2" colspan="3">
-          <widget class="QSlider" name="sliderAngularVel">
-           <property name="minimum">
-            <number>0</number>
-           </property>
-           <property name="maximum">
-            <number>100</number>
-           </property>
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="0">
-          <widget class="QLabel" name="label">
-           <property name="text">
-            <string>Velocity:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="0">
-          <widget class="QLabel" name="label_2">
-           <property name="text">
-            <string>Rotation:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="2" colspan="3">
-          <spacer name="horizontalSpacer">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>5</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </item>
-       <item row="2" column="0">
-        <widget class="QPushButton" name="pushButton_4">
-         <property name="styleSheet">
-          <string notr="true"/>
-         </property>
-         <property name="text">
-          <string>Stop Robot</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="0" column="2">
+    <item row="0" column="2" rowspan="3">
      <widget class="QGroupBox" name="gb_checklist">
       <property name="maximumSize">
        <size>
@@ -511,7 +381,14 @@
       </layout>
      </widget>
     </item>
-    <item row="0" column="0" colspan="2">
+    <item row="1" column="0" colspan="2">
+     <widget class="Line" name="line_2">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0" colspan="2">
      <widget class="QTabWidget" name="tab_display">
       <property name="currentIndex">
        <number>0</number>
@@ -538,7 +415,206 @@
       </widget>
      </widget>
     </item>
-    <item row="1" column="2">
+    <item row="3" column="0">
+     <widget class="QGroupBox" name="gb_livevideo">
+      <property name="minimumSize">
+       <size>
+        <width>450</width>
+        <height>250</height>
+       </size>
+      </property>
+      <property name="title">
+       <string>Live Video</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="0" column="0" rowspan="2">
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <widget class="QLabel" name="label_3">
+           <property name="text">
+            <string>Image Topic:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="cbImageTopic">
+           <item>
+            <property name="text">
+             <string>Color Image</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Mono Image</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_4">
+           <property name="text">
+            <string>Transport Hint:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="cbTransHint">
+           <item>
+            <property name="text">
+             <string>image_raw</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>theora</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item>
+          <spacer name="verticalSpacer">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+       <item row="0" column="1" rowspan="2" colspan="2">
+        <layout class="QGridLayout" name="livevideo_layout">
+         <item row="0" column="0">
+          <widget class="QLabel" name="liveVideoLabel">
+           <property name="text">
+            <string>Video</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QGroupBox" name="gb_keyctrl">
+      <property name="title">
+       <string>Keyboard Control</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="0">
+        <widget class="QCheckBox" name="checkBox">
+         <property name="text">
+          <string>Enable Assistive Teleoperation</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <layout class="QGridLayout" name="gridLayout_5">
+         <item row="1" column="4">
+          <widget class="QPushButton" name="btnRight">
+           <property name="text">
+            <string>Right (D)</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="3">
+          <widget class="QPushButton" name="btnDown">
+           <property name="text">
+            <string>Down (S)</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="3">
+          <widget class="QPushButton" name="btnUp">
+           <property name="text">
+            <string>Up (W)</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="2">
+          <widget class="QPushButton" name="btnLeft">
+           <property name="text">
+            <string>Left (A)</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="2" colspan="3">
+          <widget class="QSlider" name="sliderLinearVel">
+           <property name="minimum">
+            <number>0</number>
+           </property>
+           <property name="maximum">
+            <number>100</number>
+           </property>
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="2" colspan="3">
+          <widget class="QSlider" name="sliderAngularVel">
+           <property name="minimum">
+            <number>0</number>
+           </property>
+           <property name="maximum">
+            <number>100</number>
+           </property>
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>Velocity:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0">
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Rotation:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="2" colspan="3">
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>5</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+       <item row="2" column="0">
+        <widget class="QPushButton" name="pushButton_4">
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string>Stop Robot</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="3" column="2">
      <widget class="QGroupBox" name="gb_robotstatus">
       <property name="title">
        <string>Robot Status</string>
@@ -670,7 +746,7 @@
      <x>0</x>
      <y>0</y>
      <width>1153</width>
-     <height>25</height>
+     <height>20</height>
     </rect>
    </property>
   </widget>
@@ -678,4 +754,7 @@
  </widget>
  <resources/>
  <connections/>
+ <buttongroups>
+  <buttongroup name="btnGroupRvizTools"/>
+ </buttongroups>
 </ui>

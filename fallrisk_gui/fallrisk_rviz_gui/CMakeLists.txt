@@ -24,21 +24,16 @@ add_definitions(-DQT_NO_KEYWORDS)
 add_definitions(${QT_DEFINITIONS})
 
 set(HEADER_FILES 
-  src/rviz_gui.h
-  include/myviz.h
   src/fallrisk_gui.h
 )
 
 set(SOURCE_FILES
-  src/rviz_gui.cpp
   src/main.cpp
-  src/myviz.cpp
   src/fallrisk_gui.cpp
   ${MOC_FILES}
 )
 
 set(FORM_FILES 
-  src/rviz_gui.ui
   src/fallrisk_gui.ui
 )
 
