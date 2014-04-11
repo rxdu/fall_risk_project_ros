@@ -76,9 +76,15 @@ void FallRiskGUI::initActionsConnections()
     connect(ui->btnLeft, SIGNAL(clicked()), this, SLOT(moveBaseLeft()));
     connect(ui->btnRight, SIGNAL(clicked()), this, SLOT(moveBaseRight()));
 
-    connect(ui->btnMeasure, SIGNAL(clicked()), this, SLOT(getDistance()));
-//    connect(ui->btnInteract, SIGNAL(clicked()), this, SLOT(toolManager_->setCurrentTool(interactTool_);));
+//    connect(ui->btnMeasure, SIGNAL(clicked()), this, SLOT(getDistance()));
+//    connect(ui->btnRvizInteract, SIGNAL(clicked()), this, SLOT(setCurrentTool()));
+//    connect(ui->btnRvizMeasure, SIGNAL(clicked()), this, SLOT(setCurrentTool()));
+//    connect(ui->btnRvizNavGoal, SIGNAL(clicked()), this, SLOT(setCurrentTool()));
+//    connect(ui->btnRvizPoseEstimate, SIGNAL(clicked()), this, SLOT(setCurrentTool()));
+//    connect(ui->btnRvizPublishPoint, SIGNAL(clicked()), this, SLOT(setCurrentTool()));
+    connect(ui->btnGroupRvizTools,SIGNAL(buttonClicked(int)),this,SLOT(setCurrentTool(int)));
 
+//    connect(ui->btnRvizInteract, SIGNAL(clicked()), this, SLOT(toolManager_->setCurrentTool(interactTool_);));
 
     connect(ui->sliderLinearVel, SIGNAL(valueChanged(int)),this,SLOT(setRobotVelocity()));
     connect(ui->sliderAngularVel, SIGNAL(valueChanged(int)),this,SLOT(setRobotVelocity()));
@@ -441,8 +447,37 @@ void FallRiskGUI::initTools(){
 
 }
 
-void FallRiskGUI::getDistance(){
-    toolManager_->setCurrentTool(measureTool_);
+void FallRiskGUI::setCurrentTool(int btnID)
+{
+    if(btnID == -2)
+    {
+        ROS_INFO("Interact Tool Selected");
+    }
+    else if(btnID == -3)
+    {
+        ROS_INFO("Measure Tool Selected");
+    }
+    else if(btnID == -4)
+    {
+        ROS_INFO("2DPoseEstimate Tool Selected");
+    }
+    else if(btnID == -5)
+    {
+        ROS_INFO("2DNavGoal Tool Selected");
+    }
+    else if(btnID == -6)
+    {
+        ROS_INFO("PublishPoint Tool Selected");
+    }
+
+//    ROS_INFO("ID:%d",btnID);
+
+//    ROS_INFO("Measurement Tool Selected");
+//    toolManager_->setCurrentTool(measureTool_);
+//    toolManager_ = manager_->getToolManager();
+//    measureTool_ = toolManager_->addTool("rviz/Measure");
+//    toolManager_->setCurrentTool(measureTool_);
+
 }
 
 

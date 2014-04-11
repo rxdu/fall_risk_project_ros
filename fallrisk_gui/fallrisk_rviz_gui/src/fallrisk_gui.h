@@ -69,7 +69,7 @@ private:
     void initVariables();
     void initTools();
     void sendMoveBaseCmd();
-    void getDistance();
+//    void getDistance();
 
 
 private Q_SLOTS:
@@ -79,6 +79,7 @@ private Q_SLOTS:
     void moveBaseRight();
     void keyPressEvent(QKeyEvent *event);
     void setRobotVelocity();
+    void setCurrentTool(int btnID);
 
 private:
   rviz::VisualizationManager* manager_;
