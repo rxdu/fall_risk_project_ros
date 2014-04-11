@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/hlcps/!svn/ver/707/robot/base/ros/assistive_drive/_trunk/assistive_drive/src
+END
+assistive_drive_planner.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/hlcps/!svn/ver/654/robot/base/ros/assistive_drive/_trunk/assistive_drive/src/assistive_drive_planner.cpp
+END
+direction_trajectory_scorer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/hlcps/!svn/ver/553/robot/base/ros/assistive_drive/_trunk/assistive_drive/src/direction_trajectory_scorer.cpp
+END
+sinyukov_trajectory_generator.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/hlcps/!svn/ver/653/robot/base/ros/assistive_drive/_trunk/assistive_drive/src/sinyukov_trajectory_generator.cpp
+END
+assistive_drive_node.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/hlcps/!svn/ver/655/robot/base/ros/assistive_drive/_trunk/assistive_drive/src/assistive_drive_node.cpp
+END
+sinyukov_trajectory_scorer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/hlcps/!svn/ver/707/robot/base/ros/assistive_drive/_trunk/assistive_drive/src/sinyukov_trajectory_scorer.cpp
+END

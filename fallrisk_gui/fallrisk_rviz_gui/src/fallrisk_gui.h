@@ -8,6 +8,7 @@
 #include <QStatusBar>
 #include <QImage>
 #include <QPainter>
+#include <QLabel>
 
 #include "rviz/visualization_manager.h"
 #include "rviz/render_panel.h"
@@ -106,6 +107,7 @@ private:
   rviz::Tool* setInitialPoseTool_;
 
 private:
+
   ros::NodeHandle nh_;
   ros::Publisher moveBaseCmdPub;
   ros::Subscriber centerDistSub;
@@ -121,7 +123,7 @@ private:
   void distanceSubCallback(const std_msgs::Float32::ConstPtr& msg);
   void baseStatusCheck(const kobuki_msgs::SensorState::ConstPtr& msg);
   void liveVideoCallback(const sensor_msgs::ImageConstPtr &msg);
-
+  void setVideo(QLabel* label, cv_bridge::CvImagePtr cv_ptr);
 
   QString fixedFrame_;
   QString mapTopic_;
