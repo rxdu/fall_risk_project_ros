@@ -88,6 +88,7 @@ void FallRiskGUI::initActionsConnections()
 
     connect(ui->sliderLinearVel, SIGNAL(valueChanged(int)),this,SLOT(setRobotVelocity()));
     connect(ui->sliderAngularVel, SIGNAL(valueChanged(int)),this,SLOT(setRobotVelocity()));
+
 }
 
 void FallRiskGUI::initDisplayWidgets()
@@ -326,10 +327,11 @@ void FallRiskGUI::baseStatusCheck(const kobuki_msgs::SensorState::ConstPtr& msg)
 void FallRiskGUI::liveVideoCallback(const sensor_msgs::ImageConstPtr& msg)
 {
 
-    cv_bridge::CvImagePtr cv_ptr;
+    cv_bridge::CvImagePtr cv_ptr, cv_ptr_big;
     try
     {
         cv_ptr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR16);
+        cv_ptr_big = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR16);
     }
     catch (cv_bridge::Exception& e)
     {
@@ -337,8 +339,13 @@ void FallRiskGUI::liveVideoCallback(const sensor_msgs::ImageConstPtr& msg)
         return;
     }
     //  convert cv image into RGB image and resize it to the size of available layout
+        setVideo(ui->liveVideoLabel,cv_ptr);
+        setVideo(ui->lbLiveVideoBig,cv_ptr_big);
+}
+
+void FallRiskGUI::setVideo(QLabel* label, cv_bridge::CvImagePtr cv_ptr){
     cv::Mat RGBImg;
-    QLabel* liveVideoLabel = ui->liveVideoLabel;
+    QLabel* liveVideoLabel = label;
 
     int height = liveVideoLabel->height();
     int width =  liveVideoLabel->width();
@@ -355,8 +362,8 @@ void FallRiskGUI::liveVideoCallback(const sensor_msgs::ImageConstPtr& msg)
     QImage qImage_= QImage((uchar*) RGBImg.data, RGBImg.cols, RGBImg.rows, RGBImg.cols*3, QImage::Format_RGB888);
     liveVideoLabel->setPixmap(QPixmap::fromImage(qImage_));
     liveVideoLabel->show();
-}
 
+}
 
 void FallRiskGUI::setRobotVelocity()
 {
@@ -441,8 +448,8 @@ void FallRiskGUI::initTools(){
 
     pointTool_ = toolManager_->addTool("rviz/PublishPoint");
     measureTool_ = toolManager_->addTool("rviz/Measure");
-    setGoal_ = toolManager_->addTool("rviz/SetGoal");
-    setInitialPose_=toolManager_->addTool("rviz/SetInitialPose");
+    setGoalTool_ = toolManager_->addTool("rviz/SetGoal");
+    setInitialPoseTool_=toolManager_->addTool("rviz/SetInitialPose");
     interactTool_ = toolManager_->addTool("rviz/Interact");
 
 }
@@ -452,31 +459,28 @@ void FallRiskGUI::setCurrentTool(int btnID)
     if(btnID == -2)
     {
         ROS_INFO("Interact Tool Selected");
+        toolManager_->setCurrentTool(interactTool_);
     }
     else if(btnID == -3)
     {
         ROS_INFO("Measure Tool Selected");
+        toolManager_->setCurrentTool(measureTool_);
     }
     else if(btnID == -4)
     {
         ROS_INFO("2DPoseEstimate Tool Selected");
+        toolManager_->setCurrentTool(setInitialPoseTool_);
     }
     else if(btnID == -5)
     {
         ROS_INFO("2DNavGoal Tool Selected");
+        toolManager_->setCurrentTool(setGoalTool_);
     }
     else if(btnID == -6)
     {
         ROS_INFO("PublishPoint Tool Selected");
+        toolManager_->setCurrentTool(pointTool_);
     }
-
-//    ROS_INFO("ID:%d",btnID);
-
-//    ROS_INFO("Measurement Tool Selected");
-//    toolManager_->setCurrentTool(measureTool_);
-//    toolManager_ = manager_->getToolManager();
-//    measureTool_ = toolManager_->addTool("rviz/Measure");
-//    toolManager_->setCurrentTool(measureTool_);
 
 }
 
