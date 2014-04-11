@@ -21,6 +21,7 @@ Method1
 4. Restart the laptop 
 
 To revert the settings:
+
 1. Run the following command
     
     ```sh
