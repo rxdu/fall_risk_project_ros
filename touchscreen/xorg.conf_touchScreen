@@ -1,0 +1,60 @@
+# xorg.conf (X.Org X Window System server configuration file)
+
+############ Original Video Settings ###########
+
+#Section "Device"
+#        Identifier      "Configured Video Device"
+#	Driver		"intel"
+#EndSection
+
+#Section "Monitor"
+#        Identifier      "Configured Monitor"
+#EndSection
+
+#Section "Screen"
+#        Identifier      "Default Screen"
+#        Monitor         "Configured Monitor"
+#        Device          "Configured Video Device"
+#        DefaultDepth    16
+#        SubSection "Display"
+#                Depth   16
+#                Modes   "1366x768"
+#        EndSubSection
+#EndSection
+
+#################################################
+
+Section "ServerLayout"
+        Identifier      "Server Layout"
+        Screen  0       "DisplayLinkScreen" 0 0
+#        Screen  1       "Default Screen" RightOf "DisplayLinkScreen" 
+        Option          "Xinerama" "on"
+EndSection
+
+#################################################
+
+Section "Files"
+        ModulePath      "/usr/lib/xorg/modules"
+        ModulePath      "/usr/local/lib/xorg/modules"
+	ModulePath	"/usr/local/lib/xorg/modules/drivers"
+EndSection
+
+ ################ DisplayLink ###################
+ Section "Device"
+        Identifier      "DisplayLinkDevice"
+        Driver          "fbdev" 
+        BusID           "USB"               # needed to use multiple DisplayLink devices 
+        Option          "fbdev" "/dev/fb1"  # change to whatever device you want to use
+ #      Option          "rotate" "CCW"      # uncomment for rotation
+ EndSection
+ 
+ Section "Monitor"
+        Identifier      "DisplayLinkMonitor"
+ EndSection
+ 
+ Section "Screen"
+        Identifier      "DisplayLinkScreen"
+        Device          "DisplayLinkDevice"
+        Monitor         "DisplayLinkMonitor"
+        DefaultDepth    16
+ EndSection
