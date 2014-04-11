@@ -1,12 +1,8 @@
 #include "fallrisk_gui.h"
 #include "ui_fallrisk_gui.h"
-#include "rviz/default_plugin/view_controllers/fixed_orientation_ortho_view_controller.h"
 #include <iostream>
 #include "rviz/view_manager.h"
-#include "rviz/default_plugin/view_controllers/orbit_view_controller.h"
-#include "rviz/default_plugin/tools/measure_tool.h"
 #include "rviz/tool_manager.h"
-#include "rviz/default_plugin/tools/point_tool.h"
 
 
 FallRiskGUI::FallRiskGUI(QWidget *parent) :
@@ -441,8 +437,8 @@ void FallRiskGUI::initTools(){
 
     pointTool_ = toolManager_->addTool("rviz/PublishPoint");
     measureTool_ = toolManager_->addTool("rviz/Measure");
-    setGoal_ = toolManager_->addTool("rviz/SetGoal");
-    setInitialPose_=toolManager_->addTool("rviz/SetInitialPose");
+    setGoalTool_ = toolManager_->addTool("rviz/SetGoal");
+    setInitialPoseTool_=toolManager_->addTool("rviz/SetInitialPose");
     interactTool_ = toolManager_->addTool("rviz/Interact");
 
 }
@@ -452,22 +448,27 @@ void FallRiskGUI::setCurrentTool(int btnID)
     if(btnID == -2)
     {
         ROS_INFO("Interact Tool Selected");
+        toolManager_->setCurrentTool(interactTool_);
     }
     else if(btnID == -3)
     {
         ROS_INFO("Measure Tool Selected");
+        toolManager_->setCurrentTool(measureTool_);
     }
     else if(btnID == -4)
     {
         ROS_INFO("2DPoseEstimate Tool Selected");
+        toolManager_->setCurrentTool(setInitialPoseTool_);
     }
     else if(btnID == -5)
     {
         ROS_INFO("2DNavGoal Tool Selected");
+        toolManager_->setCurrentTool(setGoalTool_);
     }
     else if(btnID == -6)
     {
         ROS_INFO("PublishPoint Tool Selected");
+        toolManager_->setCurrentTool(pointTool_);
     }
 
 //    ROS_INFO("ID:%d",btnID);

@@ -102,8 +102,8 @@ private:
   rviz::Tool* measureTool_ ;
   rviz::Tool* pointTool_ ;
   rviz::Tool* interactTool_;
-  rviz::Tool* setGoal_;
-  rviz::Tool* setInitialPose_;
+  rviz::Tool* setGoalTool_;
+  rviz::Tool* setInitialPoseTool_;
 
 private:
   ros::NodeHandle nh_;
