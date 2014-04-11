@@ -72,6 +72,20 @@
           </widget>
          </item>
          <item>
+          <widget class="QPushButton" name="btnMeasure">
+           <property name="text">
+            <string>Measure</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btnInteract">
+           <property name="text">
+            <string>Interact</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <spacer name="verticalSpacer">
            <property name="orientation">
             <enum>Qt::Vertical</enum>
