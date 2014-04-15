@@ -1,0 +1,11 @@
+<launch>
+
+  <node name="audio_capture_turtlebot" pkg="audio_test" type="audio_capture_turtlebot" output="screen">
+    <param name="bitrate" value="128"/>
+  </node>
+
+  <node name="audio_play_turtlebot" pkg="audio_test" type="audio_play_turtlebot" output="screen">
+    <param name="dst" value="alsasink"/>
+  </node>
+
+</launch>

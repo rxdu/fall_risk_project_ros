@@ -1,0 +1,11 @@
+<launch>
+
+  <node name="audio_capture_user" pkg="audio_test" type="audio_capture_user" output="screen">
+    <param name="bitrate" value="192"/>
+  </node>
+
+  <node name="audio_play_user" pkg="audio_test" type="audio_play_user" output="screen">
+    <param name="dst" value="alsasink"/>
+  </node>
+
+</launch>
