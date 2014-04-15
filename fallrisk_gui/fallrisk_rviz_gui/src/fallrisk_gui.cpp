@@ -12,9 +12,6 @@ FallRiskGUI::FallRiskGUI(QWidget *parent) :
     ui->setupUi(this);
     ui->sliderLinearVel->setValue(75);
     ui->sliderAngularVel->setValue(75);
-    //    ui->cbBedroomItem1->setStyleSheet("QCheckBox { background-color : red; color : black; };");
-    //    ui->cbBedroomItem2->setStyleSheet("QCheckBox { background-color : yellow; color : black; };");
-    //    ui->cbBedroomItem3->setStyleSheet("QCheckBox { background-color : green; color : black; };");
     ui->lbLightingItem1->setStyleSheet("QLabel { background-color : red; color : rgb(255, 255, 255); }");
     ui->lbLightingItem2->setStyleSheet("QLabel { background-color : green; color : rgb(255, 255, 255); }");
     ui->lbFloorsItem1->setStyleSheet("QLabel { background-color : green; color : rgb(255, 255, 255); }");
@@ -32,8 +29,6 @@ FallRiskGUI::FallRiskGUI(QWidget *parent) :
     initTools();
     initActionsConnections();
 
-    //just for testing, needs to be commented out
-    //    cv::namedWindow("Image window");
 }
 
 FallRiskGUI::~FallRiskGUI()
@@ -43,8 +38,6 @@ FallRiskGUI::~FallRiskGUI()
     delete mapRenderPanel_;
     delete manager_;
     delete renderPanel_;
-
-    //    cv::destroyWindow("Image window");
 }
 
 void FallRiskGUI::initVariables()
@@ -72,15 +65,7 @@ void FallRiskGUI::initActionsConnections()
     connect(ui->btnLeft, SIGNAL(clicked()), this, SLOT(moveBaseLeft()));
     connect(ui->btnRight, SIGNAL(clicked()), this, SLOT(moveBaseRight()));
 
-//    connect(ui->btnMeasure, SIGNAL(clicked()), this, SLOT(getDistance()));
-//    connect(ui->btnRvizInteract, SIGNAL(clicked()), this, SLOT(setCurrentTool()));
-//    connect(ui->btnRvizMeasure, SIGNAL(clicked()), this, SLOT(setCurrentTool()));
-//    connect(ui->btnRvizNavGoal, SIGNAL(clicked()), this, SLOT(setCurrentTool()));
-//    connect(ui->btnRvizPoseEstimate, SIGNAL(clicked()), this, SLOT(setCurrentTool()));
-//    connect(ui->btnRvizPublishPoint, SIGNAL(clicked()), this, SLOT(setCurrentTool()));
     connect(ui->btnGroupRvizTools,SIGNAL(buttonClicked(int)),this,SLOT(setCurrentTool(int)));
-
-//    connect(ui->btnRvizInteract, SIGNAL(clicked()), this, SLOT(toolManager_->setCurrentTool(interactTool_);));
 
     connect(ui->sliderLinearVel, SIGNAL(valueChanged(int)),this,SLOT(setRobotVelocity()));
     connect(ui->sliderAngularVel, SIGNAL(valueChanged(int)),this,SLOT(setRobotVelocity()));
@@ -146,10 +131,6 @@ void FallRiskGUI::initDisplayWidgets()
 
     octomapDisplay_->subProp( "Marker Topic" )->setValue(octomapTopic_);
 
-//    toolManager_ = manager_->getToolManager();
-//    measureTool_ = toolManager_->addTool("rviz/Measure");
-//    toolManager_->setCurrentTool(measureTool_);
-
     /*
     //Image :
         grid_ = manager_->createDisplay( "rviz/Image", "Image View", true );
@@ -214,12 +195,6 @@ void FallRiskGUI::keyPressEvent(QKeyEvent *event)
         //        sendMoveBaseCmd();
         ROS_INFO("key S pressed");
         break;
-        //    case Qt::Key_Q:
-        //        move_in();
-        //        break;
-        //    case Qt::Key_E:
-        //        move_out();
-        //        break;
     default:
         QWidget::keyPressEvent(event);
         break;
@@ -228,10 +203,10 @@ void FallRiskGUI::keyPressEvent(QKeyEvent *event)
 
 void FallRiskGUI::distanceSubCallback(const std_msgs::Float32::ConstPtr& msg)
 {
-    ////    ROS_INFO("distance: %f",msg->data);
-    //    QLocale german(QLocale::German, QLocale::Germany);
-    //    QString qdist = german.toString(msg->data, 'f', 2);
-    //    ui->lbDistance->setText(qdist);
+    ROS_INFO("distance: %f",msg->data);
+    QLocale english(QLocale::English, QLocale::UnitedStates);
+    QString qdist = english.toString(msg->data, 'f', 2);
+    ui->lbDistance->setText(qdist);
 }
 
 void FallRiskGUI::baseStatusCheck(const kobuki_msgs::SensorState::ConstPtr& msg)
@@ -335,21 +310,21 @@ void FallRiskGUI::liveVideoCallback(const sensor_msgs::ImageConstPtr& msg)
         return;
     }
     //  convert cv image into RGB image and resize it to the size of available layout
-        setVideo(ui->liveVideoLabel,cv_ptr);
-        setVideo(ui->lbLiveVideoBig,cv_ptr_big);
+    setVideo(ui->liveVideoLabel,cv_ptr);
+    setVideo(ui->lbLiveVideoBig,cv_ptr_big);
 }
 
 void FallRiskGUI::setVideo(QLabel* label, cv_bridge::CvImagePtr cv_ptr){
     cv::Mat RGBImg;
     QLabel* liveVideoLabel = label;
 
-    int height = liveVideoLabel->height();
-    int width =  liveVideoLabel->width();
+    int height = liveVideoLabel->height()-1;
+    int width =  liveVideoLabel->width()-1;
 
-    if(liveVideoLabel->height() > liveVideoLabel->width()*3/4)
-        height= liveVideoLabel->width()*3/4;
+    if(liveVideoLabel->height()-1 >= (liveVideoLabel->width()-1)*3/4)
+        height= (liveVideoLabel->width()-1)*3/4;
     else
-        width = liveVideoLabel->height()*4/3;
+        width = (liveVideoLabel->height()-1)*4/3;
 
     cv::cvtColor(cv_ptr->image,RGBImg,CV_BGR2RGB);
     cv::resize(RGBImg,RGBImg,cvSize(width,height));
