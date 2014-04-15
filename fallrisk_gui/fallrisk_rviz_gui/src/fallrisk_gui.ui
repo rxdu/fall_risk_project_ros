@@ -400,8 +400,29 @@
        <string>Live Video</string>
       </property>
       <layout class="QGridLayout" name="gridLayout_3">
-       <item row="0" column="0" rowspan="2">
+       <item row="1" column="1" rowspan="2" colspan="2">
+        <layout class="QGridLayout" name="livevideo_layout">
+         <item row="0" column="0">
+          <widget class="QLabel" name="liveVideoLabel">
+           <property name="text">
+            <string>Video</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="1" column="0" rowspan="2">
         <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <widget class="QLabel" name="lbDistance">
+           <property name="text">
+            <string>Distance</string>
+           </property>
+          </widget>
+         </item>
          <item>
           <widget class="QLabel" name="label_3">
            <property name="text">
@@ -456,20 +477,6 @@
             </size>
            </property>
           </spacer>
-         </item>
-        </layout>
-       </item>
-       <item row="0" column="1" rowspan="2" colspan="2">
-        <layout class="QGridLayout" name="livevideo_layout">
-         <item row="0" column="0">
-          <widget class="QLabel" name="liveVideoLabel">
-           <property name="text">
-            <string>Video</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
          </item>
         </layout>
        </item>
@@ -714,7 +721,7 @@
     <item row="2" column="0" colspan="2">
      <widget class="QTabWidget" name="tab_display">
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_3dscene">
        <attribute name="title">
@@ -738,7 +745,7 @@
       </widget>
       <widget class="QWidget" name="tab">
        <attribute name="title">
-        <string>Page</string>
+        <string>Video</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_8">
         <item row="0" column="0">
