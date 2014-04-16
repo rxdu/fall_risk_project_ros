@@ -125,7 +125,7 @@ private:
   void liveVideoCallback(const sensor_msgs::ImageConstPtr &msg);
   void setVideo(QLabel* label, cv_bridge::CvImagePtr cv_ptr);
 
-  void changeToolBtnStatus(int id);
+  void changeToolBtnStatus(int btnID);
 
   QString fixedFrame_;
   QString mapTopic_;
