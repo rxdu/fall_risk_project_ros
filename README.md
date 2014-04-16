@@ -68,7 +68,7 @@ sudo apt-get install ros-hydro-octomap-server
 Install turtlebot apps and simulator:
 
 ```
-sudo apt-get install ros-hydro-turtlebot ros-hydro-turtlebot-apps ros-hydro-turtlebot-simulator
+sudo apt-get install ros-hydro-turtlebot ros-hydro-turtlebot-apps ros-hydro-turtlebot-simulator ros-hydro-turtlebot-navigation ros-hydro-uvc-camera
 ```
 
 For the laptop on the turtlebot, you also need to install:
