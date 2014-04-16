@@ -437,7 +437,7 @@ void FallRiskGUI::setCurrentTool(int btnID)
     if(btnID == -2)
     {
         ROS_INFO("Interact Tool Selected");
-        toolManager_->setCurrentTool(interactTool_);
+        toolManager_->setCurrentTool(interactTool_);        
     }
     else if(btnID == -3)
     {
@@ -461,6 +461,29 @@ void FallRiskGUI::setCurrentTool(int btnID)
         toolManager_->setCurrentTool(pointTool_);
     }
 
+    changeToolBtnStatus(btnID);
+}
+
+void FallRiskGUI::changeToolBtnStatus(int btnID)
+{
+    ui->btnRvizInteract->setFlat(true);
+    ui->btnRvizMeasure->setFlat(true);
+    ui->btnRvizNavGoal->setFlat(true);
+    ui->btnRvizPoseEstimate->setFlat(true);
+    ui->btnRvizPublishPoint->setFlat(true);
+
+    switch(btnID)
+    {
+    case -2: ui->btnRvizInteract->setFlat(false);
+        break;
+    case -3: ui->btnRvizMeasure->setFlat(false);
+        break;
+    case -4: ui->btnRvizPoseEstimate->setFlat(false);
+        break;
+    case -5: ui->btnRvizNavGoal->setFlat(false);
+        break;
+    case -6: ui->btnRvizPublishPoint->setFlat(false);
+    }
 }
 
 
