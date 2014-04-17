@@ -89,8 +89,8 @@ private:
   rviz::RenderPanel* mapRenderPanel_ ;
   rviz::RenderPanel* imagePanel_;
 
-  rviz::ViewManager* viewManager_;
-  rviz::ViewController* viewController_ ;
+  rviz::ViewManager* mapViewManager_;
+  rviz::ViewController* mapViewController_ ;
 
   rviz::Display* mainDisplay_;
 //  rviz::Display* imageDisplay_;
@@ -124,6 +124,7 @@ private:
 
 
   QString fixedFrame_;
+  QString targetFrame_ ;
   QString mapTopic_;
   QString imageTopic_;
   QString pointCloudTopic_;
