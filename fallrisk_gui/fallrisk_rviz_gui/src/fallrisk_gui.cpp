@@ -38,6 +38,7 @@ FallRiskGUI::~FallRiskGUI()
     delete mapRenderPanel_;
     delete manager_;
     delete renderPanel_;
+    delete status_label_;
 }
 
 void FallRiskGUI::initVariables()
@@ -70,7 +71,7 @@ void FallRiskGUI::initActionsConnections()
     connect(ui->sliderLinearVel, SIGNAL(valueChanged(int)),this,SLOT(setRobotVelocity()));
     connect(ui->sliderAngularVel, SIGNAL(valueChanged(int)),this,SLOT(setRobotVelocity()));
 
-}
+ }
 
 void FallRiskGUI::initDisplayWidgets()
 {
@@ -130,6 +131,12 @@ void FallRiskGUI::initDisplayWidgets()
     ROS_ASSERT( octomapDisplay_ != NULL );
 
     octomapDisplay_->subProp( "Marker Topic" )->setValue(octomapTopic_);
+
+
+    //Set up the status Bar and display messages emitted from each of the tools
+    status_label_ = new QLabel("");
+    statusBar()->addPermanentWidget( status_label_,1);
+    connect( manager_, SIGNAL( statusUpdate( const QString& )), status_label_, SLOT( setText( const QString& )));
 
     /*
     //Image :
@@ -203,7 +210,7 @@ void FallRiskGUI::keyPressEvent(QKeyEvent *event)
 
 void FallRiskGUI::distanceSubCallback(const std_msgs::Float32::ConstPtr& msg)
 {
-    ROS_INFO("distance: %f",msg->data);
+//    ROS_INFO("distance: %f",msg->data);
     QLocale english(QLocale::English, QLocale::UnitedStates);
     QString qdist = english.toString(msg->data, 'f', 2);
     ui->lbDistance->setText(qdist);
@@ -436,6 +443,7 @@ void FallRiskGUI::setCurrentTool(int btnID)
     {
         ROS_INFO("Measure Tool Selected");
         toolManager_->setCurrentTool(measureTool_);
+
     }
     else if(btnID == -4)
     {

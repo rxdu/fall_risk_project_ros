@@ -134,6 +134,8 @@ private:
   QString baseSensorTopic_;
   QString velocityTopic_;
 
+  QLabel* status_label_;
+
 };
 
 
