@@ -15,8 +15,8 @@ Method1
 3. Run the following command
     
     ```sh
-    sudo cp /etc/X11/xorg.conf ~/fallrisk_ws/src/fall_risk_project_ros/touchscreen/xorg.conf_laptop 
-    sudo cp ~/fallrisk_ws/src/fall_risk_project_ros/touchscreen/xorg.conf_touchScreen /etc/X11/xorg.conf
+    sudo cp /etc/X11/xorg.conf ~/fallrisk_ws/src/fall_risk_project_ros/hardware_configuration/touchscreen/xorg.conf_laptop 
+    sudo cp ~/fallrisk_ws/src/fall_risk_project_ros/hardware_configuration/touchscreen/xorg.conf_touchScreen /etc/X11/xorg.conf
     ```
 4. Restart the laptop 
 
@@ -25,8 +25,8 @@ To revert the settings:
 1. Run the following command
     
     ```sh
-    sudo cp /etc/X11/xorg.conf ~/fallrisk_ws/src/fall_risk_project_ros/touchscreen/xorg.conf_touchScreen 
-    sudo cp ~/fallrisk_ws/src/fall_risk_project_ros/touchscreen/xorg.conf_laptop /etc/X11/xorg.conf
+    sudo cp /etc/X11/xorg.conf ~/fallrisk_ws/src/fall_risk_project_ros/hardware_configuration/touchscreen/xorg.conf_touchScreen 
+    sudo cp ~/fallrisk_ws/src/fall_risk_project_ros/hardware_configuration/touchscreen/xorg.conf_laptop /etc/X11/xorg.conf
     ```
 2. Restart the laptop 
 
