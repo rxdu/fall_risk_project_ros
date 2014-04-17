@@ -23,6 +23,7 @@ FallRiskGUI::FallRiskGUI(QWidget *parent) :
     ui->lbBedroomItem2->setStyleSheet("QLabel { background-color : red; color : rgb(255, 255, 255); }");
     ui->lbBedroomItem3->setStyleSheet("QLabel { background-color : green; color : rgb(255, 255, 255); }");
     ui->lbPetItem1->setStyleSheet("QLabel { background-color : yellow; color : rgb(255, 255, 255); }");
+    changeToolBtnStatus(-2); //set the initial rviz tool to be "interact"
 
     initVariables();
     initDisplayWidgets();
@@ -117,13 +118,13 @@ void FallRiskGUI::initDisplayWidgets()
 
 
     // Create a main display to show pointcloud and octomap
-    mainDisplay_ = manager_->createDisplay( "rviz/PointCloud2", "3D Pointcloud view", true );
-    ROS_ASSERT( mainDisplay_ != NULL );
+//    mainDisplay_ = manager_->createDisplay( "rviz/PointCloud2", "3D Pointcloud view", true );
+//    ROS_ASSERT( mainDisplay_ != NULL );
 
-    mainDisplay_->subProp( "Topic" )->setValue( pointCloudTopic_ );
-    mainDisplay_->subProp( "Selectable" )->setValue( "true" );
-    mainDisplay_->subProp( "Style" )->setValue( "Boxes" );
-    mainDisplay_->subProp("Alpha")->setValue(0.5);
+//    mainDisplay_->subProp( "Topic" )->setValue( pointCloudTopic_ );
+//    mainDisplay_->subProp( "Selectable" )->setValue( "true" );
+//    mainDisplay_->subProp( "Style" )->setValue( "Boxes" );
+//    mainDisplay_->subProp("Alpha")->setValue(0.5);
     manager_->createDisplay( "rviz/Grid", "Grid", true );
     manager_->createDisplay( "rviz/RobotModel", "Turtlebot", true );
 
