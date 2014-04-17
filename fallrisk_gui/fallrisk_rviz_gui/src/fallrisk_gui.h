@@ -107,7 +107,6 @@ private:
   rviz::Tool* setInitialPoseTool_;
 
 private:
-
   ros::NodeHandle nh_;
   ros::Publisher moveBaseCmdPub;
   ros::Subscriber centerDistSub;

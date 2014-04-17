@@ -44,7 +44,7 @@ void FallRiskGUI::initVariables()
 {
     fixedFrame_ =  QString("/base_link");
     mapTopic_ = QString("/map");
-    imageTopic_ = QString("/camera/rgb/image_raw"); ;
+    imageTopic_ = QString("/camera/rgb/image_raw");
     pointCloudTopic_=QString("/camera/depth/points");
     octomapTopic_=QString( "/occupied_cells_vis_array" );
     baseSensorTopic_=QString("/mobile_base/sensors/core");
