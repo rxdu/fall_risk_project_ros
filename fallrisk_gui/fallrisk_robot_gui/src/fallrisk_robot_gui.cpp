@@ -7,7 +7,8 @@ FallRiskRobotGUI::FallRiskRobotGUI(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    imageTopic_ = QString("/image_raw");
+//    imageTopic_ = QString("/image_raw");
+    baseSensorStatus = nh_.subscribe("/mobile_base/sensors/core",1,&FallRiskRobotGUI::baseStatusCheck,this);
 //    liveVideoSub = it_.subscribe(imageTopic_.toStdString(),1,&FallRiskRobotGUI::liveVideoCallback,this,image_transport::TransportHints("compressed"));
     liveVideoSub = it_.subscribe("/image_raw",1,&FallRiskRobotGUI::liveVideoCallback,this);
 
@@ -17,6 +18,93 @@ FallRiskRobotGUI::FallRiskRobotGUI(QWidget *parent) :
 FallRiskRobotGUI::~FallRiskRobotGUI()
 {
     delete ui;
+}
+
+void FallRiskRobotGUI::baseStatusCheck(const kobuki_msgs::SensorState::ConstPtr& msg)
+{
+    ROS_INFO("SENSOR DATA RECEIVED!");
+    /*---------- battery of kobuki base -----------*/
+    //    ROS_INFO("battery: %d",msg->battery);
+
+    int battery_percentage = 0;
+
+    battery_percentage = (msg->battery - BASE_BATTERY_DANGER)*100/(BASE_BATTERY_CAP-BASE_BATTERY_DANGER);
+//    ui->pbBaseBattery->setValue(battery_percentage);
+    //    if(msg->battery <= BASE_BATTERY_LOW)
+    //    QPalette p = ui->pbBaseBattery->palette();
+    //        p.setColor(QPalette::Highlight, Qt::red);
+    //        ui->pbBaseBattery->setPalette(p);
+    //    else
+    //ui->pbBaseBattery->setStyleSheet(safe);
+
+    /*-------------- bumper sensors ---------------*/
+    if(msg->bumper == msg->BUMPER_LEFT)
+    {
+        ROS_INFO("BUMPER LEFT");
+//        ui->lbBumperLeft->setStyleSheet("QLabel { background-color : rgb(255, 0, 0); color : rgb(255, 255, 255); }");
+    }
+    else if(msg->bumper == msg->BUMPER_CENTRE)
+    {
+        ROS_INFO("BUMPER CENTER");
+//        ui->lbBumperCenter->setStyleSheet("QLabel { background-color : rgb(255, 0, 0); color : rgb(255, 255, 255); }");
+    }
+    else if(msg->bumper == msg->BUMPER_RIGHT)
+    {
+        ROS_INFO("BUMPER RIGHT");
+//        ui->lbBumperRight->setStyleSheet("QLabel { background-color : rgb(255, 0, 0); color : rgb(255, 255, 255); }");
+    }
+    else
+    {
+//        ui->lbBumperCenter->setStyleSheet("QLabel { background-color : rgb(0, 204, 102); color : rgb(255, 255, 255); }");
+//        ui->lbBumperLeft->setStyleSheet("QLabel { background-color : rgb(0, 204, 102); color : rgb(255, 255, 255); }");
+//        ui->lbBumperRight->setStyleSheet("QLabel { background-color : rgb(0, 204, 102); color : rgb(255, 255, 255); }");
+    }
+
+    /*------------ wheel drop sensors -------------*/
+    if(msg->wheel_drop == msg->WHEEL_DROP_LEFT)
+    {
+        ROS_INFO("wheel drop left");
+//        ui->lbWheelLeft->setStyleSheet("QLabel { background-color : rgb(255, 0, 0); color : rgb(255, 255, 255); }");
+    }
+    else if(msg->wheel_drop == msg->WHEEL_DROP_RIGHT)
+    {
+        ROS_INFO("wheel drop right");
+//        ui->lbWheelRight->setStyleSheet("QLabel { background-color : rgb(255, 0, 0); color : rgb(255, 255, 255); }");
+    }
+    else if(msg->wheel_drop == ( msg->WHEEL_DROP_LEFT+msg->WHEEL_DROP_RIGHT))
+    {
+        ROS_INFO("wheel drop both");
+//        ui->lbWheelLeft->setStyleSheet("QLabel { background-color : rgb(255, 0, 0); color : rgb(255, 255, 255); }");
+//        ui->lbWheelRight->setStyleSheet("QLabel { background-color : rgb(255, 0, 0); color : rgb(255, 255, 255); }");
+    }
+    else
+    {
+//        ui->lbWheelLeft->setStyleSheet("QLabel { background-color : rgb(0, 204, 102); color : rgb(255, 255, 255); }");
+//        ui->lbWheelRight->setStyleSheet("QLabel { background-color : rgb(0, 204, 102); color : rgb(255, 255, 255); }");
+    }
+
+    /*-------------- cliff sensors ---------------*/
+    if(msg->cliff == msg->CLIFF_LEFT)
+    {
+        ROS_INFO("cliff left");
+//        ui->lbCliffLeft->setStyleSheet("QLabel { background-color : rgb(255, 0, 0); color : rgb(255, 255, 255); }");
+    }
+    else if(msg->cliff == msg->CLIFF_CENTRE)
+    {
+        ROS_INFO("cliff center");
+//        ui->lbCliffCenter->setStyleSheet("QLabel { background-color : rgb(255, 0, 0); color : rgb(255, 255, 255); }");
+    }
+    else if(msg->cliff == msg->CLIFF_RIGHT)
+    {
+        ROS_INFO("cliff right");
+//        ui->lbCliffRight->setStyleSheet("QLabel { background-color : rgb(255, 0, 0); color : rgb(255, 255, 255); }");
+    }
+    else
+    {
+//        ui->lbCliffCenter->setStyleSheet("QLabel { background-color : rgb(0, 204, 102); color : rgb(255, 255, 255); }");
+//        ui->lbCliffLeft->setStyleSheet("QLabel { background-color : rgb(0, 204, 102); color : rgb(255, 255, 255); }");
+//        ui->lbCliffRight->setStyleSheet("QLabel { background-color : rgb(0, 204, 102); color : rgb(255, 255, 255); }");
+    }
 }
 
 void FallRiskRobotGUI::liveVideoCallback(const sensor_msgs::ImageConstPtr& msg)

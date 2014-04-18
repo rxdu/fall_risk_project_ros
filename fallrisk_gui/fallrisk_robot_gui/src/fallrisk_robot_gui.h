@@ -14,6 +14,10 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/opencv.hpp>
 
+#define BASE_BATTERY_CAP 165
+#define BASE_BATTERY_LOW 140
+#define BASE_BATTERY_DANGER 132
+
 namespace Ui {
 class FallRiskRobotGUI;
 }
@@ -31,13 +35,14 @@ private:
 
 private:
   ros::NodeHandle nh_;
-  ros::Publisher baseSensorStatus;
+  ros::Subscriber baseSensorStatus;
 
   image_transport::ImageTransport it_;
   image_transport::Subscriber liveVideoSub;
 
   QString imageTopic_;
 
+  void baseStatusCheck(const kobuki_msgs::SensorState::ConstPtr& msg);
   void liveVideoCallback(const sensor_msgs::ImageConstPtr &msg);
   void setVideo(QLabel* label, cv_bridge::CvImagePtr cv_ptr);
 
