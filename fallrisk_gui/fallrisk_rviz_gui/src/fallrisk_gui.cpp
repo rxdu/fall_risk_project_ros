@@ -78,7 +78,12 @@ void FallRiskGUI::initActionsConnections()
     connect(ui->sliderLinearVel, SIGNAL(valueChanged(int)),this,SLOT(setRobotVelocity()));
     connect(ui->sliderAngularVel, SIGNAL(valueChanged(int)),this,SLOT(setRobotVelocity()));
 
- }
+    //Set up the status Bar and display messages emitted from each of the tools
+    status_label_ = new QLabel("");
+    statusBar()->addPermanentWidget( status_label_,1);
+    connect( manager_, SIGNAL( statusUpdate( const QString& )), status_label_, SLOT( setText( const QString& )));
+
+}
 
 void FallRiskGUI::initDisplayWidgets()
 {
