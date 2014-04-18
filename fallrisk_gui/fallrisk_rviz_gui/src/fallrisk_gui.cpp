@@ -45,6 +45,7 @@ FallRiskGUI::~FallRiskGUI()
 void FallRiskGUI::initVariables()
 {
     fixedFrame_ =  QString("/base_link");
+    targetFrame_ =  QString("/camera_rgb_optical_frame");
     mapTopic_ = QString("/map");
     imageTopic_ = QString("/camera/rgb/image_raw");
     pointCloudTopic_=QString("/camera/depth/points");
@@ -62,6 +63,11 @@ void FallRiskGUI::initVariables()
 
 void FallRiskGUI::initActionsConnections()
 {
+    //Set up the status Bar and display messages emitted from each of the tools
+    status_label_ = new QLabel("");
+    statusBar()->addPermanentWidget( status_label_,1);
+    connect( manager_, SIGNAL( statusUpdate( const QString& )), status_label_, SLOT( setText( const QString& )));
+
     connect(ui->btnUp, SIGNAL(clicked()), this, SLOT(moveBaseForward()));
     connect(ui->btnDown, SIGNAL(clicked()), this, SLOT(moveBaseBackward()));
     connect(ui->btnLeft, SIGNAL(clicked()), this, SLOT(moveBaseLeft()));
@@ -87,15 +93,15 @@ void FallRiskGUI::initDisplayWidgets()
     mapManager_->startUpdate();
 
     //Create and assign FixedOrientationOrthoViewController to the existing viewmanager of the visualization manager
-    viewManager_ = mapManager_->getViewManager();
-    viewManager_->setCurrentViewControllerType("rviz/TopDownOrtho");
-    viewController_ = viewManager_->getCurrent();
+    mapViewManager_ = mapManager_->getViewManager();
+    mapViewManager_->setCurrentViewControllerType("rviz/TopDownOrtho");
+    mapViewController_ = mapViewManager_->getCurrent();
 
     //Set parameters of the view controller to show map correctly
-    viewController_->subProp("X")->setValue(0);
-    viewController_->subProp("Y")->setValue(0);
-    viewController_->subProp("Angle")->setValue(0);
-    viewController_->subProp("Scale")->setValue(20);
+    mapViewController_->subProp("X")->setValue(0);
+    mapViewController_->subProp("Y")->setValue(0);
+    mapViewController_->subProp("Angle")->setValue(0);
+    mapViewController_->subProp("Scale")->setValue(20);
 
     // Create a map display
     mapDisplay_ = mapManager_->createDisplay( "rviz/Map", "2D Map view", true );
@@ -133,11 +139,10 @@ void FallRiskGUI::initDisplayWidgets()
 
     octomapDisplay_->subProp( "Marker Topic" )->setValue(octomapTopic_);
 
-
-    //Set up the status Bar and display messages emitted from each of the tools
-    status_label_ = new QLabel("");
-    statusBar()->addPermanentWidget( status_label_,1);
-    connect( manager_, SIGNAL( statusUpdate( const QString& )), status_label_, SLOT( setText( const QString& )));
+    //Assign Target Frame to the existing viewmanager of the visualization manager
+    rviz::ViewManager* viewManager_ = manager_->getViewManager();
+    rviz::ViewController* viewController_ = viewManager_->getCurrent();
+    viewController_->subProp("Target Frame")->setValue(targetFrame_);
 
     /*
     //Image :
