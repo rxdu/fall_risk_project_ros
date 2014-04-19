@@ -1,0 +1,41 @@
+# xorg.conf (X.Org X Window System server configuration file)
+
+############ Original Video Settings ###########
+
+Section "Device"
+        Identifier      "Configured Video Device"
+	Driver		"intel"
+EndSection
+
+Section "Monitor"
+        Identifier      "Configured Monitor"
+EndSection
+
+Section "Screen"
+        Identifier      "Default Screen"
+        Monitor         "Configured Monitor"
+        Device          "Configured Video Device"
+        DefaultDepth    16
+        SubSection "Display"
+                Depth   16
+                Modes   "1366x768"
+        EndSubSection
+EndSection
+
+#################################################
+
+Section "ServerLayout"
+        Identifier      "Server Layout"
+        Screen  0       "Default Screen" 0 0 
+#        Option          "Xinerama" "on"
+EndSection
+
+#################################################
+
+Section "Files"
+        ModulePath      "/usr/lib/xorg/modules"
+        ModulePath      "/usr/local/lib/xorg/modules"
+	ModulePath	"/usr/local/lib/xorg/modules/drivers"
+EndSection
+
+ 

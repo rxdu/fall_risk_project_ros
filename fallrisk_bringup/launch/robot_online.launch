@@ -2,11 +2,6 @@
   <include file="$(find turtlebot_bringup)/launch/minimal.launch">
   </include>
 
-<!--  Commenting this portion to enable gmapping. openni.launch file is called through 3dsensor.launch
-
-<include file="$(find openni_launch)/launch/openni.launch"> 
-  </include> -->
-
 <include file="$(find turtlebot_bringup)/launch/3dsensor.launch">
     <arg name="rgb_processing" value="true" />
     <arg name="depth_registration" value="false" />
@@ -17,4 +12,7 @@
 
     <arg name="scan_topic" value="/scan" />
   </include>
+  
+
+  
 </launch>

@@ -1,0 +1,7 @@
+image: /home/rdu/fallrisk_ws/src/fall_risk_project_ros/fallrisk_mapping_navigation/maps/my_apt.pgm
+resolution: 0.050000
+origin: [-17.000000, -12.200000, 0.000000]
+negate: 0
+occupied_thresh: 0.65
+free_thresh: 0.196
+
