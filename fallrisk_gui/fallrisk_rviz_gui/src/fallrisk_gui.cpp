@@ -3,7 +3,7 @@
 #include <iostream>
 #include "rviz/view_manager.h"
 #include "rviz/tool_manager.h"
-
+#include "rviz/properties/property_tree_model.h"
 
 FallRiskGUI::FallRiskGUI(QWidget *parent) :
     QMainWindow(parent),
@@ -43,7 +43,7 @@ FallRiskGUI::~FallRiskGUI()
 
 void FallRiskGUI::initVariables()
 {
-    fixedFrame_ =  QString("/base_link");
+    fixedFrame_ =  QString("/map");
     targetFrame_ =  QString("/camera_rgb_optical_frame");
     mapTopic_ = QString("/map");
     imageTopic_ = QString("/camera/rgb/image_raw"); ;
@@ -51,6 +51,7 @@ void FallRiskGUI::initVariables()
     octomapTopic_=QString( "/occupied_cells_vis_array" );
     baseSensorTopic_=QString("/mobile_base/sensors/core");
     velocityTopic_=QString("/mobile_base/commands/velocity");
+    pathTopic_ = QString("/move_base/TrajectoryPlannerROS/global_plan");
 
     moveBaseCmdPub = nh_.advertise<geometry_msgs::Twist>(velocityTopic_.toStdString(),1);
     centerDistSub = nh_.subscribe("/distance/image_center_dist",1,&FallRiskGUI::distanceSubCallback,this);
@@ -107,7 +108,14 @@ void FallRiskGUI::initDisplayWidgets()
     ROS_ASSERT( mapDisplay_ != NULL );
 
     mapDisplay_->subProp( "Topic" )->setValue( mapTopic_ );
+
     mapManager_->createDisplay( "rviz/RobotModel", "Turtlebot", true );
+
+    pathDisplay_ = mapManager_->createDisplay("rviz/Path","Global path",true);
+    ROS_ASSERT( pathDisplay_ != NULL );
+
+    pathDisplay_->subProp( "Topic" )->setValue(pathTopic_);
+
 
     // Initialize GUI elements for main panel
     renderPanel_ = new rviz::RenderPanel();
@@ -436,7 +444,15 @@ void FallRiskGUI::initTools(){
     setInitialPoseTool_=toolManager_->addTool("rviz/SetInitialPose");
     interactTool_ = toolManager_->addTool("rviz/Interact");
 
-    setMapGoalTool_ = mapManager_->getToolManager()->addTool("rviz/SetGoal");
+    mapToolManager_ = mapManager_->getToolManager();
+
+    mapInteractTool_ = mapToolManager_->addTool("rviz/Interact");
+    setMapGoalTool_ = mapToolManager_->addTool("rviz/SetGoal");
+    setMapInitialPoseTool_ = mapToolManager_->addTool("rviz/SetInitialPose");
+
+    // Find the entry in propertytreemodel and set the value for Topic
+    setGoalTool_->getPropertyContainer()->subProp("Topic")->setValue("/move_base_simple/goal");
+    setMapGoalTool_->getPropertyContainer()->subProp("Topic")->setValue("/move_base_simple/goal");
 
 }
 
@@ -446,6 +462,7 @@ void FallRiskGUI::setCurrentTool(int btnID)
     {
         ROS_INFO("Interact Tool Selected");
         toolManager_->setCurrentTool(interactTool_);        
+        mapToolManager_->setCurrentTool(mapInteractTool_);
     }
     else if(btnID == -3)
     {
@@ -457,6 +474,7 @@ void FallRiskGUI::setCurrentTool(int btnID)
     {
         ROS_INFO("2DPoseEstimate Tool Selected");
         toolManager_->setCurrentTool(setInitialPoseTool_);
+        mapToolManager_->setCurrentTool(setMapInitialPoseTool_);
     }
     else if(btnID == -5)
     {
