@@ -104,6 +104,7 @@ private:
   rviz::Tool* pointTool_ ;
   rviz::Tool* interactTool_;
   rviz::Tool* setGoalTool_;
+  rviz::Tool* setMapGoalTool_;
   rviz::Tool* setInitialPoseTool_;
 
 private:

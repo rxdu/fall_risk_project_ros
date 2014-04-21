@@ -436,6 +436,8 @@ void FallRiskGUI::initTools(){
     setInitialPoseTool_=toolManager_->addTool("rviz/SetInitialPose");
     interactTool_ = toolManager_->addTool("rviz/Interact");
 
+    setMapGoalTool_ = mapManager_->getToolManager()->addTool("rviz/SetGoal");
+
 }
 
 void FallRiskGUI::setCurrentTool(int btnID)
@@ -460,6 +462,7 @@ void FallRiskGUI::setCurrentTool(int btnID)
     {
         ROS_INFO("2DNavGoal Tool Selected");
         toolManager_->setCurrentTool(setGoalTool_);
+        mapManager_->getToolManager()->setCurrentTool(setMapGoalTool_);
     }
     else if(btnID == -6)
     {
