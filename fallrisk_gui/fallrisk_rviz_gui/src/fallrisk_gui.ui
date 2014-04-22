@@ -103,10 +103,10 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="0" colspan="2">
+       <item row="1" column="0">
         <widget class="QCheckBox" name="cbLightingItem1">
          <property name="text">
-          <string>Top and bottom of stairs</string>
+          <string>Lighting of current position</string>
          </property>
         </widget>
        </item>
@@ -117,10 +117,10 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="0" colspan="2">
+       <item row="2" column="0">
         <widget class="QCheckBox" name="cbLightingItem2">
          <property name="text">
-          <string>Path from bedroom to bathroom</string>
+          <string>Top and bottom of stairs</string>
          </property>
         </widget>
        </item>
@@ -131,161 +131,175 @@
          </property>
         </widget>
        </item>
-       <item row="3" column="0">
+       <item row="3" column="0" colspan="2">
+        <widget class="QCheckBox" name="cbLightingItem3">
+         <property name="text">
+          <string>Path from bedroom to bathroom</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="2">
+        <widget class="QLabel" name="lbLightingItem3">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
         <widget class="QLabel" name="label_11">
          <property name="text">
           <string>Floors:</string>
          </property>
         </widget>
        </item>
-       <item row="4" column="0" colspan="2">
+       <item row="5" column="0" colspan="2">
         <widget class="QCheckBox" name="cbFloorsItem1">
          <property name="text">
           <string>Wires and cords place near walls</string>
          </property>
         </widget>
        </item>
-       <item row="4" column="2">
+       <item row="5" column="2">
         <widget class="QLabel" name="lbFloorsItem1">
          <property name="text">
           <string/>
          </property>
         </widget>
        </item>
-       <item row="5" column="0" colspan="2">
+       <item row="6" column="0" colspan="2">
         <widget class="QCheckBox" name="cbFloorsItem2">
          <property name="text">
           <string>Walkways free and clear of clutter</string>
          </property>
         </widget>
        </item>
-       <item row="5" column="2">
+       <item row="6" column="2">
         <widget class="QLabel" name="lbFloorsItem2">
          <property name="text">
           <string/>
          </property>
         </widget>
        </item>
-       <item row="6" column="0">
+       <item row="7" column="0">
         <widget class="QLabel" name="label_14">
          <property name="text">
           <string>Stairs:</string>
          </property>
         </widget>
        </item>
-       <item row="7" column="0" colspan="2">
+       <item row="8" column="0">
         <widget class="QCheckBox" name="cbStairsItem1">
          <property name="text">
           <string>Bottom step clearly marked</string>
          </property>
         </widget>
        </item>
-       <item row="7" column="2">
+       <item row="8" column="2">
         <widget class="QLabel" name="lbStairsItem1">
          <property name="text">
           <string/>
          </property>
         </widget>
        </item>
-       <item row="8" column="0" colspan="2">
+       <item row="9" column="0">
         <widget class="QCheckBox" name="cbStairsItem2">
          <property name="text">
           <string>Steps have risers</string>
          </property>
         </widget>
        </item>
-       <item row="8" column="2">
+       <item row="9" column="2">
         <widget class="QLabel" name="lbStairsItem2">
          <property name="text">
           <string/>
          </property>
         </widget>
        </item>
-       <item row="9" column="0" colspan="2">
+       <item row="10" column="0">
         <widget class="QCheckBox" name="cbStairsItem3">
          <property name="text">
           <string> Secure and visible railing</string>
          </property>
         </widget>
        </item>
-       <item row="9" column="2">
+       <item row="10" column="2">
         <widget class="QLabel" name="lbStairsItem3">
          <property name="text">
           <string/>
          </property>
         </widget>
        </item>
-       <item row="10" column="0">
+       <item row="11" column="0">
         <widget class="QLabel" name="label_12">
          <property name="text">
           <string>Bedroom:</string>
          </property>
         </widget>
        </item>
-       <item row="11" column="0" colspan="2">
+       <item row="12" column="0" colspan="2">
         <widget class="QCheckBox" name="cbBedroomItem1">
          <property name="text">
           <string>Enough room between bed and wall</string>
          </property>
         </widget>
        </item>
-       <item row="11" column="2">
+       <item row="12" column="2">
         <widget class="QLabel" name="lbBedroomItem1">
          <property name="text">
           <string/>
          </property>
         </widget>
        </item>
-       <item row="12" column="0" colspan="2">
+       <item row="13" column="0" colspan="2">
         <widget class="QCheckBox" name="cbBedroomItem2">
          <property name="text">
           <string>Clear path from bed to bathroom</string>
          </property>
         </widget>
        </item>
-       <item row="12" column="2">
+       <item row="13" column="2">
         <widget class="QLabel" name="lbBedroomItem2">
          <property name="text">
           <string/>
          </property>
         </widget>
        </item>
-       <item row="13" column="0" colspan="2">
+       <item row="14" column="0">
         <widget class="QCheckBox" name="cbBedroomItem3">
          <property name="text">
           <string>Reasonable bed height</string>
          </property>
         </widget>
        </item>
-       <item row="13" column="2">
+       <item row="14" column="2">
         <widget class="QLabel" name="lbBedroomItem3">
          <property name="text">
           <string/>
          </property>
         </widget>
        </item>
-       <item row="14" column="0">
+       <item row="15" column="0">
         <widget class="QLabel" name="label_13">
          <property name="text">
           <string>Pet:</string>
          </property>
         </widget>
        </item>
-       <item row="15" column="0" colspan="2">
+       <item row="16" column="0">
         <widget class="QCheckBox" name="cbPetItem1">
          <property name="text">
           <string>No pet in the house</string>
          </property>
         </widget>
        </item>
-       <item row="15" column="2">
+       <item row="16" column="2">
         <widget class="QLabel" name="lbPetItem1">
          <property name="text">
           <string/>
          </property>
         </widget>
        </item>
-       <item row="16" column="1">
+       <item row="17" column="1">
         <spacer name="verticalSpacer_2">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -298,14 +312,14 @@
          </property>
         </spacer>
        </item>
-       <item row="17" column="0" colspan="3">
+       <item row="18" column="0" colspan="3">
         <widget class="Line" name="line">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
         </widget>
        </item>
-       <item row="18" column="0" colspan="3">
+       <item row="19" column="0">
         <layout class="QGridLayout" name="gridLayout_6">
          <item row="0" column="0">
           <widget class="QLabel" name="label_15">

@@ -55,7 +55,9 @@ void FallRiskGUI::initVariables()
 
     moveBaseCmdPub = nh_.advertise<geometry_msgs::Twist>(velocityTopic_.toStdString(),1);
     centerDistSub = nh_.subscribe("/distance/image_center_dist",1,&FallRiskGUI::distanceSubCallback,this);
-    baseSensorStatus = nh_.subscribe(baseSensorTopic_.toStdString(),1,&FallRiskGUI::baseStatusCheck,this);
+    baseSensorStatus = nh_.subscribe(baseSensorTopic_.toStdString(),1,&FallRiskGUI::baseStatusCheck,this);    
+    lightingClient = nh_.serviceClient<checklist_status::ChecklistStatusSrv>("checklist_status");
+
     liveVideoSub = it_.subscribe(imageTopic_.toStdString(),1,&FallRiskGUI::liveVideoCallback,this,image_transport::TransportHints("compressed"));
 
     setRobotVelocity();
@@ -340,6 +342,31 @@ void FallRiskGUI::baseStatusCheck(const kobuki_msgs::SensorState::ConstPtr& msg)
         ui->lbCliffLeft->setStyleSheet("QLabel { background-color : rgb(0, 204, 102); color : rgb(255, 255, 255); }");
         ui->lbCliffRight->setStyleSheet("QLabel { background-color : rgb(0, 204, 102); color : rgb(255, 255, 255); }");
     }
+
+    /*----------- illuminosity sensor ------------*/
+    if(lightingClient.call(lightingSrv))
+    {
+        ROS_INFO("Luminosity: %f", lightingSrv.response.luminosity);
+        if(lightingSrv.response.luminosity>=200.00)
+        {
+            setChecklistItemColor(ui->lbLightingItem1, CHECKLIST_ITEM_GREEN);
+            setChecklistItemStatus(ui->cbLightingItem1, CHECKLIST_ITEM_CHECKED);
+        }
+        else if(lightingSrv.response.luminosity>=100.00)
+        {
+            setChecklistItemColor(ui->lbLightingItem1, CHECKLIST_ITEM_YELLOW);
+            setChecklistItemStatus(ui->cbLightingItem1, CHECKLIST_ITEM_UNCHECKED);
+        }
+        else
+        {
+            setChecklistItemColor(ui->lbLightingItem1, CHECKLIST_ITEM_RED);
+            setChecklistItemStatus(ui->cbLightingItem1, CHECKLIST_ITEM_UNCHECKED);
+        }
+    }
+    else
+    {
+        ROS_ERROR("Failed to call service checklist_status");
+    }
 }
 
 void FallRiskGUI::liveVideoCallback(const sensor_msgs::ImageConstPtr& msg)
@@ -543,3 +570,32 @@ void FallRiskGUI::setActiveRvizToolBtns(int tabID)
     }
 }
 
+void FallRiskGUI::setChecklistItemColor(QLabel *label, int color)
+{
+    //status: 0-green,1-yellow,2-red
+    switch(color)
+    {
+    case CHECKLIST_ITEM_GREEN:
+        label->setStyleSheet("QLabel { background-color : green; color : rgb(255, 255, 255); }");
+        break;
+    case CHECKLIST_ITEM_YELLOW:
+        label->setStyleSheet("QLabel { background-color : yellow; color : rgb(255, 255, 255); }");
+        break;
+    case CHECKLIST_ITEM_RED:
+        label->setStyleSheet("QLabel { background-color : red; color : rgb(255, 255, 255); }");
+        break;
+    }
+}
+
+void FallRiskGUI::setChecklistItemStatus(QCheckBox *checkbox, int status)
+{
+    switch(status)
+    {
+    case CHECKLIST_ITEM_CHECKED:
+        checkbox->setChecked(true);
+        break;
+    case CHECKLIST_ITEM_UNCHECKED:
+        checkbox->setChecked(false);
+        break;
+    }
+}
