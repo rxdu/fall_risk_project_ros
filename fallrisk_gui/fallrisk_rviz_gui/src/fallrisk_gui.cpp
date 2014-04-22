@@ -23,12 +23,12 @@ FallRiskGUI::FallRiskGUI(QWidget *parent) :
     ui->lbBedroomItem2->setStyleSheet("QLabel { background-color : red; color : rgb(255, 255, 255); }");
     ui->lbBedroomItem3->setStyleSheet("QLabel { background-color : green; color : rgb(255, 255, 255); }");
     ui->lbPetItem1->setStyleSheet("QLabel { background-color : yellow; color : rgb(255, 255, 255); }");
+    changeToolBtnStatus(-2); //set the initial rviz tool to be "interact"
 
     initVariables();
     initDisplayWidgets();
     initTools();
     initActionsConnections();
-
 }
 
 FallRiskGUI::~FallRiskGUI()
@@ -46,7 +46,7 @@ void FallRiskGUI::initVariables()
     fixedFrame_ =  QString("/map");
     targetFrame_ =  QString("/camera_rgb_optical_frame");
     mapTopic_ = QString("/map");
-    imageTopic_ = QString("/camera/rgb/image_raw"); ;
+    imageTopic_ = QString("/camera/rgb/image_raw");
     pointCloudTopic_=QString("/camera/depth/points");
     octomapTopic_=QString( "/occupied_cells_vis_array" );
     baseSensorTopic_=QString("/mobile_base/sensors/core");
@@ -63,6 +63,11 @@ void FallRiskGUI::initVariables()
 
 void FallRiskGUI::initActionsConnections()
 {
+    //Set up the status Bar and display messages emitted from each of the tools
+    status_label_ = new QLabel("");
+    statusBar()->addPermanentWidget( status_label_,1);
+    connect( manager_, SIGNAL( statusUpdate( const QString& )), status_label_, SLOT( setText( const QString& )));
+
     connect(ui->btnUp, SIGNAL(clicked()), this, SLOT(moveBaseForward()));
     connect(ui->btnDown, SIGNAL(clicked()), this, SLOT(moveBaseBackward()));
     connect(ui->btnLeft, SIGNAL(clicked()), this, SLOT(moveBaseLeft()));
@@ -78,6 +83,7 @@ void FallRiskGUI::initActionsConnections()
     statusBar()->addPermanentWidget( status_label_,1);
     connect( manager_, SIGNAL( statusUpdate( const QString& )), status_label_, SLOT( setText( const QString& )));
 
+    connect(ui->tab_display, SIGNAL(currentChanged(int)),this,SLOT(setActiveRvizToolBtns(int)));
 }
 
 void FallRiskGUI::initDisplayWidgets()
@@ -150,6 +156,7 @@ void FallRiskGUI::initDisplayWidgets()
 
     manager_->createDisplay("rviz/Path","Global path",true)->subProp( "Topic" )->setValue(pathTopic_);
 
+
     /*
     //Image :
         grid_ = manager_->createDisplay( "rviz/Image", "Image View", true );
@@ -187,6 +194,27 @@ void FallRiskGUI::initDisplayWidgets()
 
 
 */
+
+}
+
+void FallRiskGUI::initTools(){
+    toolManager_ = manager_->getToolManager();
+
+    pointTool_ = toolManager_->addTool("rviz/PublishPoint");
+    measureTool_ = toolManager_->addTool("rviz/Measure");
+    setGoalTool_ = toolManager_->addTool("rviz/SetGoal");
+    setInitialPoseTool_=toolManager_->addTool("rviz/SetInitialPose");
+    interactTool_ = toolManager_->addTool("rviz/Interact");
+
+    mapToolManager_ = mapManager_->getToolManager();
+
+    mapInteractTool_ = mapToolManager_->addTool("rviz/Interact");
+    setMapGoalTool_ = mapToolManager_->addTool("rviz/SetGoal");
+    setMapInitialPoseTool_ = mapToolManager_->addTool("rviz/SetInitialPose");
+
+    // Find the entry in propertytreemodel and set the value for Topic
+    setGoalTool_->getPropertyContainer()->subProp("Topic")->setValue("/move_base_simple/goal");
+    setMapGoalTool_->getPropertyContainer()->subProp("Topic")->setValue("/move_base_simple/goal");
 
 }
 
@@ -432,28 +460,6 @@ void FallRiskGUI::sendMoveBaseCmd()
     }
 }
 
-
-void FallRiskGUI::initTools(){
-    toolManager_ = manager_->getToolManager();
-
-    pointTool_ = toolManager_->addTool("rviz/PublishPoint");
-    measureTool_ = toolManager_->addTool("rviz/Measure");
-    setGoalTool_ = toolManager_->addTool("rviz/SetGoal");
-    setInitialPoseTool_=toolManager_->addTool("rviz/SetInitialPose");
-    interactTool_ = toolManager_->addTool("rviz/Interact");
-
-    mapToolManager_ = mapManager_->getToolManager();
-
-    mapInteractTool_ = mapToolManager_->addTool("rviz/Interact");
-    setMapGoalTool_ = mapToolManager_->addTool("rviz/SetGoal");
-    setMapInitialPoseTool_ = mapToolManager_->addTool("rviz/SetInitialPose");
-
-    // Find the entry in propertytreemodel and set the value for Topic
-    setGoalTool_->getPropertyContainer()->subProp("Topic")->setValue("/move_base_simple/goal");
-    setMapGoalTool_->getPropertyContainer()->subProp("Topic")->setValue("/move_base_simple/goal");
-
-}
-
 void FallRiskGUI::setCurrentTool(int btnID)
 {
     if(btnID == -2)
@@ -461,6 +467,7 @@ void FallRiskGUI::setCurrentTool(int btnID)
         ROS_INFO("Interact Tool Selected");
         toolManager_->setCurrentTool(interactTool_);        
         mapToolManager_->setCurrentTool(mapInteractTool_);
+
     }
     else if(btnID == -3)
     {
@@ -511,4 +518,28 @@ void FallRiskGUI::changeToolBtnStatus(int btnID)
     }
 }
 
+void FallRiskGUI::setActiveRvizToolBtns(int tabID)
+{
+//    ROS_INFO("TAB:%d",tabID);
+
+    ui->btnRvizInteract->setDisabled(false);
+    ui->btnRvizMeasure->setDisabled(false);
+    ui->btnRvizPoseEstimate->setDisabled(false);
+    ui->btnRvizNavGoal->setDisabled(false);
+    ui->btnRvizPublishPoint->setDisabled(false);
+
+    if(tabID == 1)
+    {
+        ui->btnRvizMeasure->setDisabled(true);
+        ui->btnRvizPublishPoint->setDisabled(true);
+    }
+    else if(tabID == 2)
+    {
+        ui->btnRvizInteract->setDisabled(true);
+        ui->btnRvizMeasure->setDisabled(true);
+        ui->btnRvizPoseEstimate->setDisabled(true);
+        ui->btnRvizNavGoal->setDisabled(true);
+        ui->btnRvizPublishPoint->setDisabled(true);
+    }
+}
 
