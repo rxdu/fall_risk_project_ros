@@ -14,6 +14,7 @@
 
         <!-- data source to integrate (PointCloud2) -->
         <remap from="cloud_in" to="/camera/depth/points" />
+        <!-- remap from="projected_map" to="/map" /-->
 
     </node>
 </launch>

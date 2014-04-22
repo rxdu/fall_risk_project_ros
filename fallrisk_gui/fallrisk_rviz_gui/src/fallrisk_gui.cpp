@@ -51,7 +51,7 @@ void FallRiskGUI::initVariables()
     octomapTopic_=QString( "/occupied_cells_vis_array" );
     baseSensorTopic_=QString("/mobile_base/sensors/core");
     velocityTopic_=QString("/mobile_base/commands/velocity");
-    pathTopic_ = QString("/move_base/TrajectoryPlannerROS/global_plan");
+    pathTopic_ = QString("/move_base/NavfnROS/plan");
 
     moveBaseCmdPub = nh_.advertise<geometry_msgs::Twist>(velocityTopic_.toStdString(),1);
     centerDistSub = nh_.subscribe("/distance/image_center_dist",1,&FallRiskGUI::distanceSubCallback,this);
@@ -111,10 +111,7 @@ void FallRiskGUI::initDisplayWidgets()
 
     mapManager_->createDisplay( "rviz/RobotModel", "Turtlebot", true );
 
-    pathDisplay_ = mapManager_->createDisplay("rviz/Path","Global path",true);
-    ROS_ASSERT( pathDisplay_ != NULL );
-
-    pathDisplay_->subProp( "Topic" )->setValue(pathTopic_);
+    mapManager_->createDisplay("rviz/Path","Global path",true)->subProp( "Topic" )->setValue(pathTopic_);
 
 
     // Initialize GUI elements for main panel
@@ -151,6 +148,7 @@ void FallRiskGUI::initDisplayWidgets()
     rviz::ViewController* viewController_ = viewManager_->getCurrent();
     viewController_->subProp("Target Frame")->setValue(targetFrame_);
 
+    manager_->createDisplay("rviz/Path","Global path",true)->subProp( "Topic" )->setValue(pathTopic_);
 
     /*
     //Image :

@@ -97,7 +97,6 @@ private:
 //  rviz::Display* imageDisplay_;
   rviz::Display* octomapDisplay_;
   rviz::Display* mapDisplay_ ;
-  rviz::Display* pathDisplay_ ;
 
   rviz::ToolManager* toolManager_ ;
   rviz::ToolManager* mapToolManager_ ;
