@@ -97,14 +97,19 @@ private:
 //  rviz::Display* imageDisplay_;
   rviz::Display* octomapDisplay_;
   rviz::Display* mapDisplay_ ;
+  rviz::Display* pathDisplay_ ;
 
   rviz::ToolManager* toolManager_ ;
+  rviz::ToolManager* mapToolManager_ ;
 
   rviz::Tool* measureTool_ ;
   rviz::Tool* pointTool_ ;
   rviz::Tool* interactTool_;
+  rviz::Tool* mapInteractTool_;
   rviz::Tool* setGoalTool_;
+  rviz::Tool* setMapGoalTool_;
   rviz::Tool* setInitialPoseTool_;
+  rviz::Tool* setMapInitialPoseTool_;
 
 private:
   ros::NodeHandle nh_;
@@ -134,6 +139,7 @@ private:
   QString octomapTopic_;
   QString baseSensorTopic_;
   QString velocityTopic_;
+  QString pathTopic_;
 
   QLabel* status_label_;
 
