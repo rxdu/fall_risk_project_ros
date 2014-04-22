@@ -43,7 +43,7 @@ int main(int argc, char **argv)
 {
   if( !ros::isInitialized() )
   {
-    ros::init( argc, argv, "myviz", ros::init_options::AnonymousName );
+    ros::init( argc, argv, "fallrisk_robot_gui", ros::init_options::AnonymousName );
   }
 
   QApplication app( argc, argv );

@@ -9,6 +9,7 @@
 #include <QImage>
 #include <QPainter>
 #include <QLabel>
+#include <QTabWidget>
 
 #include "rviz/visualization_manager.h"
 #include "rviz/render_panel.h"
@@ -26,6 +27,7 @@
 #include <image_transport/image_transport.h>
 #include <cv_bridge/cv_bridge.h>
 #include <sensor_msgs/image_encodings.h>
+#include <move_base_msgs/MoveBaseGoal.h>
 
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/opencv.hpp>
@@ -81,6 +83,7 @@ private Q_SLOTS:
     void keyPressEvent(QKeyEvent *event);
     void setRobotVelocity();
     void setCurrentTool(int btnID);
+    void setActiveRvizToolBtns(int tabID);
 
 private:
   rviz::VisualizationManager* manager_;
@@ -116,6 +119,7 @@ private:
   ros::Publisher moveBaseCmdPub;
   ros::Subscriber centerDistSub;
   ros::Subscriber baseSensorStatus;
+  ros::Subscriber rviz2DNavGoalSub;
 
   image_transport::ImageTransport it_;
   image_transport::Subscriber liveVideoSub;

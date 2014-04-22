@@ -29,7 +29,6 @@ FallRiskGUI::FallRiskGUI(QWidget *parent) :
     initDisplayWidgets();
     initTools();
     initActionsConnections();
-
 }
 
 FallRiskGUI::~FallRiskGUI()
@@ -84,6 +83,7 @@ void FallRiskGUI::initActionsConnections()
     statusBar()->addPermanentWidget( status_label_,1);
     connect( manager_, SIGNAL( statusUpdate( const QString& )), status_label_, SLOT( setText( const QString& )));
 
+    connect(ui->tab_display, SIGNAL(currentChanged(int)),this,SLOT(setActiveRvizToolBtns(int)));
 }
 
 void FallRiskGUI::initDisplayWidgets()
@@ -194,6 +194,27 @@ void FallRiskGUI::initDisplayWidgets()
 
 
 */
+
+}
+
+void FallRiskGUI::initTools(){
+    toolManager_ = manager_->getToolManager();
+
+    pointTool_ = toolManager_->addTool("rviz/PublishPoint");
+    measureTool_ = toolManager_->addTool("rviz/Measure");
+    setGoalTool_ = toolManager_->addTool("rviz/SetGoal");
+    setInitialPoseTool_=toolManager_->addTool("rviz/SetInitialPose");
+    interactTool_ = toolManager_->addTool("rviz/Interact");
+
+    mapToolManager_ = mapManager_->getToolManager();
+
+    mapInteractTool_ = mapToolManager_->addTool("rviz/Interact");
+    setMapGoalTool_ = mapToolManager_->addTool("rviz/SetGoal");
+    setMapInitialPoseTool_ = mapToolManager_->addTool("rviz/SetInitialPose");
+
+    // Find the entry in propertytreemodel and set the value for Topic
+    setGoalTool_->getPropertyContainer()->subProp("Topic")->setValue("/move_base_simple/goal");
+    setMapGoalTool_->getPropertyContainer()->subProp("Topic")->setValue("/move_base_simple/goal");
 
 }
 
@@ -439,28 +460,6 @@ void FallRiskGUI::sendMoveBaseCmd()
     }
 }
 
-
-void FallRiskGUI::initTools(){
-    toolManager_ = manager_->getToolManager();
-
-    pointTool_ = toolManager_->addTool("rviz/PublishPoint");
-    measureTool_ = toolManager_->addTool("rviz/Measure");
-    setGoalTool_ = toolManager_->addTool("rviz/SetGoal");
-    setInitialPoseTool_=toolManager_->addTool("rviz/SetInitialPose");
-    interactTool_ = toolManager_->addTool("rviz/Interact");
-
-    mapToolManager_ = mapManager_->getToolManager();
-
-    mapInteractTool_ = mapToolManager_->addTool("rviz/Interact");
-    setMapGoalTool_ = mapToolManager_->addTool("rviz/SetGoal");
-    setMapInitialPoseTool_ = mapToolManager_->addTool("rviz/SetInitialPose");
-
-    // Find the entry in propertytreemodel and set the value for Topic
-    setGoalTool_->getPropertyContainer()->subProp("Topic")->setValue("/move_base_simple/goal");
-    setMapGoalTool_->getPropertyContainer()->subProp("Topic")->setValue("/move_base_simple/goal");
-
-}
-
 void FallRiskGUI::setCurrentTool(int btnID)
 {
     if(btnID == -2)
@@ -468,6 +467,7 @@ void FallRiskGUI::setCurrentTool(int btnID)
         ROS_INFO("Interact Tool Selected");
         toolManager_->setCurrentTool(interactTool_);        
         mapToolManager_->setCurrentTool(mapInteractTool_);
+
     }
     else if(btnID == -3)
     {
@@ -518,4 +518,28 @@ void FallRiskGUI::changeToolBtnStatus(int btnID)
     }
 }
 
+void FallRiskGUI::setActiveRvizToolBtns(int tabID)
+{
+//    ROS_INFO("TAB:%d",tabID);
+
+    ui->btnRvizInteract->setDisabled(false);
+    ui->btnRvizMeasure->setDisabled(false);
+    ui->btnRvizPoseEstimate->setDisabled(false);
+    ui->btnRvizNavGoal->setDisabled(false);
+    ui->btnRvizPublishPoint->setDisabled(false);
+
+    if(tabID == 1)
+    {
+        ui->btnRvizMeasure->setDisabled(true);
+        ui->btnRvizPublishPoint->setDisabled(true);
+    }
+    else if(tabID == 2)
+    {
+        ui->btnRvizInteract->setDisabled(true);
+        ui->btnRvizMeasure->setDisabled(true);
+        ui->btnRvizPoseEstimate->setDisabled(true);
+        ui->btnRvizNavGoal->setDisabled(true);
+        ui->btnRvizPublishPoint->setDisabled(true);
+    }
+}
 
