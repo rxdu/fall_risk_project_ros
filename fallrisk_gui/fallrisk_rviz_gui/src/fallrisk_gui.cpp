@@ -59,7 +59,7 @@ void FallRiskGUI::initVariables()
     pointCloudTopic_=QString("/camera/depth/points");
     octomapTopic_=QString( "/occupied_cells_vis_array" );
     baseSensorTopic_=QString("/mobile_base/sensors/core");
-    velocityTopic_=QString("/mobile_base/commands/velocity");
+    velocityTopic_=QString("/some_topic");//QString("/mobile_base/commands/velocity");
 
     moveBaseCmdPub = nh_.advertise<geometry_msgs::Twist>(velocityTopic_.toStdString(),1);
     centerDistSub = nh_.subscribe("/distance/image_center_dist",1,&FallRiskGUI::distanceSubCallback,this);

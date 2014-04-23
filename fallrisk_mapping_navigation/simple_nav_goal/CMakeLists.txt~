@@ -14,9 +14,9 @@ catkin_package()
 include_directories(include ${catkin_INCLUDE_DIRS})
 
 # Declare the executable, along with its source files.
-add_executable(keyboard_navigation_goal keyboard_navigation_goal.cpp)
-add_executable(rough_cmd_vel rough_cmd_vel.cpp)
+#add_executable(src/keyboard_navigation_goal keyboard_navigation_goal.cpp)
+add_executable(simple_nav_goal src/rviz_gui_navigation_goal.cpp)
 
 # Specify libraries against which to link.
-target_link_libraries(keyboard_navigation_goal ${catkin_LIBRARIES})
-target_link_libraries(rough_cmd_vel ${catkin_LIBRARIES})
+#target_link_libraries(keyboard_navigation_goal ${catkin_LIBRARIES})
+target_link_libraries(rviz_gui_navigation_goal ${catkin_LIBRARIES})
