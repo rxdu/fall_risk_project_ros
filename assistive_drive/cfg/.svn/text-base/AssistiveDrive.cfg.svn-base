@@ -1,0 +1,42 @@
+#!/usr/bin/env python
+
+PACKAGE = 'assistive_drive'
+import roslib
+
+from dynamic_reconfigure.parameter_generator_catkin import *
+
+gen = ParameterGenerator()
+
+gen.add("rate", double_t, 0, "Rate at which /cmd_vel is published (controller loop rate", 5.0, 0.001, 200.0)
+
+gen.add("gen_sim_time", double_t, 0, "", 3.5, 0.001, 100.0)
+gen.add("gen_sim_granularity", double_t, 0, "", 0.3, 0.001, 100.0)
+gen.add("gen_angular_sim_granularity", double_t, 0, "", 0.3, 0.001, 100.0)
+
+gen.add("gen_use_dwa", bool_t, 0, "", True)
+gen.add("gen_discretize_by_time", bool_t, 0, "", False)
+gen.add("gen_continued_acceleration", bool_t, 0, "", True)
+
+gen.add("gen_limits_max_trans_vel", double_t, 0, "", 0.4, 0.1, 2.0)
+gen.add("gen_limits_min_trans_vel", double_t, 0, "", 0.2, 0.0, 2.0)
+gen.add("gen_limits_max_vel_x", double_t, 0, "", 0.4, 0.1, 2.0)
+gen.add("gen_limits_min_vel_x", double_t, 0, "", 0.2, -2.0, 2.0)
+gen.add("gen_limits_max_vel_y", double_t, 0, "", 0.0, 0.0, 2.0)
+gen.add("gen_limits_min_vel_y", double_t, 0, "", 0.0, -2.0, 2.0)
+gen.add("gen_limits_max_rot_vel", double_t, 0, "", 0.4, 0.01, 2.0)
+gen.add("gen_limits_min_rot_vel", double_t, 0, "", 0.2, 0.01, 2.0)
+gen.add("gen_limits_acc_limit_trans", double_t, 0, "", 0.2, 0.001, 2.0)
+gen.add("gen_limits_acc_lim_x", double_t, 0, "", 0.5, 0.0, 2.0)
+gen.add("gen_limits_acc_lim_y", double_t, 0, "", 0.0, 0.0, 2.0)
+gen.add("gen_limits_acc_lim_theta", double_t, 0, "", 0.5, 0.01, 2.0)
+
+gen.add("gen_samples_vx", int_t, 0, "", 5, 1, 100)
+gen.add("gen_samples_vy", int_t, 0, "", 1, 1, 100)
+gen.add("gen_samples_vth", int_t, 0, "", 10, 1, 100)
+
+
+gen.add("scorer_direction_mode", bool_t, 0, "", False)    
+gen.add("scorer_obstacle_scale", double_t, 0, "", 0.0002, 0.00, 1.0)
+gen.add("scorer_angular_scale", double_t, 0, "", 30.0, 0.0, 1000.0)
+    
+exit(gen.generate(PACKAGE, "assistive_drive_node", "AssistiveDrive"))

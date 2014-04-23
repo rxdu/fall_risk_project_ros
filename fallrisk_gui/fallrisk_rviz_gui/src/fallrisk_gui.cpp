@@ -1,13 +1,9 @@
 #include "fallrisk_gui.h"
 #include "ui_fallrisk_gui.h"
-#include "rviz/default_plugin/view_controllers/fixed_orientation_ortho_view_controller.h"
 #include <iostream>
 #include "rviz/view_manager.h"
-#include "rviz/default_plugin/view_controllers/orbit_view_controller.h"
-#include "rviz/default_plugin/tools/measure_tool.h"
 #include "rviz/tool_manager.h"
-#include "rviz/default_plugin/tools/point_tool.h"
-
+#include "rviz/properties/property_tree_model.h"
 
 FallRiskGUI::FallRiskGUI(QWidget *parent) :
     QMainWindow(parent),
@@ -16,9 +12,6 @@ FallRiskGUI::FallRiskGUI(QWidget *parent) :
     ui->setupUi(this);
     ui->sliderLinearVel->setValue(75);
     ui->sliderAngularVel->setValue(75);
-    //    ui->cbBedroomItem1->setStyleSheet("QCheckBox { background-color : red; color : black; };");
-    //    ui->cbBedroomItem2->setStyleSheet("QCheckBox { background-color : yellow; color : black; };");
-    //    ui->cbBedroomItem3->setStyleSheet("QCheckBox { background-color : green; color : black; };");
     ui->lbLightingItem1->setStyleSheet("QLabel { background-color : red; color : rgb(255, 255, 255); }");
     ui->lbLightingItem2->setStyleSheet("QLabel { background-color : green; color : rgb(255, 255, 255); }");
     ui->lbFloorsItem1->setStyleSheet("QLabel { background-color : green; color : rgb(255, 255, 255); }");
@@ -30,14 +23,12 @@ FallRiskGUI::FallRiskGUI(QWidget *parent) :
     ui->lbBedroomItem2->setStyleSheet("QLabel { background-color : red; color : rgb(255, 255, 255); }");
     ui->lbBedroomItem3->setStyleSheet("QLabel { background-color : green; color : rgb(255, 255, 255); }");
     ui->lbPetItem1->setStyleSheet("QLabel { background-color : yellow; color : rgb(255, 255, 255); }");
+    changeToolBtnStatus(-2); //set the initial rviz tool to be "interact"
 
     initVariables();
     initDisplayWidgets();
     initTools();
     initActionsConnections();
-
-    //just for testing, needs to be commented out
-    //    cv::namedWindow("Image window");
 }
 
 FallRiskGUI::~FallRiskGUI()
@@ -47,19 +38,20 @@ FallRiskGUI::~FallRiskGUI()
     delete mapRenderPanel_;
     delete manager_;
     delete renderPanel_;
-
-    //    cv::destroyWindow("Image window");
+    delete status_label_;
 }
 
 void FallRiskGUI::initVariables()
 {
-    fixedFrame_ =  QString("/base_link");
+    fixedFrame_ =  QString("/map");
+    targetFrame_ =  QString("/camera_rgb_optical_frame");
     mapTopic_ = QString("/map");
-    imageTopic_ = QString("/camera/rgb/image_raw"); ;
+    imageTopic_ = QString("/camera/rgb/image_raw");
     pointCloudTopic_=QString("/camera/depth/points");
     octomapTopic_=QString( "/occupied_cells_vis_array" );
     baseSensorTopic_=QString("/mobile_base/sensors/core");
     velocityTopic_=QString("/some_topic");//QString("/mobile_base/commands/velocity");
+    pathTopic_ = QString("/move_base/NavfnROS/plan");
 
     moveBaseCmdPub = nh_.advertise<geometry_msgs::Twist>(velocityTopic_.toStdString(),1);
     centerDistSub = nh_.subscribe("/distance/image_center_dist",1,&FallRiskGUI::distanceSubCallback,this);
@@ -71,23 +63,27 @@ void FallRiskGUI::initVariables()
 
 void FallRiskGUI::initActionsConnections()
 {
+    //Set up the status Bar and display messages emitted from each of the tools
+    status_label_ = new QLabel("");
+    statusBar()->addPermanentWidget( status_label_,1);
+    connect( manager_, SIGNAL( statusUpdate( const QString& )), status_label_, SLOT( setText( const QString& )));
+
     connect(ui->btnUp, SIGNAL(clicked()), this, SLOT(moveBaseForward()));
     connect(ui->btnDown, SIGNAL(clicked()), this, SLOT(moveBaseBackward()));
     connect(ui->btnLeft, SIGNAL(clicked()), this, SLOT(moveBaseLeft()));
     connect(ui->btnRight, SIGNAL(clicked()), this, SLOT(moveBaseRight()));
 
-//    connect(ui->btnMeasure, SIGNAL(clicked()), this, SLOT(getDistance()));
-//    connect(ui->btnRvizInteract, SIGNAL(clicked()), this, SLOT(setCurrentTool()));
-//    connect(ui->btnRvizMeasure, SIGNAL(clicked()), this, SLOT(setCurrentTool()));
-//    connect(ui->btnRvizNavGoal, SIGNAL(clicked()), this, SLOT(setCurrentTool()));
-//    connect(ui->btnRvizPoseEstimate, SIGNAL(clicked()), this, SLOT(setCurrentTool()));
-//    connect(ui->btnRvizPublishPoint, SIGNAL(clicked()), this, SLOT(setCurrentTool()));
     connect(ui->btnGroupRvizTools,SIGNAL(buttonClicked(int)),this,SLOT(setCurrentTool(int)));
-
-//    connect(ui->btnRvizInteract, SIGNAL(clicked()), this, SLOT(toolManager_->setCurrentTool(interactTool_);));
 
     connect(ui->sliderLinearVel, SIGNAL(valueChanged(int)),this,SLOT(setRobotVelocity()));
     connect(ui->sliderAngularVel, SIGNAL(valueChanged(int)),this,SLOT(setRobotVelocity()));
+
+    //Set up the status Bar and display messages emitted from each of the tools
+    status_label_ = new QLabel("");
+    statusBar()->addPermanentWidget( status_label_,1);
+    connect( manager_, SIGNAL( statusUpdate( const QString& )), status_label_, SLOT( setText( const QString& )));
+
+    connect(ui->tab_display, SIGNAL(currentChanged(int)),this,SLOT(setActiveRvizToolBtns(int)));
 }
 
 void FallRiskGUI::initDisplayWidgets()
@@ -103,22 +99,26 @@ void FallRiskGUI::initDisplayWidgets()
     mapManager_->startUpdate();
 
     //Create and assign FixedOrientationOrthoViewController to the existing viewmanager of the visualization manager
-    viewManager_ = mapManager_->getViewManager();
-    viewManager_->setCurrentViewControllerType("rviz/TopDownOrtho");
-    viewController_ = viewManager_->getCurrent();
+    mapViewManager_ = mapManager_->getViewManager();
+    mapViewManager_->setCurrentViewControllerType("rviz/TopDownOrtho");
+    mapViewController_ = mapViewManager_->getCurrent();
 
     //Set parameters of the view controller to show map correctly
-    viewController_->subProp("X")->setValue(0);
-    viewController_->subProp("Y")->setValue(0);
-    viewController_->subProp("Angle")->setValue(0);
-    viewController_->subProp("Scale")->setValue(20);
+    mapViewController_->subProp("X")->setValue(0);
+    mapViewController_->subProp("Y")->setValue(0);
+    mapViewController_->subProp("Angle")->setValue(0);
+    mapViewController_->subProp("Scale")->setValue(20);
 
     // Create a map display
     mapDisplay_ = mapManager_->createDisplay( "rviz/Map", "2D Map view", true );
     ROS_ASSERT( mapDisplay_ != NULL );
 
     mapDisplay_->subProp( "Topic" )->setValue( mapTopic_ );
+
     mapManager_->createDisplay( "rviz/RobotModel", "Turtlebot", true );
+
+    mapManager_->createDisplay("rviz/Path","Global path",true)->subProp( "Topic" )->setValue(pathTopic_);
+
 
     // Initialize GUI elements for main panel
     renderPanel_ = new rviz::RenderPanel();
@@ -134,13 +134,13 @@ void FallRiskGUI::initDisplayWidgets()
 
 
     // Create a main display to show pointcloud and octomap
-    mainDisplay_ = manager_->createDisplay( "rviz/PointCloud2", "3D Pointcloud view", true );
-    ROS_ASSERT( mainDisplay_ != NULL );
+//    mainDisplay_ = manager_->createDisplay( "rviz/PointCloud2", "3D Pointcloud view", true );
+//    ROS_ASSERT( mainDisplay_ != NULL );
 
-    mainDisplay_->subProp( "Topic" )->setValue( pointCloudTopic_ );
-    mainDisplay_->subProp( "Selectable" )->setValue( "true" );
-    mainDisplay_->subProp( "Style" )->setValue( "Boxes" );
-    mainDisplay_->subProp("Alpha")->setValue(0.5);
+//    mainDisplay_->subProp( "Topic" )->setValue( pointCloudTopic_ );
+//    mainDisplay_->subProp( "Selectable" )->setValue( "true" );
+//    mainDisplay_->subProp( "Style" )->setValue( "Boxes" );
+//    mainDisplay_->subProp("Alpha")->setValue(0.5);
     manager_->createDisplay( "rviz/Grid", "Grid", true );
     manager_->createDisplay( "rviz/RobotModel", "Turtlebot", true );
 
@@ -149,9 +149,13 @@ void FallRiskGUI::initDisplayWidgets()
 
     octomapDisplay_->subProp( "Marker Topic" )->setValue(octomapTopic_);
 
-//    toolManager_ = manager_->getToolManager();
-//    measureTool_ = toolManager_->addTool("rviz/Measure");
-//    toolManager_->setCurrentTool(measureTool_);
+    //Assign Target Frame to the existing viewmanager of the visualization manager
+    rviz::ViewManager* viewManager_ = manager_->getViewManager();
+    rviz::ViewController* viewController_ = viewManager_->getCurrent();
+    viewController_->subProp("Target Frame")->setValue(targetFrame_);
+
+    manager_->createDisplay("rviz/Path","Global path",true)->subProp( "Topic" )->setValue(pathTopic_);
+
 
     /*
     //Image :
@@ -193,6 +197,27 @@ void FallRiskGUI::initDisplayWidgets()
 
 }
 
+void FallRiskGUI::initTools(){
+    toolManager_ = manager_->getToolManager();
+
+    pointTool_ = toolManager_->addTool("rviz/PublishPoint");
+    measureTool_ = toolManager_->addTool("rviz/Measure");
+    setGoalTool_ = toolManager_->addTool("rviz/SetGoal");
+    setInitialPoseTool_=toolManager_->addTool("rviz/SetInitialPose");
+    interactTool_ = toolManager_->addTool("rviz/Interact");
+
+    mapToolManager_ = mapManager_->getToolManager();
+
+    mapInteractTool_ = mapToolManager_->addTool("rviz/Interact");
+    setMapGoalTool_ = mapToolManager_->addTool("rviz/SetGoal");
+    setMapInitialPoseTool_ = mapToolManager_->addTool("rviz/SetInitialPose");
+
+    // Find the entry in propertytreemodel and set the value for Topic
+    setGoalTool_->getPropertyContainer()->subProp("Topic")->setValue("/move_base_simple/goal");
+    setMapGoalTool_->getPropertyContainer()->subProp("Topic")->setValue("/move_base_simple/goal");
+
+}
+
 void FallRiskGUI::keyPressEvent(QKeyEvent *event)
 {
     switch(event->key())
@@ -217,12 +242,6 @@ void FallRiskGUI::keyPressEvent(QKeyEvent *event)
         //        sendMoveBaseCmd();
         ROS_INFO("key S pressed");
         break;
-        //    case Qt::Key_Q:
-        //        move_in();
-        //        break;
-        //    case Qt::Key_E:
-        //        move_out();
-        //        break;
     default:
         QWidget::keyPressEvent(event);
         break;
@@ -231,10 +250,10 @@ void FallRiskGUI::keyPressEvent(QKeyEvent *event)
 
 void FallRiskGUI::distanceSubCallback(const std_msgs::Float32::ConstPtr& msg)
 {
-    ////    ROS_INFO("distance: %f",msg->data);
-    //    QLocale german(QLocale::German, QLocale::Germany);
-    //    QString qdist = german.toString(msg->data, 'f', 2);
-    //    ui->lbDistance->setText(qdist);
+//    ROS_INFO("distance: %f",msg->data);
+    QLocale english(QLocale::English, QLocale::UnitedStates);
+    QString qdist = english.toString(msg->data, 'f', 2);
+    ui->lbDistance->setText(qdist);
 }
 
 void FallRiskGUI::baseStatusCheck(const kobuki_msgs::SensorState::ConstPtr& msg)
@@ -326,10 +345,11 @@ void FallRiskGUI::baseStatusCheck(const kobuki_msgs::SensorState::ConstPtr& msg)
 void FallRiskGUI::liveVideoCallback(const sensor_msgs::ImageConstPtr& msg)
 {
 
-    cv_bridge::CvImagePtr cv_ptr;
+    cv_bridge::CvImagePtr cv_ptr, cv_ptr_big;
     try
     {
         cv_ptr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR16);
+        cv_ptr_big = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR16);
     }
     catch (cv_bridge::Exception& e)
     {
@@ -337,16 +357,21 @@ void FallRiskGUI::liveVideoCallback(const sensor_msgs::ImageConstPtr& msg)
         return;
     }
     //  convert cv image into RGB image and resize it to the size of available layout
+    setVideo(ui->liveVideoLabel,cv_ptr);
+    setVideo(ui->lbLiveVideoBig,cv_ptr_big);
+}
+
+void FallRiskGUI::setVideo(QLabel* label, cv_bridge::CvImagePtr cv_ptr){
     cv::Mat RGBImg;
-    QLabel* liveVideoLabel = ui->liveVideoLabel;
+    QLabel* liveVideoLabel = label;
 
-    int height = liveVideoLabel->height();
-    int width =  liveVideoLabel->width();
+    int height = liveVideoLabel->height()-1;
+    int width =  liveVideoLabel->width()-1;
 
-    if(liveVideoLabel->height() > liveVideoLabel->width()*3/4)
-        height= liveVideoLabel->width()*3/4;
+    if(liveVideoLabel->height()-1 >= (liveVideoLabel->width()-1)*3/4)
+        height= (liveVideoLabel->width()-1)*3/4;
     else
-        width = liveVideoLabel->height()*4/3;
+        width = (liveVideoLabel->height()-1)*4/3;
 
     cv::cvtColor(cv_ptr->image,RGBImg,CV_BGR2RGB);
     cv::resize(RGBImg,RGBImg,cvSize(width,height));
@@ -355,8 +380,8 @@ void FallRiskGUI::liveVideoCallback(const sensor_msgs::ImageConstPtr& msg)
     QImage qImage_= QImage((uchar*) RGBImg.data, RGBImg.cols, RGBImg.rows, RGBImg.cols*3, QImage::Format_RGB888);
     liveVideoLabel->setPixmap(QPixmap::fromImage(qImage_));
     liveVideoLabel->show();
-}
 
+}
 
 void FallRiskGUI::setRobotVelocity()
 {
@@ -435,49 +460,86 @@ void FallRiskGUI::sendMoveBaseCmd()
     }
 }
 
-
-void FallRiskGUI::initTools(){
-    toolManager_ = manager_->getToolManager();
-
-    pointTool_ = toolManager_->addTool("rviz/PublishPoint");
-    measureTool_ = toolManager_->addTool("rviz/Measure");
-    setGoal_ = toolManager_->addTool("rviz/SetGoal");
-    setInitialPose_=toolManager_->addTool("rviz/SetInitialPose");
-    interactTool_ = toolManager_->addTool("rviz/Interact");
-
-}
-
 void FallRiskGUI::setCurrentTool(int btnID)
 {
     if(btnID == -2)
     {
         ROS_INFO("Interact Tool Selected");
+        toolManager_->setCurrentTool(interactTool_);        
+        mapToolManager_->setCurrentTool(mapInteractTool_);
+
     }
     else if(btnID == -3)
     {
         ROS_INFO("Measure Tool Selected");
+        toolManager_->setCurrentTool(measureTool_);
+
     }
     else if(btnID == -4)
     {
         ROS_INFO("2DPoseEstimate Tool Selected");
+        toolManager_->setCurrentTool(setInitialPoseTool_);
+        mapToolManager_->setCurrentTool(setMapInitialPoseTool_);
     }
     else if(btnID == -5)
     {
         ROS_INFO("2DNavGoal Tool Selected");
+        toolManager_->setCurrentTool(setGoalTool_);
+        mapManager_->getToolManager()->setCurrentTool(setMapGoalTool_);
     }
     else if(btnID == -6)
     {
         ROS_INFO("PublishPoint Tool Selected");
+        toolManager_->setCurrentTool(pointTool_);
     }
 
-//    ROS_INFO("ID:%d",btnID);
-
-//    ROS_INFO("Measurement Tool Selected");
-//    toolManager_->setCurrentTool(measureTool_);
-//    toolManager_ = manager_->getToolManager();
-//    measureTool_ = toolManager_->addTool("rviz/Measure");
-//    toolManager_->setCurrentTool(measureTool_);
-
+    changeToolBtnStatus(btnID);
 }
 
+void FallRiskGUI::changeToolBtnStatus(int btnID)
+{
+    ui->btnRvizInteract->setFlat(true);
+    ui->btnRvizMeasure->setFlat(true);
+    ui->btnRvizNavGoal->setFlat(true);
+    ui->btnRvizPoseEstimate->setFlat(true);
+    ui->btnRvizPublishPoint->setFlat(true);
+
+    switch(btnID)
+    {
+    case -2: ui->btnRvizInteract->setFlat(false);
+        break;
+    case -3: ui->btnRvizMeasure->setFlat(false);
+        break;
+    case -4: ui->btnRvizPoseEstimate->setFlat(false);
+        break;
+    case -5: ui->btnRvizNavGoal->setFlat(false);
+        break;
+    case -6: ui->btnRvizPublishPoint->setFlat(false);
+    }
+}
+
+void FallRiskGUI::setActiveRvizToolBtns(int tabID)
+{
+//    ROS_INFO("TAB:%d",tabID);
+
+    ui->btnRvizInteract->setDisabled(false);
+    ui->btnRvizMeasure->setDisabled(false);
+    ui->btnRvizPoseEstimate->setDisabled(false);
+    ui->btnRvizNavGoal->setDisabled(false);
+    ui->btnRvizPublishPoint->setDisabled(false);
+
+    if(tabID == 1)
+    {
+        ui->btnRvizMeasure->setDisabled(true);
+        ui->btnRvizPublishPoint->setDisabled(true);
+    }
+    else if(tabID == 2)
+    {
+        ui->btnRvizInteract->setDisabled(true);
+        ui->btnRvizMeasure->setDisabled(true);
+        ui->btnRvizPoseEstimate->setDisabled(true);
+        ui->btnRvizNavGoal->setDisabled(true);
+        ui->btnRvizPublishPoint->setDisabled(true);
+    }
+}
 

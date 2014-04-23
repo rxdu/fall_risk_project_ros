@@ -1,5 +1,6 @@
 <launch>
-    <node pkg="octomap_server" type="octomap_server_node" name="octomap_server">
+    <node pkg="octomap_server" type="octomap_server_node" name="octomap_server"> <!-- args="$(find fallrisk_octomap)/maps/ECELounge.ot"-->
+        
         <param name="resolution" value="0.05" />
 
         <!-- fixed map frame (set to 'map' if SLAM or localization running!) -->
@@ -8,8 +9,12 @@
         <!-- maximum range to integrate (speedup!) -->
         <param name="max_sensor_range" value="3.0" />
 
+	<!-- filter the ground plane -->
+	<param name="filter_ground" value="true" />
+
         <!-- data source to integrate (PointCloud2) -->
         <remap from="cloud_in" to="/camera/depth/points" />
+        <!-- remap from="projected_map" to="/map" /-->
 
     </node>
 </launch>
