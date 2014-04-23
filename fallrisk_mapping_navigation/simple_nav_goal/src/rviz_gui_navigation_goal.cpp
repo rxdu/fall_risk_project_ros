@@ -149,11 +149,11 @@ rviz_gui_handler::~rviz_gui_handler()
 void rviz_gui_handler::subCB(geometry_msgs::TwistConstPtr msg)
 {
     ROS_INFO("Inside callback Function");
-    double linear = msg.linear.x;
+    double linear = msg->linear.x;
     double time = 0.5;
 
     dist = linear * time;
-    angular = msg.angular.z;
+    angular = msg->angular.z;
 }
 
 void rviz_gui_handler::getCurrentPosition()
@@ -173,7 +173,7 @@ void rviz_gui_handler::getCurrentPosition()
     tf::quaternionTFToMsg(quat, quatMsg);
     yawCurrent = tf::getYaw(quatMsg);
 
-    ROS_INFO("%f,%f",xCurrent,yCurrent);
+//    ROS_INFO("%f,%f",xCurrent,yCurrent);
 }
 
 void rviz_gui_handler::setGoalPosition()
@@ -215,6 +215,8 @@ int main(int argc, char** argv)
         handler.getCurrentPosition();
         handler.setGoalPosition();
         handler.publishGoal();
+
+        ros::spinOnce();
         rate.sleep();
     }
 
