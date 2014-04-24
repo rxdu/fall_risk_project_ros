@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <ros/ros.h>
 #include <remote_command_server/RemoteCmdSrv.h>
+#include <qobject.h>
 
 int runSysCommand(const char* cmd);
 
