@@ -35,6 +35,7 @@
 #include <opencv2/opencv.hpp>
 
 #include "checklist_status/ChecklistStatusSrv.h"
+#include "remote_command_server/RemoteCmdSrv.h"
 
 #define LIN_VEL_MAX 0.25
 #define LIN_VEL_MIN 0.08
@@ -133,8 +134,10 @@ private:
   ros::Subscriber baseSensorStatus;
   ros::Subscriber rviz2DNavGoalSub;
   ros::ServiceClient lightingClient;
+  ros::ServiceClient remoteCmdClient;
 
   checklist_status::ChecklistStatusSrv lightingSrv;
+  remote_command_server::RemoteCmdSrv remoteCmdSrv;
 
   image_transport::ImageTransport it_;
   image_transport::Subscriber liveVideoSub;

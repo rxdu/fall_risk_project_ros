@@ -94,6 +94,7 @@ catkin_package(
 ## Your package locations should be listed before other locations
 # include_directories(include)
 include_directories(
+  include
   ${catkin_INCLUDE_DIRS}
 )
 
@@ -107,6 +108,10 @@ include_directories(
  add_executable(remote_command_server src/remote_command_server.cpp)
  target_link_libraries(remote_command_server ${catkin_LIBRARIES})
  add_dependencies(remote_command_server remote_command_server_generate_messages_cpp)
+
+ add_executable(remote_command_client src/remote_command_client.cpp)
+ target_link_libraries(remote_command_client ${catkin_LIBRARIES})
+ add_dependencies(remote_command_client remote_command_client_generate_messages_cpp)
 
  #add_executable(checklist_status_client src/checklist_status_client.cpp)
  #target_link_libraries(checklist_status_client ${catkin_LIBRARIES})

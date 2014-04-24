@@ -57,6 +57,7 @@ void FallRiskGUI::initVariables()
     centerDistSub = nh_.subscribe("/distance/image_center_dist",1,&FallRiskGUI::distanceSubCallback,this);
     baseSensorStatus = nh_.subscribe(baseSensorTopic_.toStdString(),1,&FallRiskGUI::baseStatusCheck,this);    
     lightingClient = nh_.serviceClient<checklist_status::ChecklistStatusSrv>("checklist_status");
+    remoteCmdClient = nh_.serviceClient<remote_command_server::RemoteCmdSrv>("remote_command");
 
     liveVideoSub = it_.subscribe(imageTopic_.toStdString(),1,&FallRiskGUI::liveVideoCallback,this,image_transport::TransportHints("compressed"));
 
@@ -386,6 +387,22 @@ void FallRiskGUI::liveVideoCallback(const sensor_msgs::ImageConstPtr& msg)
     //  convert cv image into RGB image and resize it to the size of available layout
     setVideo(ui->liveVideoLabel,cv_ptr);
     setVideo(ui->lbLiveVideoBig,cv_ptr_big);
+
+    //only for testing
+//    remoteCmdSrv.request.cmd_name=remoteCmdSrv.request.CMD_AMCL;
+//    remoteCmdSrv.request.cmd_action=remoteCmdSrv.request.START;
+
+//    if(remoteCmdClient.call(remoteCmdSrv))
+//    {
+//        if(remoteCmdSrv.response.cmd_status)
+//            ROS_INFO("SUCCESS");
+//        else
+//            ROS_INFO("FAILURE");
+//    }
+//    else
+//    {
+//        ROS_ERROR("Failed to call service remote_command");
+//    }
 }
 
 void FallRiskGUI::setVideo(QLabel* label, cv_bridge::CvImagePtr cv_ptr){
