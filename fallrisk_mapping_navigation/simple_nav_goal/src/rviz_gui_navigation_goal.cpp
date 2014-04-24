@@ -215,6 +215,7 @@ int main(int argc, char** argv)
         handler.getCurrentPosition();
         handler.setGoalPosition();
         handler.publishGoal();
+        handler.init();
 
         ros::spinOnce();
         rate.sleep();
