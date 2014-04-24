@@ -12,7 +12,35 @@ find_package(catkin REQUIRED COMPONENTS
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
+## Configuration of Qt
+find_package(Qt4 COMPONENTS QtCore QtGui REQUIRED)
 
+include(${QT_USE_FILE})
+add_definitions(-DQT_NO_KEYWORDS)
+add_definitions(${QT_DEFINITIONS})
+
+set(HEADER_FILES
+ # src/fallrisk_gui.h
+)
+
+set(SOURCE_FILES
+  src/remote_command_server.cpp
+  ${MOC_FILES}
+)
+
+set(FORM_FILES
+ # src/fallrisk_gui.ui
+)
+
+QT4_WRAP_CPP(MOC_SRC_H
+  ${HEADER_FILES}
+)
+
+QT4_WRAP_UI(MOC_GUI_H
+  ${FORM_FILES}
+)
+
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
@@ -105,9 +133,12 @@ include_directories(
 
 ## Declare a cpp executable
 ## Specify libraries to link a library or executable target against
- add_executable(remote_command_server src/remote_command_server.cpp)
- target_link_libraries(remote_command_server ${catkin_LIBRARIES})
- add_dependencies(remote_command_server remote_command_server_generate_messages_cpp)
+ #add_executable(remote_command_server src/remote_command_server.cpp)
+ #target_link_libraries(remote_command_server ${catkin_LIBRARIES})
+ #add_dependencies(remote_command_server remote_command_server_generate_messages_cpp)
+
+add_executable(remote_command_server ${SOURCE_FILES} ${MOC_SRC_H} ${MOC_GUI_H})
+target_link_libraries(remote_command_server ${QT_LIBRARIES} ${catkin_LIBRARIES})
 
  add_executable(remote_command_client src/remote_command_client.cpp)
  target_link_libraries(remote_command_client ${catkin_LIBRARIES})
