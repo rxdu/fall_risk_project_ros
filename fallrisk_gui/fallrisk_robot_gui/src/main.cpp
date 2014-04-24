@@ -48,9 +48,10 @@ int main(int argc, char **argv)
 
   QApplication app( argc, argv );
 
+  ROS_INFO("Creating new object of FallRiskRobotGUI");
+
   FallRiskRobotGUI* fallrisk_robot_gui = new FallRiskRobotGUI();
   fallrisk_robot_gui->show();
-
   app.exec();
 
   delete fallrisk_robot_gui;

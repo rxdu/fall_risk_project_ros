@@ -5,10 +5,17 @@
 #include "rviz/tool_manager.h"
 #include "rviz/properties/property_tree_model.h"
 
+/**
+ * This class creates the GUI using rviz APIs.
+ */
+
 FallRiskGUI::FallRiskGUI(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::FallRiskGUI),it_(nh_)
 {
+    /**
+     * Set up the QT related UI components.
+     */
     ui->setupUi(this);
     ui->sliderLinearVel->setValue(75);
     ui->sliderAngularVel->setValue(75);
@@ -43,6 +50,9 @@ FallRiskGUI::~FallRiskGUI()
 
 void FallRiskGUI::initVariables()
 {
+    /**
+     *Initialize default values of all the variables. Push these definitions to xml/config file in future
+     */
     fixedFrame_ =  QString("/map");
     targetFrame_ =  QString("/camera_rgb_optical_frame");
     mapTopic_ = QString("/map");
@@ -63,11 +73,17 @@ void FallRiskGUI::initVariables()
 
 void FallRiskGUI::initActionsConnections()
 {
-    //Set up the status Bar and display messages emitted from each of the tools
+    /**
+     * Set up the status Bar and display messages emitted from each of the tools.
+     * All the tools in rviz API has updateStatus function to emit messages to the status bar.
+     */
     status_label_ = new QLabel("");
     statusBar()->addPermanentWidget( status_label_,1);
     connect( manager_, SIGNAL( statusUpdate( const QString& )), status_label_, SLOT( setText( const QString& )));
 
+    /**
+     * Setup Signals and slots for different buttons/sliders in UI.
+     */
     connect(ui->btnUp, SIGNAL(clicked()), this, SLOT(moveBaseForward()));
     connect(ui->btnDown, SIGNAL(clicked()), this, SLOT(moveBaseBackward()));
     connect(ui->btnLeft, SIGNAL(clicked()), this, SLOT(moveBaseLeft()));
@@ -78,11 +94,6 @@ void FallRiskGUI::initActionsConnections()
     connect(ui->sliderLinearVel, SIGNAL(valueChanged(int)),this,SLOT(setRobotVelocity()));
     connect(ui->sliderAngularVel, SIGNAL(valueChanged(int)),this,SLOT(setRobotVelocity()));
 
-    //Set up the status Bar and display messages emitted from each of the tools
-    status_label_ = new QLabel("");
-    statusBar()->addPermanentWidget( status_label_,1);
-    connect( manager_, SIGNAL( statusUpdate( const QString& )), status_label_, SLOT( setText( const QString& )));
-
     connect(ui->tab_display, SIGNAL(currentChanged(int)),this,SLOT(setActiveRvizToolBtns(int)));
 }
 
@@ -90,6 +101,11 @@ void FallRiskGUI::initDisplayWidgets()
 {
 
     //Setup the UI elements for displaying 2D map
+    /**
+     * VisualizationManager is used to control different displays that are shown in a widget.
+     * Renderpanel is a widget that provides a 3D space in the visualizationmanager.
+     * startUpdate() function starts the timers and subscribes to defined topics at 30Hz.
+     */
     mapRenderPanel_ = new rviz::RenderPanel();
     ui->map_layout->addWidget(mapRenderPanel_);
     mapManager_ = new rviz::VisualizationManager( mapRenderPanel_ );
@@ -99,6 +115,14 @@ void FallRiskGUI::initDisplayWidgets()
     mapManager_->startUpdate();
 
     //Create and assign FixedOrientationOrthoViewController to the existing viewmanager of the visualization manager
+    /**
+     * VisualisationManager has a manager for most of its children. ViewManager is responsible for setting the viewController.
+     * Default View Controller is rviz/Orbit, for map we are changing it to rviz/TopDownOrtho
+     * To set properties of most of the rviz objects, use subProp and setValue functions as shown below
+     * New displays can be created and added to the visualization manager using createDisplay function as used below
+     *
+     * @todo Create an xml/config file to define objects to be displayed in GUI alongwith their parameters
+     */
     mapViewManager_ = mapManager_->getViewManager();
     mapViewManager_->setCurrentViewControllerType("rviz/TopDownOrtho");
     mapViewController_ = mapViewManager_->getCurrent();
@@ -134,13 +158,7 @@ void FallRiskGUI::initDisplayWidgets()
 
 
     // Create a main display to show pointcloud and octomap
-//    mainDisplay_ = manager_->createDisplay( "rviz/PointCloud2", "3D Pointcloud view", true );
-//    ROS_ASSERT( mainDisplay_ != NULL );
 
-//    mainDisplay_->subProp( "Topic" )->setValue( pointCloudTopic_ );
-//    mainDisplay_->subProp( "Selectable" )->setValue( "true" );
-//    mainDisplay_->subProp( "Style" )->setValue( "Boxes" );
-//    mainDisplay_->subProp("Alpha")->setValue(0.5);
     manager_->createDisplay( "rviz/Grid", "Grid", true );
     manager_->createDisplay( "rviz/RobotModel", "Turtlebot", true );
 
@@ -153,51 +171,15 @@ void FallRiskGUI::initDisplayWidgets()
     rviz::ViewManager* viewManager_ = manager_->getViewManager();
     rviz::ViewController* viewController_ = viewManager_->getCurrent();
     viewController_->subProp("Target Frame")->setValue(targetFrame_);
-
     manager_->createDisplay("rviz/Path","Global path",true)->subProp( "Topic" )->setValue(pathTopic_);
-
-
-    /*
-    //Image :
-        grid_ = manager_->createDisplay( "rviz/Image", "Image View", true );
-        ROS_ASSERT( grid_ != NULL );
-        grid_->subProp( "Image Topic" )->setValue( "/camera/rgb/image_raw" );
-        grid_->subProp( "Transport Hint" )->setValue( "theora" );
-
-
-    //Depth Cloud :
-        grid_ = manager_->createDisplay( "rviz/DepthCloud", "Image View", true );
-        ROS_ASSERT( grid_ != NULL );
-
-        grid_->subProp( "Depth Map Topic" )->setValue( "/camera/depth/image_raw" );
-        grid_->subProp( "Depth Map Transport Hint" )->setValue( "raw" );
-        grid_->subProp( "Color Image Topic" )->setValue( "/camera/rgb/image_raw" );
-        grid_->subProp( "Color Transport Hint" )->setValue( "raw" );
-        grid_->subProp("Queue Size")->setValue(5);
-        grid_->subProp("Style")->setValue("Flat Squares");
-
-    //PointCloud2 :
-    mainDisplay_ = manager_->createDisplay( "rviz/PointCloud2", "3D Pointcloud view", true );
-    ROS_ASSERT( mainDisplay_ != NULL );
-
-    mainDisplay_->subProp( "Topic" )->setValue( "/camera/depth/points" );
-    mainDisplay_->subProp( "Selectable" )->setValue( "true" );
-    mainDisplay_->subProp( "Style" )->setValue( "Boxes" );
-    mainDisplay_->subProp("Alpha")->setValue(1);
-    manager_->createDisplay( "rviz/Grid", "Grid", true );
-
-    //MarkerArray :
-    rviz::Display* octomapDisplay_ = manager_->createDisplay( "rviz/MarkerArray", "Octomap view", true );
-    ROS_ASSERT( octomapDisplay_ != NULL );
-
-    octomapDisplay_->subProp( "Marker Topic" )->setValue( "/occupied_cells_vis_array" );
-
-
-*/
 
 }
 
 void FallRiskGUI::initTools(){
+    /**
+     * ToolManager is similar to ViewManager. It can be used to add new tools and change the current or default tool.
+     * Properties of tools are stored in a PropertyTreeModel. To set/modify any property of a tool use getPropertyContainer function.
+     */
     toolManager_ = manager_->getToolManager();
 
     pointTool_ = toolManager_->addTool("rviz/PublishPoint");
@@ -224,22 +206,18 @@ void FallRiskGUI::keyPressEvent(QKeyEvent *event)
     {
     case Qt::Key_W:
         moveBaseForward();
-        //        sendMoveBaseCmd();
         ROS_INFO("key W pressed");
         break;
     case Qt::Key_A:
         moveBaseLeft();
-        //        sendMoveBaseCmd();
         ROS_INFO("key A pressed");
         break;
     case Qt::Key_D:
         moveBaseRight();
-        //        sendMoveBaseCmd();
         ROS_INFO("key D pressed");
         break;
     case Qt::Key_S:
         moveBaseBackward();
-        //        sendMoveBaseCmd();
         ROS_INFO("key S pressed");
         break;
     default:
@@ -250,7 +228,6 @@ void FallRiskGUI::keyPressEvent(QKeyEvent *event)
 
 void FallRiskGUI::distanceSubCallback(const std_msgs::Float32::ConstPtr& msg)
 {
-//    ROS_INFO("distance: %f",msg->data);
     QLocale english(QLocale::English, QLocale::UnitedStates);
     QString qdist = english.toString(msg->data, 'f', 2);
     ui->lbDistance->setText(qdist);
@@ -345,6 +322,10 @@ void FallRiskGUI::baseStatusCheck(const kobuki_msgs::SensorState::ConstPtr& msg)
 void FallRiskGUI::liveVideoCallback(const sensor_msgs::ImageConstPtr& msg)
 {
 
+    /**
+     * Adding Image display opens up the image in a new window.
+     * As a workaround to show image in the same GUI window, OpenCV is being used to display image on a Qlabel
+     */
     cv_bridge::CvImagePtr cv_ptr, cv_ptr_big;
     try
     {
@@ -365,6 +346,7 @@ void FallRiskGUI::setVideo(QLabel* label, cv_bridge::CvImagePtr cv_ptr){
     cv::Mat RGBImg;
     QLabel* liveVideoLabel = label;
 
+    // To avoid auto expansion of QLabel,keep the video dimensions slightly less than the label dimension
     int height = liveVideoLabel->height()-1;
     int width =  liveVideoLabel->width()-1;
 
@@ -543,3 +525,42 @@ void FallRiskGUI::setActiveRvizToolBtns(int tabID)
     }
 }
 
+
+
+/*
+//Image :
+    grid_ = manager_->createDisplay( "rviz/Image", "Image View", true );
+    ROS_ASSERT( grid_ != NULL );
+    grid_->subProp( "Image Topic" )->setValue( "/camera/rgb/image_raw" );
+    grid_->subProp( "Transport Hint" )->setValue( "theora" );
+
+
+//Depth Cloud :
+    grid_ = manager_->createDisplay( "rviz/DepthCloud", "Image View", true );
+    ROS_ASSERT( grid_ != NULL );
+
+    grid_->subProp( "Depth Map Topic" )->setValue( "/camera/depth/image_raw" );
+    grid_->subProp( "Depth Map Transport Hint" )->setValue( "raw" );
+    grid_->subProp( "Color Image Topic" )->setValue( "/camera/rgb/image_raw" );
+    grid_->subProp( "Color Transport Hint" )->setValue( "raw" );
+    grid_->subProp("Queue Size")->setValue(5);
+    grid_->subProp("Style")->setValue("Flat Squares");
+
+//    mainDisplay_ = manager_->createDisplay( "rviz/PointCloud2", "3D Pointcloud view", true );
+//    ROS_ASSERT( mainDisplay_ != NULL );
+
+//    mainDisplay_->subProp( "Topic" )->setValue( pointCloudTopic_ );
+//    mainDisplay_->subProp( "Selectable" )->setValue( "true" );
+//    mainDisplay_->subProp( "Style" )->setValue( "Boxes" );
+//    mainDisplay_->subProp("Alpha")->setValue(0.5);
+
+  manager_->createDisplay( "rviz/Grid", "Grid", true );
+
+//MarkerArray :
+rviz::Display* octomapDisplay_ = manager_->createDisplay( "rviz/MarkerArray", "Octomap view", true );
+ROS_ASSERT( octomapDisplay_ != NULL );
+
+octomapDisplay_->subProp( "Marker Topic" )->setValue( "/occupied_cells_vis_array" );
+
+
+*/
