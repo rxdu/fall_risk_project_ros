@@ -1,19 +1,29 @@
 #include <stdlib.h>
 #include <ros/ros.h>
 #include <remote_command_server/RemoteCmdSrv.h>
+#include <QObject>
+#include <QProcess>
+#include <QString>
 
 int runSysCommand(const char* cmd);
 
 bool executeCommand(remote_command_server::RemoteCmdSrv::Request &req, remote_command_server::RemoteCmdSrv::Response &res)
 {
+        QObject* parent;
+        QString program = "gedit";
+        QStringList arguments;
+//        arguments << "-style" << "motif";
+
+//         QProcess::QProcess *myProcess = new QProcess::QProcess(parent);
+
     if(req.cmd_name == req.CMD_AMCL)
     {
         if(req.cmd_action == req.START)
         {
-            runSysCommand("roslaunch uvc_camera_image uvc_camera_start.launch &");
+//          myProcess->start(program, arguments);
 
             res.cmd_status = res.CMD_SUCCESS;
-            ROS_INFO("amcl start");
+//            ROS_INFO("Process started with PID :%d",myProcess->pid());
         }
         else if(req.cmd_action == req.STOP)
         {
@@ -38,23 +48,6 @@ bool executeCommand(remote_command_server::RemoteCmdSrv::Request &req, remote_co
     return true;
 }
 
-int runSysCommand(const char* cmd)
-{
-    int i=0;
-    int j=1;
-    int procID=0;
-
-    if (system(NULL))
-        ROS_INFO("Commands can be accpeted:");
-    else
-        ROS_INFO("System is not ready to excute commands!");
-
-    i=system (cmd);
-    j=system ("$!");
-    printf ("The value returned was: %d.\n",i);
-
-    return i;
-}
 
 int main(int argc, char **argv)
 {
