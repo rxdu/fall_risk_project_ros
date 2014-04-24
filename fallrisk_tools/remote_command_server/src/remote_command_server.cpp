@@ -9,21 +9,24 @@ int runSysCommand(const char* cmd);
 
 bool executeCommand(remote_command_server::RemoteCmdSrv::Request &req, remote_command_server::RemoteCmdSrv::Response &res)
 {
-        QObject* parent;
+        QObject* parent = new QObject();
         QString program = "gedit";
         QStringList arguments;
-//        arguments << "-style" << "motif";
+        arguments << "~/test.txt"<<"anotherargument"<<"OneMore";
 
-//         QProcess::QProcess *myProcess = new QProcess::QProcess(parent);
+         QProcess* myProcess = new QProcess(parent);
 
     if(req.cmd_name == req.CMD_AMCL)
     {
         if(req.cmd_action == req.START)
         {
-//          myProcess->start(program, arguments);
+          myProcess->start(program);
 
             res.cmd_status = res.CMD_SUCCESS;
-//            ROS_INFO("Process started with PID :%d",myProcess->pid());
+            ROS_INFO("Process started with PID :%d",myProcess->pid());
+            ROS_INFO("Killing the process");
+
+            myProcess->kill();
         }
         else if(req.cmd_action == req.STOP)
         {
