@@ -24,11 +24,14 @@ FallRiskGUI::FallRiskGUI(QWidget *parent) :
     ui->lbBedroomItem3->setStyleSheet("QLabel { background-color : green; color : rgb(255, 255, 255); }");
     ui->lbPetItem1->setStyleSheet("QLabel { background-color : yellow; color : rgb(255, 255, 255); }");
     changeToolBtnStatus(-2); //set the initial rviz tool to be "interact"
+    ui->rbNavMode->setChecked(true);
 
     initVariables();
     initDisplayWidgets();
     initTools();
     initActionsConnections();
+
+    setRobotNavMode(NAVIGATION_MODE);
 }
 
 FallRiskGUI::~FallRiskGUI()
@@ -77,6 +80,9 @@ void FallRiskGUI::initActionsConnections()
     connect(ui->btnRight, SIGNAL(clicked()), this, SLOT(moveBaseRight()));
 
     connect(ui->btnGroupRvizTools,SIGNAL(buttonClicked(int)),this,SLOT(setCurrentTool(int)));
+    connect(ui->btnGroupNavModeSwitch,SIGNAL(buttonClicked(int)),this,SLOT(setRobotNavMode(int)));
+//    connect(ui->rbNavMode,SIGNAL(clicked()),this,SLOT(setRobotToAmclMode()));
+//    connect(ui->rbNavMode,SIGNAL(clicked()),this,SLOT(setRobotToGmappingMode()));
 
     connect(ui->sliderLinearVel, SIGNAL(valueChanged(int)),this,SLOT(setRobotVelocity()));
     connect(ui->sliderAngularVel, SIGNAL(valueChanged(int)),this,SLOT(setRobotVelocity()));
@@ -387,22 +393,6 @@ void FallRiskGUI::liveVideoCallback(const sensor_msgs::ImageConstPtr& msg)
     //  convert cv image into RGB image and resize it to the size of available layout
     setVideo(ui->liveVideoLabel,cv_ptr);
     setVideo(ui->lbLiveVideoBig,cv_ptr_big);
-
-    //only for testing
-//    remoteCmdSrv.request.cmd_name=remoteCmdSrv.request.CMD_AMCL;
-//    remoteCmdSrv.request.cmd_action=remoteCmdSrv.request.START;
-
-//    if(remoteCmdClient.call(remoteCmdSrv))
-//    {
-//        if(remoteCmdSrv.response.cmd_status)
-//            ROS_INFO("SUCCESS");
-//        else
-//            ROS_INFO("FAILURE");
-//    }
-//    else
-//    {
-//        ROS_ERROR("Failed to call service remote_command");
-//    }
 }
 
 void FallRiskGUI::setVideo(QLabel* label, cv_bridge::CvImagePtr cv_ptr){
@@ -615,4 +605,49 @@ void FallRiskGUI::setChecklistItemStatus(QCheckBox *checkbox, int status)
         checkbox->setChecked(false);
         break;
     }
+}
+
+void FallRiskGUI::setRobotNavMode(int modeID)
+{
+//    ROS_INFO("ID:%d",modeID);
+
+    if(modeID == NAVIGATION_MODE) //navigation mode
+    {
+        remote_command_server::RemoteCmdSrv remoteCmdSrv;
+
+        remoteCmdSrv.request.cmd_name=remoteCmdSrv.request.CMD_AMCL;
+        remoteCmdSrv.request.cmd_action=remoteCmdSrv.request.START;
+
+        if(remoteCmdClient.call(remoteCmdSrv))
+        {
+            if(remoteCmdSrv.response.cmd_status)
+                ROS_INFO("AMCL successfully started");
+            else
+                ROS_INFO("AMCL failed to get started");
+        }
+        else
+        {
+            ROS_ERROR("Failed to call service remote_command");
+        }
+    }
+    else if(modeID == MAPPING_MODE) //mapping mode
+    {
+        remote_command_server::RemoteCmdSrv remoteCmdSrv;
+
+        remoteCmdSrv.request.cmd_name=remoteCmdSrv.request.CMD_GMAPPING;
+        remoteCmdSrv.request.cmd_action=remoteCmdSrv.request.START;
+
+        if(remoteCmdClient.call(remoteCmdSrv))
+        {
+            if(remoteCmdSrv.response.cmd_status)
+                ROS_INFO("GMAPPING successfully started");
+            else
+                ROS_INFO("GMAPPING failed to get started");
+        }
+        else
+        {
+            ROS_ERROR("Failed to call service remote_command");
+        }
+    }
+
 }

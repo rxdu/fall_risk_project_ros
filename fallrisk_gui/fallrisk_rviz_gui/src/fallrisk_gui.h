@@ -53,6 +53,9 @@
 #define CHECKLIST_ITEM_CHECKED 0
 #define CHECKLIST_ITEM_UNCHECKED 1
 
+#define NAVIGATION_MODE -2
+#define MAPPING_MODE -3
+
 
 namespace Ui {
 class FallRiskGUI;
@@ -97,6 +100,9 @@ private Q_SLOTS:
     void setRobotVelocity();
     void setCurrentTool(int btnID);
     void setActiveRvizToolBtns(int tabID);
+    void setRobotNavMode(int modeID);
+//    void setRobotToAmclMode();
+//    void setRobotToGmappingMode();
 
 private:
   rviz::VisualizationManager* manager_;

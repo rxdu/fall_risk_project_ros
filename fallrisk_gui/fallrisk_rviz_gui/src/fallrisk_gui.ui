@@ -503,15 +503,22 @@
        <string>Keyboard Control</string>
       </property>
       <layout class="QGridLayout" name="gridLayout_2">
-       <item row="0" column="0">
-        <widget class="QCheckBox" name="checkBox">
+       <item row="0" column="0" colspan="2">
+        <widget class="QCheckBox" name="cbEnableAssistTeleOp">
          <property name="text">
           <string>Enable Assistive Teleoperation</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="0">
+       <item row="1" column="0" colspan="2">
         <layout class="QGridLayout" name="gridLayout_5">
+         <item row="3" column="0">
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Rotation:</string>
+           </property>
+          </widget>
+         </item>
          <item row="1" column="4">
           <widget class="QPushButton" name="btnRight">
            <property name="text">
@@ -540,7 +547,7 @@
            </property>
           </widget>
          </item>
-         <item row="3" column="2" colspan="3">
+         <item row="2" column="2" colspan="3">
           <widget class="QSlider" name="sliderLinearVel">
            <property name="minimum">
             <number>0</number>
@@ -553,7 +560,14 @@
            </property>
           </widget>
          </item>
-         <item row="4" column="2" colspan="3">
+         <item row="2" column="0">
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>Velocity:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="2" colspan="3">
           <widget class="QSlider" name="sliderAngularVel">
            <property name="minimum">
             <number>0</number>
@@ -566,36 +580,29 @@
            </property>
           </widget>
          </item>
-         <item row="3" column="0">
-          <widget class="QLabel" name="label">
-           <property name="text">
-            <string>Velocity:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="0">
-          <widget class="QLabel" name="label_2">
-           <property name="text">
-            <string>Rotation:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="2" colspan="3">
-          <spacer name="horizontalSpacer">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>5</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
         </layout>
        </item>
        <item row="2" column="0">
+        <widget class="QRadioButton" name="rbNavMode">
+         <property name="text">
+          <string>Navigation Mode</string>
+         </property>
+         <attribute name="buttonGroup">
+          <string notr="true">btnGroupNavModeSwitch</string>
+         </attribute>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QRadioButton" name="rbMappingMode">
+         <property name="text">
+          <string>Mapping Mode</string>
+         </property>
+         <attribute name="buttonGroup">
+          <string notr="true">btnGroupNavModeSwitch</string>
+         </attribute>
+        </widget>
+       </item>
+       <item row="3" column="0" colspan="2">
         <widget class="QPushButton" name="pushButton_4">
          <property name="styleSheet">
           <string notr="true"/>
@@ -794,5 +801,6 @@
  <connections/>
  <buttongroups>
   <buttongroup name="btnGroupRvizTools"/>
+  <buttongroup name="btnGroupNavModeSwitch"/>
  </buttongroups>
 </ui>

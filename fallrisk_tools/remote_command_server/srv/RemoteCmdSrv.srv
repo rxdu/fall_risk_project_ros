@@ -8,3 +8,4 @@ uint8 cmd_name
 bool CMD_SUCCESS=1
 bool CMD_FAILURE=0
 bool cmd_status
+uint32 cmd_PID

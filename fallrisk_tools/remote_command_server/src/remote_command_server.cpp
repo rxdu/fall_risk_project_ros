@@ -5,46 +5,129 @@
 #include <QProcess>
 #include <QString>
 
+QProcess* myProcess = new QProcess(new QObject());
+
 int runSysCommand(const char* cmd);
 
 bool executeCommand(remote_command_server::RemoteCmdSrv::Request &req, remote_command_server::RemoteCmdSrv::Response &res)
 {
-        QObject* parent = new QObject();
-        QString program = "gedit";
-        QStringList arguments;
-        arguments << "~/test.txt"<<"anotherargument"<<"OneMore";
+//    if(req.cmd_name == req.CMD_AMCL)
+//    {
+//        if(req.cmd_action == req.START)
+//        {
+////            QString program = "roslaunch";
+////            QStringList arguments;
+////            arguments << "uvc_camera_image"<<"uvc_camera_start.launch";
 
-         QProcess* myProcess = new QProcess(parent);
+////            for(int i=0; i<arguments.size();i++) {
+////                std::cout<<arguments.at(i).toStdString()<<std::endl;
+////            }
+
+////            std::cout<<program.toStdString()<<std::endl;
+////            myProcess->start(program, arguments);
+
+////            ROS_INFO("STATE:%d",myProcess->state());
+//            ROS_INFO("amcl start");
+////            ROS_INFO("Process started with PID :%d",myProcess->pid());
+
+//            res.cmd_status = res.CMD_SUCCESS;
+////            res.cmd_PID = myProcess->pid();
+//        }
+//        else if(req.cmd_action == req.STOP)
+//        {
+////            myProcess->terminate();
+
+////            ROS_INFO("STATE:%d",myProcess->state());
+////            ROS_INFO("Killing process PID: %d",myProcess->pid());
+//            ROS_INFO("amcl stop");
+
+//            res.cmd_status = res.CMD_SUCCESS;
+//        }
+//    }
+//    else if(req.cmd_name == req.CMD_GMAPPING)
+//    {
+//        if(req.cmd_action == req.START)
+//        {
+////            QString program = "roslaunch";
+////            QStringList arguments;
+////            arguments << "uvc_camera_image"<<"uvc_camera_start.launch";
+
+////            for(int i=0; i<arguments.size();i++) {
+////                std::cout<<arguments.at(i).toStdString()<<std::endl;
+////            }
+
+////            std::cout<<program.toStdString()<<std::endl;
+////            myProcess->start(program, arguments);
+
+////            ROS_INFO("STATE:%d",myProcess->state());
+//            ROS_INFO("gmapping start");
+////            ROS_INFO("Process started with PID :%d",myProcess->pid());
+
+////            res.cmd_status = res.CMD_SUCCESS;
+////            res.cmd_PID = myProcess->pid();
+//        }
+//        else if(req.cmd_action == req.STOP)
+//        {
+////            myProcess->terminate();
+
+////            ROS_INFO("STATE:%d",myProcess->state());
+////            ROS_INFO("Killing process PID: %d",myProcess->pid());
+//            ROS_INFO("gmapping stop");
+//        }
+//    }
+
+    ROS_INFO("STATE:%d",myProcess->state());
+
+    if(myProcess->state() != 0)
+        myProcess->terminate();
 
     if(req.cmd_name == req.CMD_AMCL)
     {
-        if(req.cmd_action == req.START)
+        QString program = "roslaunch";
+        QStringList arguments;
+        arguments << "fallrisk_turtlebot_navigation"<<"amcl_navigtaion.launch";
+
+        myProcess->start(program, arguments);
+
+        ROS_INFO("STATE:%d",myProcess->state());
+
+        myProcess->waitForStarted(3000);
+
+        if(myProcess->state() == 2)
         {
-          myProcess->start(program);
-
             res.cmd_status = res.CMD_SUCCESS;
-            ROS_INFO("Process started with PID :%d",myProcess->pid());
-            ROS_INFO("Killing the process");
-
-            myProcess->kill();
+            res.cmd_PID = myProcess->pid();
+            ROS_INFO("amcl started");
         }
-        else if(req.cmd_action == req.STOP)
+        else
         {
-            res.cmd_status = res.CMD_SUCCESS;
-            ROS_INFO("amcl stop");
+            myProcess->terminate();
+            res.cmd_status = res.CMD_FAILURE;
+            ROS_INFO("amcl failed to start");
         }
     }
     else if(req.cmd_name == req.CMD_GMAPPING)
     {
-        if(req.cmd_action == req.START)
+        QString program = "roslaunch";
+        QStringList arguments;
+        arguments << "fallrisk_turtlebot_navigation"<<"turtlebot_gmapping.launch";
+
+        myProcess->start(program, arguments);
+
+        myProcess->waitForStarted(3000);
+
+        ROS_INFO("STATE:%d",myProcess->state());
+        if(myProcess->state() == 2)
         {
             res.cmd_status = res.CMD_SUCCESS;
-            ROS_INFO("gmapping start");
+            res.cmd_PID = myProcess->pid();
+            ROS_INFO("gmapping started");
         }
-        else if(req.cmd_action == req.STOP)
+        else
         {
-            res.cmd_status = res.CMD_SUCCESS;
-            ROS_INFO("gmapping stop");
+            myProcess->terminate();
+            res.cmd_status = res.CMD_FAILURE;
+            ROS_INFO("gmapping failed to start");
         }
     }
 
