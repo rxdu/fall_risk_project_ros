@@ -62,13 +62,17 @@ Install robot web tools:
 sudo apt-get install ros-hydro-mjpeg-server
 sudo apt-get install ros-hydro-rosbridge-server
 sudo apt-get install ros-hydro-robot-pose-publisher
-sudo apt-get install ros-hydro-octomap-server
 ```
-
+Install octomap server, audio, and video packages
+```
+sudo apt-get install ros-hydro-octomap-server
+sudo apt-get install ros-hydro-audio-common
+sudo apt-get install ros-hydro-uvc-camera
+```
 Install turtlebot apps and simulator:
 
 ```
-sudo apt-get install ros-hydro-turtlebot ros-hydro-turtlebot-apps ros-hydro-turtlebot-simulator ros-hydro-turtlebot-navigation ros-hydro-uvc-camera
+sudo apt-get install ros-hydro-turtlebot ros-hydro-turtlebot-apps ros-hydro-turtlebot-simulator ros-hydro-turtlebot-navigation
 ```
 
 For the laptop on the turtlebot, you also need to install:
