@@ -10,26 +10,42 @@
 AssistiveDrive::AssistiveDrive() :
     tf_(*new tf::TransformListener(ros::Duration(10)))
     {
+	/* Initialize the node*/
     ros::NodeHandle n;
 
-// Create a new costmap to store local_costmap --look into the implementation of costmap later.
+    /* Create costmap object -- How to initialize a local costmap?*/
+    // Create a new costmap to store local_costmap --look into the implementation of costmap later.
     costmap_ = new costmap_2d::Costmap2DROS("local_costmap", tf_);
     //ROS_WARN("11");
     rate_ = NULL;
     //ROS_WARN("22");
 
-// Set the values of parameters from the cfg file using dynamic_reconfugre package. This allows user to change parameters without restarting the node
+    /* Define the dynamic_reconfigure server, passing it our config type.
+	As long as the server lives (in this case until the end of main()),
+	the node listens to reconfigure requests.*/
+
+	/* Set the values of parameters from the cfg file using dynamic_reconfugre package.
+	This allows user to change parameters without restarting the node*/
     dyn_prm_srv_ = new dynamic_reconfigure::Server
         <assistive_drive::AssistiveDriveConfig>(ros::NodeHandle("~"));
+
+	/* This is the callback that will get called when the dynamic_reconfigure server is
+	sent a new configuration. It takes two parameters, the first is the new config.
+	The second is the level, which is the result of ORing together all of level values
+	of the parameters that have changed. What you want to do with the level value is
+	entirely up to you, for now it is unnecessary.*/
+
+	/* Define a variable to represent our callback and then send it to the server.
+	Now when the server gets a reconfiguration request it will call our callback function.*/
     dynamic_reconfigure::Server
         <assistive_drive::AssistiveDriveConfig>::CallbackType 
         dyn_prm_callback = boost::bind(&AssistiveDrive::reconfigCallback, this, _1, _2);
     dyn_prm_srv_->setCallback(dyn_prm_callback);
 
-//	???? What sorcery is this?
+    //	???? What sorcery is this?
     while(rate_ == NULL) {};
 
-//    Call twistCallBack function -- assuming that /rough_cmd_vel is sending the commands to move
+    //    Call twistCallBack function -- assuming that /rough_cmd_vel is sending the commands to move
     twist_sub_ = n.subscribe<geometry_msgs::Twist>(
         "/rough_cmd_vel", 
         2,
