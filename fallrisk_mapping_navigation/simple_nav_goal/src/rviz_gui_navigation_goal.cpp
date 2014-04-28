@@ -118,32 +118,43 @@ private:
 
 public:
 
+    rviz_gui_handler();
     ~rviz_gui_handler();
-    void init();
+    void reset();
     void subCB(geometry_msgs::TwistConstPtr msg);
     void getCurrentPosition();
     void setGoalPosition();
     void publishGoal();
 };
 
-void rviz_gui_handler::init()
+rviz_gui_handler::rviz_gui_handler()
 {
-    direction_pub = nh.advertise<geometry_msgs::Twist>("/cmd_vel_mux/input/teleop", 8);
-    goal_pub = nh.advertise<geometry_msgs::PoseStamped> ("/move_base_simple/goal",8);
-    gui_sub = nh.subscribe("/some_topic", 8, &rviz_gui_handler::subCB,this);
+	direction_pub = nh.advertise<geometry_msgs::Twist>("/cmd_vel_mux/input/teleop", 8);
+	goal_pub = nh.advertise<geometry_msgs::PoseStamped> ("/move_base_simple/goal",8);
+	gui_sub = nh.subscribe("/some_topic", 8, &rviz_gui_handler::subCB,this);
 
-    dist = 0.0;
-    angular = 0.0;
-    xCurrent = 0.0;
-    yCurrent = 0.0;
-    zCurrent = 0.0;
-    yawCurrent = 0.0;
+	dist = 0.0;
+	angular = 0.0;
+	xCurrent = 0.0;
+	yCurrent = 0.0;
+	zCurrent = 0.0;
+	yawCurrent = 0.0;
 
 }
 
 rviz_gui_handler::~rviz_gui_handler()
 {
 
+}
+
+void rviz_gui_handler::reset()
+{
+    dist = 0.0;
+    angular = 0.0;
+    xCurrent = 0.0;
+    yCurrent = 0.0;
+    zCurrent = 0.0;
+    yawCurrent = 0.0;
 }
 
 void rviz_gui_handler::subCB(geometry_msgs::TwistConstPtr msg)
@@ -206,7 +217,7 @@ int main(int argc, char** argv)
     ros::init(argc, argv, "rviz_gui_handler");
 
     rviz_gui_handler handler;
-    handler.init();
+    handler.reset();
 
     ros::Rate rate(10.0);
 
@@ -215,7 +226,7 @@ int main(int argc, char** argv)
         handler.getCurrentPosition();
         handler.setGoalPosition();
         handler.publishGoal();
-        handler.init();
+        handler.reset();
 
         ros::spinOnce();
         rate.sleep();
