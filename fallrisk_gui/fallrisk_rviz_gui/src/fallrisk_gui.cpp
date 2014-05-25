@@ -4,6 +4,7 @@
 #include "rviz/view_manager.h"
 #include "rviz/tool_manager.h"
 #include "rviz/properties/property_tree_model.h"
+#include "rviz/frame_manager.h"
 
 /**
  * This class creates the GUI using rviz APIs.
@@ -31,12 +32,16 @@ FallRiskGUI::FallRiskGUI(QWidget *parent) :
     ui->lbBedroomItem3->setStyleSheet("QLabel { background-color : green; color : rgb(255, 255, 255); }");
     ui->lbPetItem1->setStyleSheet("QLabel { background-color : yellow; color : rgb(255, 255, 255); }");
     changeToolBtnStatus(-2); //set the initial rviz tool to be "interact"
+    ui->rbNavMode->setChecked(true);
 
     initVariables();
     initDisplayWidgets();
     initTools();
     initActionsConnections();
+
+    setRobotNavMode(NAVIGATION_MODE);
 }
+
 
 FallRiskGUI::~FallRiskGUI()
 {
@@ -53,7 +58,7 @@ void FallRiskGUI::initVariables()
     /**
      *Initialize default values of all the variables. Push these definitions to xml/config file in future
      */
-    fixedFrame_ =  QString("/map");
+    baseFrame_ =  QString("/base_link");
     targetFrame_ =  QString("/camera_rgb_optical_frame");
     mapTopic_ = QString("/map");
     imageTopic_ = QString("/camera/rgb/image_raw");
@@ -65,7 +70,10 @@ void FallRiskGUI::initVariables()
 
     moveBaseCmdPub = nh_.advertise<geometry_msgs::Twist>(velocityTopic_.toStdString(),1);
     centerDistSub = nh_.subscribe("/distance/image_center_dist",1,&FallRiskGUI::distanceSubCallback,this);
-    baseSensorStatus = nh_.subscribe(baseSensorTopic_.toStdString(),1,&FallRiskGUI::baseStatusCheck,this);
+    baseSensorStatus = nh_.subscribe(baseSensorTopic_.toStdString(),1,&FallRiskGUI::baseStatusCheck,this);    
+    lightingClient = nh_.serviceClient<checklist_status::ChecklistStatusSrv>("checklist_status");
+    remoteCmdClient = nh_.serviceClient<remote_command_server::RemoteCmdSrv>("remote_command");
+
     liveVideoSub = it_.subscribe(imageTopic_.toStdString(),1,&FallRiskGUI::liveVideoCallback,this,image_transport::TransportHints("compressed"));
 
     setRobotVelocity();
@@ -90,6 +98,9 @@ void FallRiskGUI::initActionsConnections()
     connect(ui->btnRight, SIGNAL(clicked()), this, SLOT(moveBaseRight()));
 
     connect(ui->btnGroupRvizTools,SIGNAL(buttonClicked(int)),this,SLOT(setCurrentTool(int)));
+    connect(ui->btnGroupNavModeSwitch,SIGNAL(buttonClicked(int)),this,SLOT(setRobotNavMode(int)));
+//    connect(ui->rbNavMode,SIGNAL(clicked()),this,SLOT(setRobotToAmclMode()));
+//    connect(ui->rbNavMode,SIGNAL(clicked()),this,SLOT(setRobotToGmappingMode()));
 
     connect(ui->sliderLinearVel, SIGNAL(valueChanged(int)),this,SLOT(setRobotVelocity()));
     connect(ui->sliderAngularVel, SIGNAL(valueChanged(int)),this,SLOT(setRobotVelocity()));
@@ -110,9 +121,10 @@ void FallRiskGUI::initDisplayWidgets()
     ui->map_layout->addWidget(mapRenderPanel_);
     mapManager_ = new rviz::VisualizationManager( mapRenderPanel_ );
     mapRenderPanel_->initialize( mapManager_->getSceneManager(), mapManager_);
-    mapManager_->setFixedFrame(fixedFrame_);
+    mapManager_->setFixedFrame(mapTopic_);
     mapManager_->initialize();
     mapManager_->startUpdate();
+    mapManager_->initialize();
 
     //Create and assign FixedOrientationOrthoViewController to the existing viewmanager of the visualization manager
     /**
@@ -152,7 +164,7 @@ void FallRiskGUI::initDisplayWidgets()
     renderPanel_->initialize( manager_->getSceneManager(), manager_ );
 
     //set the fixed frame before initializing Visualization Manager. pointcloud2 will not work with this
-    manager_->setFixedFrame(fixedFrame_);
+    manager_->setFixedFrame(mapTopic_);
     manager_->initialize();
     manager_->startUpdate();
 
@@ -316,6 +328,31 @@ void FallRiskGUI::baseStatusCheck(const kobuki_msgs::SensorState::ConstPtr& msg)
         ui->lbCliffCenter->setStyleSheet("QLabel { background-color : rgb(0, 204, 102); color : rgb(255, 255, 255); }");
         ui->lbCliffLeft->setStyleSheet("QLabel { background-color : rgb(0, 204, 102); color : rgb(255, 255, 255); }");
         ui->lbCliffRight->setStyleSheet("QLabel { background-color : rgb(0, 204, 102); color : rgb(255, 255, 255); }");
+    }
+
+    /*----------- illuminosity sensor ------------*/
+    if(lightingClient.call(lightingSrv))
+    {
+        ROS_INFO("Luminosity: %f", lightingSrv.response.luminosity);
+        if(lightingSrv.response.luminosity>=200.00)
+        {
+            setChecklistItemColor(ui->lbLightingItem1, CHECKLIST_ITEM_GREEN);
+            setChecklistItemStatus(ui->cbLightingItem1, CHECKLIST_ITEM_CHECKED);
+        }
+        else if(lightingSrv.response.luminosity>=100.00)
+        {
+            setChecklistItemColor(ui->lbLightingItem1, CHECKLIST_ITEM_YELLOW);
+            setChecklistItemStatus(ui->cbLightingItem1, CHECKLIST_ITEM_UNCHECKED);
+        }
+        else
+        {
+            setChecklistItemColor(ui->lbLightingItem1, CHECKLIST_ITEM_RED);
+            setChecklistItemStatus(ui->cbLightingItem1, CHECKLIST_ITEM_UNCHECKED);
+        }
+    }
+    else
+    {
+        ROS_ERROR("Failed to call service checklist_status");
     }
 }
 
@@ -524,6 +561,97 @@ void FallRiskGUI::setActiveRvizToolBtns(int tabID)
         ui->btnRvizPublishPoint->setDisabled(true);
     }
 }
+
+void FallRiskGUI::setChecklistItemColor(QLabel *label, int color)
+{
+    //status: 0-green,1-yellow,2-red
+    switch(color)
+    {
+    case CHECKLIST_ITEM_GREEN:
+        label->setStyleSheet("QLabel { background-color : green; color : rgb(255, 255, 255); }");
+        break;
+    case CHECKLIST_ITEM_YELLOW:
+        label->setStyleSheet("QLabel { background-color : yellow; color : rgb(255, 255, 255); }");
+        break;
+    case CHECKLIST_ITEM_RED:
+        label->setStyleSheet("QLabel { background-color : red; color : rgb(255, 255, 255); }");
+        break;
+    }
+}
+
+void FallRiskGUI::setChecklistItemStatus(QCheckBox *checkbox, int status)
+{
+    switch(status)
+    {
+    case CHECKLIST_ITEM_CHECKED:
+        checkbox->setChecked(true);
+        break;
+    case CHECKLIST_ITEM_UNCHECKED:
+        checkbox->setChecked(false);
+        break;
+    }
+}
+
+void FallRiskGUI::setRobotNavMode(int modeID)
+{
+//    ROS_INFO("ID:%d",modeID);
+
+    if(modeID == NAVIGATION_MODE) //navigation mode
+    {
+        remote_command_server::RemoteCmdSrv remoteCmdSrv;
+
+        remoteCmdSrv.request.cmd_name=remoteCmdSrv.request.CMD_AMCL;
+        remoteCmdSrv.request.cmd_action=remoteCmdSrv.request.START;
+
+        if(remoteCmdClient.call(remoteCmdSrv))
+        {
+            if(remoteCmdSrv.response.cmd_status)
+                ROS_INFO("AMCL successfully started");
+            else
+                ROS_INFO("AMCL failed to get started");
+//            this->setFixedFrame(mapTopic_);
+        }
+        else
+        {
+            ROS_ERROR("Failed to call service remote_command");
+        }
+    }
+    else if(modeID == MAPPING_MODE) //mapping mode
+    {
+        remote_command_server::RemoteCmdSrv remoteCmdSrv;
+
+        remoteCmdSrv.request.cmd_name=remoteCmdSrv.request.CMD_GMAPPING;
+        remoteCmdSrv.request.cmd_action=remoteCmdSrv.request.START;
+
+        if(remoteCmdClient.call(remoteCmdSrv))
+        {
+            if(remoteCmdSrv.response.cmd_status)
+                ROS_INFO("GMAPPING successfully started");
+            else
+                ROS_INFO("GMAPPING failed to get started");
+//            this->setFixedFrame(baseFrame_);
+        }
+        else
+        {
+            ROS_ERROR("Failed to call service remote_command");
+        }
+    }
+
+}
+
+void FallRiskGUI::setFixedFrame(const QString fixedFrame){
+    mapManager_->getFrameManager();
+    mapManager_->setFixedFrame(fixedFrame);
+    mapManager_->initialize();
+    mapManager_->startUpdate();
+    std::cout<<mapManager_->getFixedFrame().toStdString()<<std::endl;
+    manager_->setFixedFrame(fixedFrame);
+    manager_->initialize();
+    manager_->startUpdate();
+    std::cout<<manager_->getFixedFrame().toStdString()<<std::endl;
+
+}
+
 
 
 

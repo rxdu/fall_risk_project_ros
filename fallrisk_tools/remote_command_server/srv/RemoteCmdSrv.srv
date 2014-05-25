@@ -1,0 +1,11 @@
+bool START=1
+bool STOP=0
+bool cmd_action
+uint8 CMD_AMCL=0
+uint8 CMD_GMAPPING=1
+uint8 cmd_name
+---
+bool CMD_SUCCESS=1
+bool CMD_FAILURE=0
+bool cmd_status
+uint32 cmd_PID

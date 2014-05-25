@@ -10,6 +10,8 @@
 #include <QPainter>
 #include <QLabel>
 #include <QTabWidget>
+#include <QComboBox>
+#include <QCheckBox>
 
 #include "rviz/visualization_manager.h"
 #include "rviz/render_panel.h"
@@ -32,6 +34,9 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/opencv.hpp>
 
+#include "checklist_status/ChecklistStatusSrv.h"
+#include "remote_command_server/RemoteCmdSrv.h"
+
 #define LIN_VEL_MAX 0.25
 #define LIN_VEL_MIN 0.08
 #define ANG_VEL_MAX 1.2
@@ -40,6 +45,17 @@
 #define BASE_BATTERY_CAP 165
 #define BASE_BATTERY_LOW 140
 #define BASE_BATTERY_DANGER 132
+
+#define CHECKLIST_ITEM_GREEN 0
+#define CHECKLIST_ITEM_YELLOW 1
+#define CHECKLIST_ITEM_RED 2
+
+#define CHECKLIST_ITEM_CHECKED 0
+#define CHECKLIST_ITEM_UNCHECKED 1
+
+#define NAVIGATION_MODE -2
+#define MAPPING_MODE -3
+
 
 namespace Ui {
 class FallRiskGUI;
@@ -84,6 +100,9 @@ private Q_SLOTS:
     void setRobotVelocity();
     void setCurrentTool(int btnID);
     void setActiveRvizToolBtns(int tabID);
+    void setRobotNavMode(int modeID);
+//    void setRobotToAmclMode();
+//    void setRobotToGmappingMode();
 
 private:
   rviz::VisualizationManager* manager_;
@@ -119,6 +138,11 @@ private:
   ros::Subscriber centerDistSub;
   ros::Subscriber baseSensorStatus;
   ros::Subscriber rviz2DNavGoalSub;
+  ros::ServiceClient lightingClient;
+  ros::ServiceClient remoteCmdClient;
+
+  checklist_status::ChecklistStatusSrv lightingSrv;
+  remote_command_server::RemoteCmdSrv remoteCmdSrv;
 
   image_transport::ImageTransport it_;
   image_transport::Subscriber liveVideoSub;
@@ -131,6 +155,9 @@ private:
   void baseStatusCheck(const kobuki_msgs::SensorState::ConstPtr& msg);
   void liveVideoCallback(const sensor_msgs::ImageConstPtr &msg);
   void setVideo(QLabel* label, cv_bridge::CvImagePtr cv_ptr);
+
+  void setChecklistItemColor(QLabel* label, int color);
+  void setChecklistItemStatus(QCheckBox* checkbox, int status);
 
   void changeToolBtnStatus(int btnID);
 
