@@ -11,6 +11,70 @@ int runSysCommand(const char* cmd);
 
 bool executeCommand(remote_command_server::RemoteCmdSrv::Request &req, remote_command_server::RemoteCmdSrv::Response &res)
 {
+//    if(req.cmd_name == req.CMD_AMCL)
+//    {
+//        if(req.cmd_action == req.START)
+//        {
+////            QString program = "roslaunch";
+////            QStringList arguments;
+////            arguments << "uvc_camera_image"<<"uvc_camera_start.launch";
+
+////            for(int i=0; i<arguments.size();i++) {
+////                std::cout<<arguments.at(i).toStdString()<<std::endl;
+////            }
+
+////            std::cout<<program.toStdString()<<std::endl;
+////            myProcess->start(program, arguments);
+
+////            ROS_INFO("STATE:%d",myProcess->state());
+//            ROS_INFO("amcl start");
+////            ROS_INFO("Process started with PID :%d",myProcess->pid());
+
+//            res.cmd_status = res.CMD_SUCCESS;
+////            res.cmd_PID = myProcess->pid();
+//        }
+//        else if(req.cmd_action == req.STOP)
+//        {
+////            myProcess->terminate();
+
+////            ROS_INFO("STATE:%d",myProcess->state());
+////            ROS_INFO("Killing process PID: %d",myProcess->pid());
+//            ROS_INFO("amcl stop");
+
+//            res.cmd_status = res.CMD_SUCCESS;
+//        }
+//    }
+//    else if(req.cmd_name == req.CMD_GMAPPING)
+//    {
+//        if(req.cmd_action == req.START)
+//        {
+////            QString program = "roslaunch";
+////            QStringList arguments;
+////            arguments << "uvc_camera_image"<<"uvc_camera_start.launch";
+
+////            for(int i=0; i<arguments.size();i++) {
+////                std::cout<<arguments.at(i).toStdString()<<std::endl;
+////            }
+
+////            std::cout<<program.toStdString()<<std::endl;
+////            myProcess->start(program, arguments);
+
+////            ROS_INFO("STATE:%d",myProcess->state());
+//            ROS_INFO("gmapping start");
+////            ROS_INFO("Process started with PID :%d",myProcess->pid());
+
+////            res.cmd_status = res.CMD_SUCCESS;
+////            res.cmd_PID = myProcess->pid();
+//        }
+//        else if(req.cmd_action == req.STOP)
+//        {
+////            myProcess->terminate();
+
+////            ROS_INFO("STATE:%d",myProcess->state());
+////            ROS_INFO("Killing process PID: %d",myProcess->pid());
+//            ROS_INFO("gmapping stop");
+//        }
+//    }
 
     ROS_INFO("STATE:%d",myProcess->state());
 
@@ -32,7 +96,7 @@ bool executeCommand(remote_command_server::RemoteCmdSrv::Request &req, remote_co
         if(myProcess->state() == 2)
         {
             res.cmd_status = res.CMD_SUCCESS;
-//            res.cmd_PID = myProcess->pid();
+            res.cmd_PID = myProcess->pid();
             ROS_INFO("amcl started");
         }
         else
@@ -52,13 +116,11 @@ bool executeCommand(remote_command_server::RemoteCmdSrv::Request &req, remote_co
 
         myProcess->waitForStarted(3000);
 
-
-
         ROS_INFO("STATE:%d",myProcess->state());
         if(myProcess->state() == 2)
         {
             res.cmd_status = res.CMD_SUCCESS;
-//            res.cmd_PID = myProcess->pid();
+            res.cmd_PID = myProcess->pid();
             ROS_INFO("gmapping started");
         }
         else

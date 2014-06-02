@@ -1,7 +1,5 @@
 #include "fallrisk_robot_gui.h"
 #include "ui_fallrisk_robot_gui.h"
-#include "rviz/render_panel.h"
-#include "rviz/visualization_manager.h"
 
 FallRiskRobotGUI::FallRiskRobotGUI(QWidget *parent) :
     QMainWindow(parent),it_(nh_),
@@ -9,21 +7,27 @@ FallRiskRobotGUI::FallRiskRobotGUI(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    imageTopic_ = QString("/camera/rgb/image_raw");
-    liveVideoSub = it_.subscribe(imageTopic_.toStdString(),1,&FallRiskRobotGUI::liveVideoCallback,this,image_transport::TransportHints("compressed"));
+//    imageTopic_ = QString("/image_raw");
+//    baseSensorStatus = nh_.subscribe("/mobile_base/sensors/core",1,&FallRiskRobotGUI::baseStatusCheck,this);
+//    liveVideoSub = it_.subscribe(imageTopic_.toStdString(),1,&FallRiskRobotGUI::liveVideoCallback,this,image_transport::TransportHints("compressed"));
+    liveVideoSub = it_.subscribe("/camera/rgb/image_raw",1,&FallRiskRobotGUI::liveVideoCallback,this);
 
-    rviz::VisualizationManager* manager_ = new rviz::VisualizationManager( new rviz::RenderPanel() );
-    manager_->initialize();
-    manager_->startUpdate();
-    }
+    ROS_INFO("ROBOT STARTED!");
+}
 
 FallRiskRobotGUI::~FallRiskRobotGUI()
 {
     delete ui;
 }
 
+void FallRiskRobotGUI::baseStatusCheck(const kobuki_msgs::SensorState::ConstPtr& msg)
+{
+    ROS_INFO("SENSOR DATA RECEIVED!");
+}
+
 void FallRiskRobotGUI::liveVideoCallback(const sensor_msgs::ImageConstPtr& msg)
 {
+    ROS_INFO("IMAGE RECEIVED!");
 
     cv_bridge::CvImagePtr cv_ptr, cv_ptr_big;
     try

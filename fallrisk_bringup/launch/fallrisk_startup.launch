@@ -9,6 +9,6 @@
   <node name="distance_publisher" pkg="kinect_depth" type="distance_publisher"/>
   <node name="image_center_distance" pkg="kinect_image" type="image_center_distance"/>
   <node name="image_reference_line" pkg="kinect_image" type="image_reference_line"/>
-
+  <include file="$(find fallrisk_octomap)/launch/octomap.launch" />
 
 </launch>

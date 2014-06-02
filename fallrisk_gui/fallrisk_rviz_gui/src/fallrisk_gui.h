@@ -77,7 +77,7 @@ class FallRiskGUI : public QMainWindow
 public:
     explicit FallRiskGUI(QWidget *parent = 0);
     ~FallRiskGUI();
-    void setFixedFrame(const QString fixedFrame);
+
 
 private:
     Ui::FallRiskGUI *ui;
@@ -119,6 +119,7 @@ private:
 //  rviz::Display* imageDisplay_;
   rviz::Display* octomapDisplay_;
   rviz::Display* mapDisplay_ ;
+  rviz::Display* pathDisplay_ ;
 
   rviz::ToolManager* toolManager_ ;
   rviz::ToolManager* mapToolManager_ ;
@@ -161,7 +162,7 @@ private:
 
   void changeToolBtnStatus(int btnID);
 
-  QString baseFrame_;
+  QString fixedFrame_;
   QString targetFrame_ ;
   QString mapTopic_;
   QString imageTopic_;

@@ -1,0 +1,13 @@
+<launch>
+
+  <machine name="turtlebot-X201EP" env-loader="/opt/ros/hydro/env.sh" address="turtlebot-X201EP.local" user="turtlebot" password="fallrisk123"/>
+
+  <node machine="turtlebot-X201EP" name="audio_capture_turtlebot" pkg="fallrisk_audio" type="audio_capture_turtlebot" output="screen">
+    <param name="bitrate" value="128"/>
+  </node>
+
+  <node machine="turtlebot-X201EP" name="audio_play_turtlebot" pkg="fallrisk_audio" type="audio_play_turtlebot" output="screen">
+    <param name="dst" value="alsasink"/>
+  </node>
+
+</launch>

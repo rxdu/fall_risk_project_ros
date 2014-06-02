@@ -10,7 +10,7 @@
   </include> -->
 
   <!-- Map server -->
-  <arg name="map_file" default="$(find fallrisk_turtlebot_navigation)/maps/simulation.yaml"/>
+  <arg name="map_file" default="$(find fallrisk_turtlebot_navigation)/maps/my_apt2.yaml"/>
   <!-- arg name="map_file" default="~/fallrisk_ws/src/fall_risk_project_ros/fallrisk_mapping_navigation/maps/lounge_lidar.yaml"/ -->
 
   <!-- arg name="map_file" default="~/fallrisk_ws/src/fall_risk_project_ros/fallrisk_mapping_navigation/maps/RIVeR_Lab.yaml"/  -->
