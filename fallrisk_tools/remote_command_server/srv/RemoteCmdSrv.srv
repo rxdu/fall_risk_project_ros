@@ -3,6 +3,7 @@ bool STOP=0
 bool cmd_action
 uint8 CMD_AMCL=0
 uint8 CMD_GMAPPING=1
+uint8 CMD_TELEPRESENCE=2
 uint8 cmd_name
 ---
 bool CMD_SUCCESS=1

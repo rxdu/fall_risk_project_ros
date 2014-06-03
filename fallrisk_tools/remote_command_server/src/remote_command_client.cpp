@@ -10,7 +10,7 @@ int main(int argc, char **argv)
 
   remote_command_server::RemoteCmdSrv remoteCmdSrv;
 
-  remoteCmdSrv.request.cmd_name=remoteCmdSrv.request.CMD_AMCL;
+  remoteCmdSrv.request.cmd_name=remoteCmdSrv.request.CMD_TELEPRESENCE;
   remoteCmdSrv.request.cmd_action=remoteCmdSrv.request.STOP;
 
   if(client.call(remoteCmdSrv))
