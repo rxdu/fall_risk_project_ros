@@ -10,7 +10,7 @@ FallRiskRobotGUI::FallRiskRobotGUI(QWidget *parent) :
 //    imageTopic_ = QString("/image_raw");
 //    baseSensorStatus = nh_.subscribe("/mobile_base/sensors/core",1,&FallRiskRobotGUI::baseStatusCheck,this);
 //    liveVideoSub = it_.subscribe(imageTopic_.toStdString(),1,&FallRiskRobotGUI::liveVideoCallback,this,image_transport::TransportHints("compressed"));
-    liveVideoSub = it_.subscribe("/camera/rgb/image_raw",1,&FallRiskRobotGUI::liveVideoCallback,this);
+    liveVideoSub = it_.subscribe("/camera/rgb/operator_image",1,&FallRiskRobotGUI::liveVideoCallback,this);
 
     ROS_INFO("ROBOT STARTED!");
 }
