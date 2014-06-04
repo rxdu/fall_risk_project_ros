@@ -101,6 +101,7 @@ private Q_SLOTS:
     void setCurrentTool(int btnID);
     void setActiveRvizToolBtns(int tabID);
     void setRobotNavMode(int modeID);
+    void setTelePresenceState(int tabID);
 //    void setRobotToAmclMode();
 //    void setRobotToGmappingMode();
 

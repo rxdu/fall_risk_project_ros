@@ -93,6 +93,7 @@ void FallRiskGUI::initActionsConnections()
     connect( manager_, SIGNAL( statusUpdate( const QString& )), status_label_, SLOT( setText( const QString& )));
 
     connect(ui->tab_display, SIGNAL(currentChanged(int)),this,SLOT(setActiveRvizToolBtns(int)));
+    connect(ui->tab_display, SIGNAL(currentChanged(int)),this,SLOT(setTelePresenceState(int)));
 }
 
 void FallRiskGUI::initDisplayWidgets()
@@ -574,6 +575,56 @@ void FallRiskGUI::setActiveRvizToolBtns(int tabID)
         ui->btnRvizPoseEstimate->setDisabled(true);
         ui->btnRvizNavGoal->setDisabled(true);
         ui->btnRvizPublishPoint->setDisabled(true);
+    }
+}
+
+void FallRiskGUI::setTelePresenceState(int tabID)
+{
+    if(tabID == 2)
+    {
+        //start tele-presence
+        ROS_INFO("START TELE-PRESENCE");
+
+        //send a request to remote_command_server
+        remote_command_server::RemoteCmdSrv remoteCmdSrv;
+
+        remoteCmdSrv.request.cmd_name=remoteCmdSrv.request.CMD_TELEPRESENCE;
+        remoteCmdSrv.request.cmd_action=remoteCmdSrv.request.START;
+
+        if(remoteCmdClient.call(remoteCmdSrv))
+        {
+            if(remoteCmdSrv.response.cmd_status)
+                ROS_INFO("Telepresence successfully started");
+            else
+                ROS_INFO("Telepresence failed to get started");
+        }
+        else
+        {
+            ROS_ERROR("Failed to call service remote_command");
+        }
+    }
+    else
+    {
+        //stop tele-presence
+        ROS_INFO("STOP TELE-PRESENCE");
+
+        //send a request to remote_command_server
+        remote_command_server::RemoteCmdSrv remoteCmdSrv;
+
+        remoteCmdSrv.request.cmd_name=remoteCmdSrv.request.CMD_TELEPRESENCE;
+        remoteCmdSrv.request.cmd_action=remoteCmdSrv.request.STOP;
+
+        if(remoteCmdClient.call(remoteCmdSrv))
+        {
+            if(remoteCmdSrv.response.cmd_status)
+                ROS_INFO("Telepresence successfully started");
+            else
+                ROS_INFO("Telepresence failed to get started");
+        }
+        else
+        {
+            ROS_ERROR("Failed to call service remote_command");
+        }
     }
 }
 
