@@ -1,0 +1,4 @@
+<launch>
+  <include file="$(find fallrisk_audio)/launch/audio_user.launch"></include>
+  <include file="$(find fallrisk_video)/launch/operator_camera.launch"></include>
+</launch>
