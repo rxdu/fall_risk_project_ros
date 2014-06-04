@@ -379,7 +379,7 @@ void FallRiskGUI::baseStatusCheck(const kobuki_msgs::SensorState::ConstPtr& msg)
     }
     else
     {
-        ROS_ERROR("Failed to call service checklist_status");
+//        ROS_ERROR("Failed to call service checklist_status");
     }
 }
 
@@ -586,6 +586,7 @@ void FallRiskGUI::setActiveRvizToolBtns(int tabID)
 
 void FallRiskGUI::setTelePresenceState(int tabID)
 {
+    ROS_INFO("Tab ID :%d",tabID);
     if(tabID == 2)
     {
         //start tele-presence

@@ -81,14 +81,7 @@ bool executeCommand(remote_command_server::RemoteCmdSrv::Request &req, remote_co
     ROS_INFO("Navigation Process State:%d",navigationProcess->state());
     ROS_INFO("Telepresence Process State:%d",telepresenceProcess->state());
     if (req.cmd_name == req.CMD_TELEPRESENCE){
-        if(telepresenceProcess->state() != 0 && req.cmd_action == req.STOP)
-        {
-            telepresenceProcess->terminate();
-            telepresenceProcess->waitForFinished(3000);
-            res.cmd_status = res.CMD_SUCCESS;
-            ROS_INFO("Telepresence Stopped");
-        }
-        else
+        if(telepresenceProcess->state() == 0 && req.cmd_action == req.START)
         {
             QString program = "roslaunch";
             QStringList arguments;
@@ -113,6 +106,14 @@ bool executeCommand(remote_command_server::RemoteCmdSrv::Request &req, remote_co
                 ROS_INFO("Telepresence failed to start");
             }
         }
+        else
+        {
+            telepresenceProcess->terminate();
+            telepresenceProcess->waitForFinished(3000);
+            res.cmd_status = res.CMD_SUCCESS;
+            ROS_INFO("Telepresence Stopped");
+
+           }
     }
     else {
         if(navigationProcess->state() != 0){
