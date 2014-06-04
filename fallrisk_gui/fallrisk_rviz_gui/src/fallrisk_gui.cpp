@@ -43,6 +43,11 @@ FallRiskGUI::~FallRiskGUI()
     delete manager_;
     delete renderPanel_;
     delete status_label_;
+    if(telepresenceProcess->state()!=0)
+    {
+        telepresenceProcess->terminate();
+        telepresenceProcess->waitForFinished(3000);
+    }
     delete telepresenceProcess;
 }
 
@@ -60,7 +65,7 @@ void FallRiskGUI::initVariables()
 
     moveBaseCmdPub = nh_.advertise<geometry_msgs::Twist>(velocityTopic_.toStdString(),1);
     centerDistSub = nh_.subscribe("/distance/image_center_dist",1,&FallRiskGUI::distanceSubCallback,this);
-    baseSensorStatus = nh_.subscribe(baseSensorTopic_.toStdString(),1,&FallRiskGUI::baseStatusCheck,this);    
+    baseSensorStatus = nh_.subscribe(baseSensorTopic_.toStdString(),1,&FallRiskGUI::baseStatusCheck,this);
     lightingClient = nh_.serviceClient<checklist_status::ChecklistStatusSrv>("checklist_status");
     remoteCmdClient = nh_.serviceClient<remote_command_server::RemoteCmdSrv>("remote_command");
 
@@ -68,7 +73,7 @@ void FallRiskGUI::initVariables()
 
     setRobotVelocity();
 
-    //using this object to launch teleoperation nodes on operator computer
+    //using this object to launch telepresence nodes on operator computer
     telepresenceProcess = new QProcess(new QObject());
 }
 
@@ -87,8 +92,8 @@ void FallRiskGUI::initActionsConnections()
 
     connect(ui->btnGroupRvizTools,SIGNAL(buttonClicked(int)),this,SLOT(setCurrentTool(int)));
     connect(ui->btnGroupNavModeSwitch,SIGNAL(buttonClicked(int)),this,SLOT(setRobotNavMode(int)));
-//    connect(ui->rbNavMode,SIGNAL(clicked()),this,SLOT(setRobotToAmclMode()));
-//    connect(ui->rbNavMode,SIGNAL(clicked()),this,SLOT(setRobotToGmappingMode()));
+    //    connect(ui->rbNavMode,SIGNAL(clicked()),this,SLOT(setRobotToAmclMode()));
+    //    connect(ui->rbNavMode,SIGNAL(clicked()),this,SLOT(setRobotToGmappingMode()));
 
     connect(ui->sliderLinearVel, SIGNAL(valueChanged(int)),this,SLOT(setRobotVelocity()));
     connect(ui->sliderAngularVel, SIGNAL(valueChanged(int)),this,SLOT(setRobotVelocity()));
@@ -153,13 +158,13 @@ void FallRiskGUI::initDisplayWidgets()
 
 
     // Create a main display to show pointcloud and octomap
-//    mainDisplay_ = manager_->createDisplay( "rviz/PointCloud2", "3D Pointcloud view", true );
-//    ROS_ASSERT( mainDisplay_ != NULL );
+    //    mainDisplay_ = manager_->createDisplay( "rviz/PointCloud2", "3D Pointcloud view", true );
+    //    ROS_ASSERT( mainDisplay_ != NULL );
 
-//    mainDisplay_->subProp( "Topic" )->setValue( pointCloudTopic_ );
-//    mainDisplay_->subProp( "Selectable" )->setValue( "true" );
-//    mainDisplay_->subProp( "Style" )->setValue( "Boxes" );
-//    mainDisplay_->subProp("Alpha")->setValue(0.5);
+    //    mainDisplay_->subProp( "Topic" )->setValue( pointCloudTopic_ );
+    //    mainDisplay_->subProp( "Selectable" )->setValue( "true" );
+    //    mainDisplay_->subProp( "Style" )->setValue( "Boxes" );
+    //    mainDisplay_->subProp("Alpha")->setValue(0.5);
     manager_->createDisplay( "rviz/Grid", "Grid", true );
     manager_->createDisplay( "rviz/RobotModel", "Turtlebot", true );
 
@@ -266,7 +271,7 @@ void FallRiskGUI::keyPressEvent(QKeyEvent *event)
 
 void FallRiskGUI::distanceSubCallback(const std_msgs::Float32::ConstPtr& msg)
 {
-//    ROS_INFO("distance: %f",msg->data);
+    //    ROS_INFO("distance: %f",msg->data);
     QLocale english(QLocale::English, QLocale::UnitedStates);
     QString qdist = english.toString(msg->data, 'f', 2);
     ui->lbDistance->setText(qdist);
@@ -379,7 +384,7 @@ void FallRiskGUI::baseStatusCheck(const kobuki_msgs::SensorState::ConstPtr& msg)
     }
     else
     {
-//        ROS_ERROR("Failed to call service checklist_status");
+        //        ROS_ERROR("Failed to call service checklist_status");
     }
 }
 
@@ -506,7 +511,7 @@ void FallRiskGUI::setCurrentTool(int btnID)
     if(btnID == -2)
     {
         ROS_INFO("Interact Tool Selected");
-        toolManager_->setCurrentTool(interactTool_);        
+        toolManager_->setCurrentTool(interactTool_);
         mapToolManager_->setCurrentTool(mapInteractTool_);
 
     }
@@ -561,7 +566,7 @@ void FallRiskGUI::changeToolBtnStatus(int btnID)
 
 void FallRiskGUI::setActiveRvizToolBtns(int tabID)
 {
-//    ROS_INFO("TAB:%d",tabID);
+    //    ROS_INFO("TAB:%d",tabID);
 
     ui->btnRvizInteract->setDisabled(false);
     ui->btnRvizMeasure->setDisabled(false);
@@ -586,7 +591,7 @@ void FallRiskGUI::setActiveRvizToolBtns(int tabID)
 
 void FallRiskGUI::setTelePresenceState(int tabID)
 {
-    ROS_INFO("Tab ID :%d",tabID);
+//    ROS_INFO("Tab ID :%d",tabID);
     if(tabID == 2)
     {
         //start tele-presence
@@ -649,9 +654,9 @@ void FallRiskGUI::setTelePresenceState(int tabID)
         if(remoteCmdClient.call(remoteCmdSrv))
         {
             if(remoteCmdSrv.response.cmd_status)
-                ROS_INFO("Telepresence successfully started on turtlebot");
+                ROS_INFO("Telepresence successfully stopped on turtlebot");
             else
-                ROS_INFO("Telepresence failed to get started on turtlebot");
+                ROS_INFO("Telepresence failed to get stopped on turtlebot");
         }
         else
         {
@@ -659,11 +664,11 @@ void FallRiskGUI::setTelePresenceState(int tabID)
         }
 
         //Stop telepresence service on client
-           if(telepresenceProcess->state() !=0)
-           {
-               telepresenceProcess->terminate();
-               telepresenceProcess->waitForFinished(3000);
-           }
+        if(telepresenceProcess->state() !=0)
+        {
+            telepresenceProcess->terminate();
+            telepresenceProcess->waitForFinished(3000);
+        }
     }
 }
 
@@ -699,7 +704,7 @@ void FallRiskGUI::setChecklistItemStatus(QCheckBox *checkbox, int status)
 
 void FallRiskGUI::setRobotNavMode(int modeID)
 {
-//    ROS_INFO("ID:%d",modeID);
+    //    ROS_INFO("ID:%d",modeID);
 
     if(modeID == NAVIGATION_MODE) //navigation mode
     {
