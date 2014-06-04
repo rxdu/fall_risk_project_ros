@@ -81,7 +81,7 @@ bool executeCommand(remote_command_server::RemoteCmdSrv::Request &req, remote_co
     ROS_INFO("Navigation Process State:%d",navigationProcess->state());
     ROS_INFO("Telepresence Process State:%d",telepresenceProcess->state());
     if (req.cmd_name == req.CMD_TELEPRESENCE){
-        if(telepresenceProcess->state() != 0)
+        if(telepresenceProcess->state() != 0 && req.STOP)
         {
             telepresenceProcess->terminate();
             telepresenceProcess->waitForFinished(3000);
@@ -115,8 +115,10 @@ bool executeCommand(remote_command_server::RemoteCmdSrv::Request &req, remote_co
         }
     }
     else {
-        if(navigationProcess->state() != 0)
+        if(navigationProcess->state() != 0){
             navigationProcess->terminate();
+            navigationProcess->waitForFinished(3000);
+        }
 
         if(req.cmd_name == req.CMD_AMCL)
         {
@@ -139,6 +141,7 @@ bool executeCommand(remote_command_server::RemoteCmdSrv::Request &req, remote_co
             else
             {
                 navigationProcess->terminate();
+                navigationProcess->waitForFinished(3000);
                 res.cmd_status = res.CMD_FAILURE;
                 ROS_INFO("amcl failed to start");
             }
@@ -163,6 +166,7 @@ bool executeCommand(remote_command_server::RemoteCmdSrv::Request &req, remote_co
             else
             {
                 navigationProcess->terminate();
+                navigationProcess->waitForFinished(3000);
                 res.cmd_status = res.CMD_FAILURE;
                 ROS_INFO("gmapping failed to start");
             }

@@ -12,6 +12,7 @@
 #include <QTabWidget>
 #include <QComboBox>
 #include <QCheckBox>
+#include <QProcess>
 
 #include "rviz/visualization_manager.h"
 #include "rviz/render_panel.h"
@@ -174,6 +175,8 @@ private:
   QString pathTopic_;
 
   QLabel* status_label_;
+
+  QProcess* telepresenceProcess;
 
 };
 

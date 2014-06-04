@@ -4,6 +4,7 @@
 #include "rviz/view_manager.h"
 #include "rviz/tool_manager.h"
 #include "rviz/properties/property_tree_model.h"
+#include <QProcess>
 
 FallRiskGUI::FallRiskGUI(QWidget *parent) :
     QMainWindow(parent),
@@ -42,6 +43,7 @@ FallRiskGUI::~FallRiskGUI()
     delete manager_;
     delete renderPanel_;
     delete status_label_;
+    delete telepresenceProcess;
 }
 
 void FallRiskGUI::initVariables()
@@ -65,6 +67,9 @@ void FallRiskGUI::initVariables()
     liveVideoSub = it_.subscribe(imageTopic_.toStdString(),1,&FallRiskGUI::liveVideoCallback,this,image_transport::TransportHints("compressed"));
 
     setRobotVelocity();
+
+    //using this object to launch teleoperation nodes on operator computer
+    telepresenceProcess = new QProcess(new QObject());
 }
 
 void FallRiskGUI::initActionsConnections()
@@ -74,6 +79,7 @@ void FallRiskGUI::initActionsConnections()
     statusBar()->addPermanentWidget( status_label_,1);
     connect( manager_, SIGNAL( statusUpdate( const QString& )), status_label_, SLOT( setText( const QString& )));
 
+    //Set up teleoperation buttons
     connect(ui->btnUp, SIGNAL(clicked()), this, SLOT(moveBaseForward()));
     connect(ui->btnDown, SIGNAL(clicked()), this, SLOT(moveBaseBackward()));
     connect(ui->btnLeft, SIGNAL(clicked()), this, SLOT(moveBaseLeft()));
@@ -602,13 +608,38 @@ void FallRiskGUI::setTelePresenceState(int tabID)
         {
             ROS_ERROR("Failed to call service remote_command");
         }
+
+        // Start the telepresence process on client machine
+        if(telepresenceProcess->state() == 0)
+        {
+            QString program = "roslaunch";
+            QStringList arguments;
+            arguments << "fallrisk_bringup"<<"telepresenceOperator.launch";
+
+            telepresenceProcess->start(program, arguments);
+
+            ROS_INFO("telepresence state on client machine:%d",telepresenceProcess->state());
+
+            telepresenceProcess->waitForStarted(3000);
+
+            if(telepresenceProcess->state() == 2)
+            {
+                ROS_INFO("Telepresence started on client");
+            }
+            else
+            {
+                telepresenceProcess->terminate();
+                ROS_INFO("Telepresence failed to start on client");
+            }
+        }
+
     }
     else
     {
         //stop tele-presence
         ROS_INFO("STOP TELE-PRESENCE");
 
-        //send a request to remote_command_server
+        //send a request to remote_command_server to start telepresence on turtlebot
         remote_command_server::RemoteCmdSrv remoteCmdSrv;
 
         remoteCmdSrv.request.cmd_name=remoteCmdSrv.request.CMD_TELEPRESENCE;
@@ -617,14 +648,21 @@ void FallRiskGUI::setTelePresenceState(int tabID)
         if(remoteCmdClient.call(remoteCmdSrv))
         {
             if(remoteCmdSrv.response.cmd_status)
-                ROS_INFO("Telepresence successfully started");
+                ROS_INFO("Telepresence successfully started on turtlebot");
             else
-                ROS_INFO("Telepresence failed to get started");
+                ROS_INFO("Telepresence failed to get started on turtlebot");
         }
         else
         {
             ROS_ERROR("Failed to call service remote_command");
         }
+
+        //Stop telepresence service on client
+           if(telepresenceProcess->state() !=0)
+           {
+               telepresenceProcess->terminate();
+               telepresenceProcess->waitForFinished(3000);
+           }
     }
 }
 
