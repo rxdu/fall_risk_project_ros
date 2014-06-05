@@ -1,0 +1,7 @@
+image: /home/ninja/fallrisk_ws/src/fall_risk_project_ros/fallrisk_mapping_navigation/fallrisk_turtlebot_navigation/maps/default.pgm
+resolution: 0.050000
+origin: [-17.000000, -13.800000, 0.000000]
+negate: 0
+occupied_thresh: 0.65
+free_thresh: 0.196
+

@@ -117,12 +117,52 @@ bool executeCommand(remote_command_server::RemoteCmdSrv::Request &req, remote_co
     }
     else {
         if(navigationProcess->state() != 0){
+            ROS_INFO("%d",req.cmd_name);
+
+            if(req.cmd_name==req.CMD_AMCL){
+            //Entering this condition means that user switched out of gmapping to AMCL.
+
+                //@TODO: Prompt user to save map
+
+
+
+
+                //Find the path to maps folder on turtlebot
+                QProcess* findProcess = new QProcess(new QObject());
+                QStringList findArguments;
+                findArguments<<"find"<<"fallrisk_turtlebot_navigation";
+                findProcess->start("rospack",findArguments);
+                findProcess->waitForFinished();
+                QString pathToMaps(findProcess->readAllStandardOutput());
+                pathToMaps.remove(QChar('\n'));
+                pathToMaps = pathToMaps.append("/maps/default");
+                ROS_INFO_STREAM(pathToMaps.toStdString());
+                delete findProcess;
+
+                //run mapsaver command to save existing map as default.pm in the maps directory
+                QProcess* mapsaver = new QProcess(new QObject());
+                QString program = "rosrun";
+                QStringList arguments;
+                arguments << "map_server"<<"map_saver"<<"-f"<<pathToMaps;
+                ROS_INFO("Saving Map");
+                mapsaver->start(program,arguments);
+                bool saved = mapsaver->waitForFinished(10000);
+                if(saved)
+                    ROS_INFO("Map saved successfully");
+                else
+                    ROS_INFO("Failed to save the map");
+                delete mapsaver;
+            }
+
             navigationProcess->terminate();
             navigationProcess->waitForFinished(3000);
         }
 
         if(req.cmd_name == req.CMD_AMCL)
         {
+            //reset the octomap
+
+
             QString program = "roslaunch";
             QStringList arguments;
             arguments << "fallrisk_turtlebot_navigation"<<"amcl_navigtaion.launch";
@@ -151,7 +191,9 @@ bool executeCommand(remote_command_server::RemoteCmdSrv::Request &req, remote_co
         {
             QString program = "roslaunch";
             QStringList arguments;
+
             arguments << "fallrisk_turtlebot_navigation"<<"turtlebot_gmapping.launch";
+
 
             navigationProcess->start(program, arguments);
 
