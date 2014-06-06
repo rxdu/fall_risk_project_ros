@@ -4,6 +4,9 @@
 #include <QObject>
 #include <QProcess>
 #include <QString>
+#include <std_srvs/Empty.h>
+
+ros::NodeHandle nh_;
 
 QProcess* navigationProcess = new QProcess(new QObject());
 QProcess* telepresenceProcess = new QProcess(new QObject());
@@ -161,7 +164,28 @@ bool executeCommand(remote_command_server::RemoteCmdSrv::Request &req, remote_co
         if(req.cmd_name == req.CMD_AMCL)
         {
             //reset the octomap
+            //two ways to call a service in cpp
+//            std_msgs::Empty emptySrv;
+//            if (ros::service::call("/octomap_server/reset", emptySrv))
+//            {
+//                ROS_INFO("Octomap is reset successfully!");
+//            }
+//            else
+//            {
+//                ROS_INFO("Failed to reset octomap!");
+//            }
 
+            ros::ServiceClient client = nh_.serviceClient<std_srvs::Empty>("/octomap_server/reset");
+            std_srvs::Empty emptySrv;
+
+            if (client.call(emptySrv))
+            {
+                ROS_INFO("Octomap is reset successfully!");
+            }
+            else
+            {
+                ROS_INFO("Failed to reset octomap!");
+            }
 
             QString program = "roslaunch";
             QStringList arguments;
@@ -223,7 +247,7 @@ bool executeCommand(remote_command_server::RemoteCmdSrv::Request &req, remote_co
 int main(int argc, char **argv)
 {
     ros::init(argc, argv, "checklist_status_server");
-    ros::NodeHandle nh_;
+//    ros::NodeHandle nh_;
 
     ros::ServiceServer cmd_server = nh_.advertiseService("remote_command",executeCommand);
     ROS_INFO("Ready to respond to remote command:");
