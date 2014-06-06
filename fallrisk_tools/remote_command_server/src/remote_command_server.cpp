@@ -165,8 +165,8 @@ bool executeCommand(remote_command_server::RemoteCmdSrv::Request &req, remote_co
         {
             //reset the octomap
             //two ways to call a service in cpp
-//            std_msgs::Empty emptySrv;
-//            if (ros::service::call("/octomap_server/reset", emptySrv))
+//            std_srvs::Empty emptySrv0;
+//            if (ros::service::call("/octomap_server/reset", emptySrv0))
 //            {
 //                ROS_INFO("Octomap is reset successfully!");
 //            }
