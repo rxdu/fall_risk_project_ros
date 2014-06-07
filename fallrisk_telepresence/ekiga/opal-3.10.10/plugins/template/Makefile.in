@@ -1,0 +1,38 @@
+#
+# Template Makefile for plug in codec
+#
+# Copyright (C) 2011 Vox Lucida
+#
+# The contents of this file are subject to the Mozilla Public License
+# Version 1.0 (the "License"); you may not use this file except in
+# compliance with the License. You may obtain a copy of the License at
+# http://www.mozilla.org/MPL/
+#
+# Software distributed under the License is distributed on an "AS IS"
+# basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See
+# the License for the specific language governing rights and limitations
+# under the License.
+#
+# The Original Code is OPAL.
+#
+# The Initial Developer of the Original Code is Robert Jongbloed
+#
+# Contributor(s): ______________________________________.
+#
+# $Revision$
+# $Author$
+# $Date$
+#
+
+BASENAME := codec_template
+
+SRCDIR := ./
+SRCS   := template_codec.cpp
+
+#INSTALL_DIR := @AC_PLUGIN_DIR@
+#INSTALL_DIR := @VC_PLUGIN_DIR@
+#INSTALL_DIR := @FAX_PLUGIN_DIR@
+PLUGINDIR   := @PLUGINDIR@
+include $(PLUGINDIR)/plugin-inc.mak
+
+###########################################
