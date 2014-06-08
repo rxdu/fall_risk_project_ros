@@ -21,7 +21,11 @@ bool executeCommand(remote_command_server::RemoteCmdSrv::Request &req, remote_co
 
     //Telepresence action is called on tab change, to avoid false trigger use cmd_action to confirm start of teleoperation
 
-    if (req.cmd_name == req.CMD_TELEPRESENCE){
+    if (req.cmd_name == req.CMD_TELEPRESENCE)
+    {
+        // Commented this out as the common_audio package is not consistent. Customize Egika instead!!!
+
+        /*
         if(telepresenceProcess->state() == 0 && req.cmd_action == req.START)
         {
             QString program = "roslaunch";
@@ -55,6 +59,7 @@ bool executeCommand(remote_command_server::RemoteCmdSrv::Request &req, remote_co
             ROS_INFO("Telepresence Stopped on turtlebot");
 
         }
+        */
     }
     else {
         if(navigationProcess->state() != 0){
