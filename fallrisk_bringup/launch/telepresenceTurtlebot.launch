@@ -1,0 +1,3 @@
+<launch>
+    <node name="fallrisk_robot_gui" pkg="fallrisk_robot_gui" type="fallrisk_robot_gui" />
+</launch>

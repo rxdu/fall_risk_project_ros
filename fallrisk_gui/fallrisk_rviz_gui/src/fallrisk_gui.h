@@ -89,7 +89,7 @@ private:
     void initVariables();
     void initTools();
     void sendMoveBaseCmd();
-//    void getDistance();
+    //    void getDistance();
 
 
 private Q_SLOTS:

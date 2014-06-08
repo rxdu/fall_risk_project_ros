@@ -9,6 +9,7 @@ FallRiskRobotGUI::FallRiskRobotGUI(QWidget *parent) :
 {
     ui->setupUi(this);
     QWidget::showMaximized();
+    this->setWindowFlags(Qt::FramelessWindowHint|Qt::WindowStaysOnTopHint);
 
     imageTopic_ = QString("/camera/rgb/operator_image");
     liveVideoSub = it_.subscribe(imageTopic_.toStdString(),1,&FallRiskRobotGUI::liveVideoCallback,this,image_transport::TransportHints("compressed"));

@@ -1,7 +1,7 @@
 <launch>
-  <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch">
+  <!-- include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch">
   </include>
-  <node name="mjpeg_server" pkg="mjpeg_server" type="mjpeg_server" />
+  <node name="mjpeg_server" pkg="mjpeg_server" type="mjpeg_server" / -->
   <node name="robot_pose_publisher" pkg="robot_pose_publisher" type="robot_pose_publisher" />
 
   <node name="checklist_status_server" pkg="checklist_status" type="checklist_status_server"/>
@@ -10,5 +10,6 @@
   <node name="image_center_distance" pkg="kinect_image" type="image_center_distance"/>
   <node name="image_reference_line" pkg="kinect_image" type="image_reference_line"/>
   <include file="$(find fallrisk_octomap)/launch/octomap.launch" />
+  <node name="remote_command_server" pkg="remote_command_server" type="remote_command_server"/>
 
 </launch>

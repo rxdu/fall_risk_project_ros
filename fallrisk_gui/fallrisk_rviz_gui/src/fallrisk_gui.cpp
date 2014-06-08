@@ -26,6 +26,8 @@ FallRiskGUI::FallRiskGUI(QWidget *parent) :
     ui->lbPetItem1->setStyleSheet("QLabel { background-color : yellow; color : rgb(255, 255, 255); }");
     changeToolBtnStatus(-2); //set the initial rviz tool to be "interact"
     ui->rbNavMode->setChecked(true);
+    QWidget::setFixedHeight(740);
+    QWidget::setFixedWidth(1300);
 
     initVariables();
     initDisplayWidgets();
@@ -746,3 +748,4 @@ void FallRiskGUI::setRobotNavMode(int modeID)
     }
 
 }
+

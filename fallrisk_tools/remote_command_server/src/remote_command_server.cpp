@@ -23,14 +23,12 @@ bool executeCommand(remote_command_server::RemoteCmdSrv::Request &req, remote_co
 
     if (req.cmd_name == req.CMD_TELEPRESENCE)
     {
-        // Commented this out as the common_audio package is not consistent. Customize Egika instead!!!
 
-        /*
         if(telepresenceProcess->state() == 0 && req.cmd_action == req.START)
         {
             QString program = "roslaunch";
             QStringList arguments;
-            arguments << "fallrisk_audio"<<"audio_turtlebot.launch";
+            arguments << "fallrisk_bringup"<<"telepresenceTurtlebot.launch";
 
             telepresenceProcess->start(program, arguments);
 
@@ -59,7 +57,7 @@ bool executeCommand(remote_command_server::RemoteCmdSrv::Request &req, remote_co
             ROS_INFO("Telepresence Stopped on turtlebot");
 
         }
-        */
+
     }
     else {
         if(navigationProcess->state() != 0){
@@ -107,9 +105,9 @@ bool executeCommand(remote_command_server::RemoteCmdSrv::Request &req, remote_co
                     file.open(QIODevice::ReadWrite | QIODevice::Text); // open for read and write
                     fileData = file.readAll(); // read all the data into the byte array
                     QString fileDataString(fileData);
-                    ROS_INFO_STREAM(fileDataString.toStdString());
+//                    ROS_INFO_STREAM(fileDataString.toStdString());
                     fileDataString.replace("nan","0.000");
-                    ROS_INFO_STREAM(fileDataString.toStdString());
+//                    ROS_INFO_STREAM(fileDataString.toStdString());
                     file.seek(0); // go to the beginning of the file
                     file.write(fileDataString.toUtf8()); // write the new text back to the file
                     file.close(); // close the file handle.
@@ -121,8 +119,8 @@ bool executeCommand(remote_command_server::RemoteCmdSrv::Request &req, remote_co
                     ROS_INFO("Failed to save the map");
                 }
                 delete mapsaver;
-
-        }
+            //octomap saves the binay file by itself. so there is no need to save the 3D map
+            }
 
         navigationProcess->terminate();
         navigationProcess->waitForFinished(3000);
@@ -212,3 +210,4 @@ int main(int argc, char **argv)
 
     return 0;
 }
+
